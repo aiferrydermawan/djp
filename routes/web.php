@@ -1,33 +1,59 @@
 <?php
 
+use App\Http\Controllers\KEBNKEB\DataKeputusanController;
+use App\Http\Controllers\KEBNKEB\DataPengirimanController;
+use App\Http\Controllers\KEBNKEB\KriteriaPermohonanController;
+use App\Http\Controllers\KEBNKEB\PenelitianFormalController;
+use App\Http\Controllers\KEBNKEB\PermohonanKEBNKEBController;
+use App\Http\Controllers\KEBNKEB\SPIDPembahasanController;
+use App\Http\Controllers\KEBNKEB\SPUHController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::redirect('/', '/login');
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::middleware('auth')->group(function () {
+
+    Route::resource('/kpp', \App\Http\Controllers\KppController::class)->except(['index', 'show']);
+    Route::resource('/jenis-pajak', \App\Http\Controllers\JenisPajakController::class)->except(['index', 'show']);
+    Route::resource('/jenis-permohonan', \App\Http\Controllers\JenisPermohonanController::class)->except(['index', 'show']);
+    Route::resource('/pegawai', \App\Http\Controllers\PegawaiController::class)->except(['index', 'show']);
+
+    Route::get('/kpp', App\Livewire\Kpp\Index::class)->name('kpp.index');
+    Route::get('/jenis-pajak', App\Livewire\JenisPajak\Index::class)->name('jenis-pajak.index');
+    Route::get('/jenis-permohonan', App\Livewire\JenisPermohonan\Index::class)->name('jenis-permohonan.index');
+    Route::get('/pegawai', App\Livewire\Pegawai\Index::class)->name('pegawai.index');
+
+    Route::middleware('check.category')->group(function () {
+        Route::resource('/referensi', \App\Http\Controllers\ReferensiController::class)->except(['index', 'show']);
+        Route::get('/referensi', App\Livewire\Referensi\Index::class)->name('referensi.index');
+    });
+
+    Route::prefix('keb-nkeb')->group(function () {
+        Route::get('/permohonan-keb-nkeb', App\Livewire\KebNkeb\Permohonan\Index::class)->name('permohonan-keb-nkeb.index');
+        Route::get('/penelitian-formal', App\Livewire\KebNkeb\PenelitianFormal\Index::class)->name('penelitian-formal.index');
+        Route::get('/spid-pembahasan', App\Livewire\KebNkeb\SpidPembahasan\Index::class)->name('spid-pembahasan.index');
+        Route::get('/spuh', App\Livewire\KebNkeb\Spuh\Index::class)->name('spuh.index');
+        Route::get('/data-keputusan', App\Livewire\KebNkeb\DataKeputusan\Index::class)->name('data-keputusan.index');
+        Route::get('/kriteria-permohonan', App\Livewire\KebNkeb\KriteriaPermohonan\Index::class)->name('kriteria-permohonan.index');
+        Route::get('/data-pengiriman', App\Livewire\KebNkeb\DataPengiriman\Index::class)->name('data-pengiriman.index');
+
+        Route::resource('/permohonan-keb-nkeb', PermohonanKEBNKEBController::class)->except(['index', 'show']);
+        Route::resource('/penelitian-formal', PenelitianFormalController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::resource('/spid-pembahasan', SPIDPembahasanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::resource('/spuh', SPUHController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::resource('/data-keputusan', DataKeputusanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::resource('/kriteria-permohonan', KriteriaPermohonanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::resource('/data-pengiriman', DataPengirimanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+    });
+    Route::prefix('statistik')->group(function () {
+        Route::get('/berkas-masuk-selesai', App\Livewire\Statistik\BerkasMasukSelesai\Index::class)->name('berkas-masuk-selesai.index');
+        Route::get('/distribusi-berkas', App\Livewire\Statistik\DistribusiBerkas\Index::class)->name('distribusi-berkas.index');
+        Route::get('/list-tunggakan-keb-nkeb', App\Livewire\Statistik\ListTunggakanKebNKeb\Index::class)->name('list-tunggakan-keb-nkeb.index');
+    });
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

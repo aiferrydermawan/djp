@@ -1,0 +1,266 @@
+import React from "react";
+import {
+    IconAffiliate,
+    IconChartBar,
+    IconDashboard,
+    IconFolder,
+    IconFolderSearch,
+    IconLock,
+    IconLogout,
+    IconPrinter,
+} from "@tabler/icons-react";
+
+function MenuList(props) {
+    return (
+        <ul className="menu menu-lg w-full text-white">
+            <li>
+                <a href={route("dashboard")}>
+                    <IconDashboard />
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <details>
+                    <summary>
+                        <IconFolder />
+                        KEB - NKEB
+                    </summary>
+                    <ul>
+                        <li>
+                            <a href={route("permohonan-keb-nkeb.index")}>
+                                Permohonan
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("penelitian-formal.index")}>
+                                Penelitian Formal
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("spid-pembahasan.index")}>
+                                SPID dan Pembahasan
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("spuh.index")}>SPUH</a>
+                        </li>
+                        <li>
+                            <a href={route("data-keputusan.index")}>
+                                Data Keputusan
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("kriteria-permohonan.index")}>
+                                Kriteria Permohonan
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("data-pengiriman.index")}>
+                                Data Pengiriman
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>
+                        <IconFolder />
+                        SUB - STG
+                    </summary>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Input Permintaan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Edit Permintaan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Surat Jawaban
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Pengiriman
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>
+                        <IconChartBar />
+                        Statistik
+                    </summary>
+                    <ul>
+                        <li>
+                            <a href={route("berkas-masuk-selesai.index")}>
+                                Statistik Berkas Masuk/Selesai
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">Distribusi Berkas</a>
+                        </li>
+                        <li>
+                            <a href="">Statistik Amar Putusan</a>
+                        </li>
+                        <li>
+                            <a href={route("list-tunggakan-keb-nkeb.index")}>
+                                List Tunggakan KEB dan Non Keb
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">List Tunggakan SUB dan STG</a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>
+                        <IconFolderSearch />
+                        Monitoring
+                    </summary>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Monitoring Pengiriman KEP/Surat
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Monitoring Jatuh Tempo Berkas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Pencarian SK
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>
+                        <IconPrinter />
+                        Cetak
+                    </summary>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Kriteria Permohonan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <IconLock />
+                                Template MAP
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>
+                        <IconAffiliate />
+                        Referensi
+                    </summary>
+                    <ul>
+                        <li>
+                            <a
+                                href={route("referensi.index", {
+                                    kategori: "amar-putusan",
+                                })}
+                            >
+                                Amar Putusan
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("kpp.index")}>Kode KPP</a>
+                        </li>
+                        <li>
+                            <a href={route("jenis-pajak.index")}>Jenis Pajak</a>
+                        </li>
+                        <li>
+                            <a
+                                href={route("referensi.index", {
+                                    kategori: "alasan",
+                                })}
+                            >
+                                Alasan
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("jenis-permohonan.index")}>
+                                Jenis Permohonan
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={route("referensi.index", {
+                                    kategori: "dasar-pemrosesan",
+                                })}
+                            >
+                                Dasar Pemrosesan
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={route("referensi.index", {
+                                    kategori: "pemenuhan-kriteria",
+                                })}
+                            >
+                                Pemenuhan Kriteria
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href={route("referensi.index", {
+                                    kategori: "unit-organisasi",
+                                })}
+                            >
+                                Unit Organisasi
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route("pegawai.index")}>Pegawai</a>
+                        </li>
+                        <li>
+                            <a
+                                href={route("referensi.index", {
+                                    kategori: "jenis-ketetapan",
+                                })}
+                            >
+                                Jenis Ketetapan
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <a href={route("logout")} method="post" as="button">
+                    <IconLogout />
+                    Keluar
+                </a>
+            </li>
+        </ul>
+    );
+}
+
+export default MenuList;

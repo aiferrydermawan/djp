@@ -1,18 +1,121 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
+import { useState } from "react";
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({
+    auth,
+    firstCard,
+    thirdCard,
+    fourthCard,
+    firstChart,
+    secondChart,
+}) {
+    const [chart1, setChart1] = useState({
+        label:
+            firstChart.length > 0
+                ? firstChart.map((data) => data.jenis_permohonan.nama)
+                : ["Kosong"],
+        data: firstChart.length > 0 ? firstChart.map((data) => data.total) : [],
+    });
+    const [chart2, setChart2] = useState({
+        label:
+            secondChart.length > 0
+                ? secondChart.map((data) => data.jenis_permohonan.nama)
+                : ["Kosong"],
+        data:
+            secondChart.length > 0 ? secondChart.map((data) => data.total) : [],
+    });
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+            header={
+                <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    Dashboard
+                </h2>
+            }
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">You're logged in!</div>
+            <div className="p-5">
+                <p className={`mb-5 text-2xl font-bold`}>
+                    Welcome back, {auth.user.name}
+                </p>
+                <div className="flex gap-5">
+                    <div className="stats w-1/4 shadow">
+                        <div className="stat">
+                            <div className="stat-title">
+                                Tunggakan Berkas KEB - NKEB
+                            </div>
+                            <div className="stat-value">{firstCard}</div>
+                        </div>
+                    </div>
+                    <div className="stats w-1/4 shadow">
+                        <div className="stat">
+                            <div className="stat-title">
+                                Tunggakan Berkas SUB - STG
+                            </div>
+                            <div className="stat-value">-</div>
+                        </div>
+                    </div>
+                    <div className="stats w-1/4 shadow">
+                        <div className="stat">
+                            <div className="stat-title">
+                                Berkas Jatuh Tempo Bulan Ini
+                            </div>
+                            <div className="stat-value">{thirdCard}</div>
+                        </div>
+                    </div>
+                    <div className="stats w-1/4 shadow">
+                        <div className="stat">
+                            <div className="stat-title">
+                                Berkas Jatuh Tempo Bulan Depan
+                            </div>
+                            <div className="stat-value">{fourthCard}</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-5 flex gap-5">
+                    <div className="card w-1/2 bg-base-100 shadow">
+                        <div className="card-body">
+                            <div className="card-title">Tunggakan Berkas</div>
+                            <div>
+                                <Doughnut
+                                    datasetIdKey="id"
+                                    data={{
+                                        labels: chart1.label,
+                                        datasets: [
+                                            {
+                                                id: 1,
+                                                label: "Tunggakan Berkas",
+                                                data: chart1.data,
+                                            },
+                                        ],
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card w-1/2 bg-base-100 shadow">
+                        <div className="card-body">
+                            <div className="card-title">Permohonan Masuk</div>
+                            <div>
+                                <Doughnut
+                                    datasetIdKey="id"
+                                    data={{
+                                        labels: chart2.label,
+                                        datasets: [
+                                            {
+                                                id: 1,
+                                                label: "Permohonan Masuk",
+                                                data: chart2.data,
+                                            },
+                                        ],
+                                    }}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
