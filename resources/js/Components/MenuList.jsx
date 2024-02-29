@@ -9,6 +9,7 @@ import {
     IconLogout,
     IconPrinter,
 } from "@tabler/icons-react";
+import { Link } from "@inertiajs/react";
 
 function MenuList(props) {
     return (
@@ -254,10 +255,10 @@ function MenuList(props) {
                 </details>
             </li>
             <li>
-                <a href={route("logout")} method="post" as="button">
+                <Link href={route("logout")} method="post" as="button">
                     <IconLogout />
                     Keluar
-                </a>
+                </Link>
             </li>
         </ul>
     );

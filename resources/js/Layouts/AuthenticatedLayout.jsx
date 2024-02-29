@@ -24,7 +24,11 @@ export default function Authenticated({ children, auth }) {
             {isMenu ? (
                 <div className="max-h-screen min-h-screen w-1/4 overflow-auto bg-blue-800">
                     <div className="flex justify-between px-8 py-5">
-                        <div className="font-bold text-white">LOGO</div>
+                        <img
+                            className="h-12"
+                            src="/images/djp-logo-white.png"
+                            alt="DJP Logo"
+                        />
                         <button onClick={() => setIsMenu(false)}>
                             <IconCircleX className="stroke-white" />
                         </button>

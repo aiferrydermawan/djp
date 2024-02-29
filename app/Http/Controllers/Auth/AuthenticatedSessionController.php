@@ -43,28 +43,28 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nip' => ['required'],
+            'user_ip' => ['required'],
             'password' => ['required'],
         ]);
 
         // Key unik untuk Rate Limiter berdasarkan NIP
-        $throttleKey = $request->input('nip').'|'.$request->ip();
+        $throttleKey = $request->input('user_ip').'|'.$request->ip();
 
         if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
             $seconds = RateLimiter::availableIn($throttleKey);
 
             throw ValidationException::withMessages([
-                'nip' => ["Terlalu banyak percobaan login. Silakan coba lagi dalam $seconds detik."],
+                'user_ip' => ["Terlalu banyak percobaan login. Silakan coba lagi dalam $seconds detik."],
             ]);
         }
 
-        $userDetail = UserDetail::where('nip', $request->nip)->first();
+        $userDetail = UserDetail::where('ip', $request->user_ip)->first();
 
         if (! $userDetail || ! Auth::attempt(['id' => $userDetail->user_id, 'password' => $request->password], $request->filled('remember'))) {
             RateLimiter::hit($throttleKey, 60); // Tambahkan percobaan dan atur timeout
 
             throw ValidationException::withMessages([
-                'nip' => ['NIP atau Password tidak cocok.'],
+                'user_ip' => ['IP atau Password tidak cocok.'],
             ]);
         }
 

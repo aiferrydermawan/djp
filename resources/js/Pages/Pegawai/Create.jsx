@@ -40,9 +40,7 @@ function Create(props) {
                     <div className="breadcrumbs text-sm">
                         <ul>
                             <li>
-                                <Link href={route("pegawai.index")}>
-                                    Pegawai
-                                </Link>
+                                <a href={route("pegawai.index")}>Pegawai</a>
                             </li>
                             <li>Tambah</li>
                         </ul>

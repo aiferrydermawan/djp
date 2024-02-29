@@ -15,7 +15,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.pegawai.index', [
-            'users' => User::where('name', 'like', '%'.$this->search.'%')->latest()->paginate(10),
+            'users' => User::with('detail')->where('name', 'like', '%'.$this->search.'%')->latest()->paginate(10),
         ]);
     }
 

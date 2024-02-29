@@ -22,7 +22,11 @@
                 class="max-h-screen min-h-screen w-1/4 overflow-auto bg-blue-800"
             >
                 <div class="flex justify-between px-8 py-5">
-                    <div class="font-bold text-white">LOGO</div>
+                    <img
+                        class="h-12"
+                        src="{{ asset("images/djp-logo-white.png") }}"
+                        alt="DJP Logo"
+                    />
                     <button x-on:click="myMenu = false">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

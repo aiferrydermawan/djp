@@ -54,7 +54,7 @@ class DataKeputusanController extends Controller
     {
         $request->validate([
             'jenisKeputusan' => ['required'],
-            'noKeputusan' => ['required', 'integer'],
+            'noKeputusan' => ['required'],
             'tanggalKeputusan' => ['required'],
             'amarKeputusanId' => ['required'],
             'nilaiAkhirMenurutKeputusan' => ['required', 'integer'],

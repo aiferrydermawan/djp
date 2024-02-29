@@ -52,7 +52,7 @@ function Index(props) {
                                         <tr key={item.id}>
                                             <td>{from + index}</td>
                                             <td>{item.name}</td>
-                                            <td>{item.email}</td>
+                                            <td>{item.detail.ip}</td>
                                             <td>
                                                 <Link
                                                     className={`btn btn-warning btn-xs mr-1`}

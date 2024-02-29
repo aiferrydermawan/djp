@@ -16,7 +16,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->paginate(10);
+        $users = User::with('detail')->latest()->paginate(10);
 
         return inertia('Pegawai/Index', [
             'users' => $users,
