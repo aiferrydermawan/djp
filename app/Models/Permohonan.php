@@ -75,30 +75,10 @@ class Permohonan extends Model
 
     public function getSisaWaktuAttribute()
     {
-        $info = json_decode($this->jenisPermohonan->jatuh_tempo_iku, true);
+        $sekarang = Carbon::now();
+        $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
+        $sisa_waktu = $sekarang->diffInDays($tanggalBerakhir, false);
 
-        $kategori = $info['kategori'];
-        $kuantitas = $info['kuantitas'];
-
-        // Menghitung sisa waktu berdasarkan kategori dan kuantitas
-        $tanggal_diterima = Carbon::parse($this->tanggal_diterima);
-        switch ($kategori) {
-            case 'hari':
-                $sisa_waktu = $tanggal_diterima->addDays($kuantitas)->diffForHumans();
-                break;
-            case 'minggu':
-                $sisa_waktu = $tanggal_diterima->addWeeks($kuantitas)->diffForHumans();
-                break;
-            case 'bulan':
-                $sisa_waktu = $tanggal_diterima->addMonths($kuantitas)->diffForHumans();
-                break;
-            case 'tahun':
-                $sisa_waktu = $tanggal_diterima->addYears($kuantitas)->diffForHumans();
-                break;
-            default:
-                $sisa_waktu = 'Kategori tidak valid';
-        }
-
-        return $sisa_waktu;
+        return $sisa_waktu.' Hari';
     }
 }

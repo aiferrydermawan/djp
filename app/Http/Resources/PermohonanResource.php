@@ -15,29 +15,9 @@ class PermohonanResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $info = json_decode($this->jenisPermohonan->jatuh_tempo_iku, true);
-
-        $kategori = $info['kategori'];
-        $kuantitas = $info['kuantitas'];
-
-        // Menghitung sisa waktu berdasarkan kategori dan kuantitas
-        $tanggal_diterima = Carbon::parse($this->tanggal_diterima);
-        switch ($kategori) {
-            case 'hari':
-                $sisa_waktu = $tanggal_diterima->addDays($kuantitas)->diffForHumans();
-                break;
-            case 'minggu':
-                $sisa_waktu = $tanggal_diterima->addWeeks($kuantitas)->diffForHumans();
-                break;
-            case 'bulan':
-                $sisa_waktu = $tanggal_diterima->addMonths($kuantitas)->diffForHumans();
-                break;
-            case 'tahun':
-                $sisa_waktu = $tanggal_diterima->addYears($kuantitas)->diffForHumans();
-                break;
-            default:
-                $sisa_waktu = 'Kategori tidak valid';
-        }
+        $tanggalDiterima = Carbon::parse($this->tanggal_diterima);
+        $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
+        $sisa_waktu = $tanggalDiterima->diffInHours($tanggalBerakhir);
 
         return [
             'id' => $this->id,

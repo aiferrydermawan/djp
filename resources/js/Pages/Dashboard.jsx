@@ -43,35 +43,34 @@ export default function Dashboard({
                     Welcome back, {auth.user.name}
                 </p>
                 <div className="flex gap-5">
-                    <div className="stats w-1/4 shadow">
-                        <div className="stat">
-                            <div className="stat-title">
+                    <div className="card w-1/4 bg-base-100 shadow">
+                        <div className="card-body">
+                            <h2 className="font-medium">
                                 Tunggakan Berkas KEB - NKEB
-                            </div>
+                            </h2>
                             <div className="stat-value">{firstCard}</div>
                         </div>
                     </div>
-                    <div className="stats w-1/4 shadow">
-                        <div className="stat">
-                            <div className="stat-title">
+                    <div className="card w-1/4 bg-base-100 shadow">
+                        <div className="card-body">
+                            <h2 className="font-medium">
                                 Tunggakan Berkas SUB - STG
-                            </div>
-                            <div className="stat-value">-</div>
+                            </h2>
                         </div>
                     </div>
-                    <div className="stats w-1/4 shadow">
-                        <div className="stat">
-                            <div className="stat-title">
+                    <div className="card w-1/4 bg-base-100 shadow">
+                        <div className="card-body">
+                            <h2 className="font-medium">
                                 Berkas Jatuh Tempo Bulan Ini
-                            </div>
+                            </h2>
                             <div className="stat-value">{thirdCard}</div>
                         </div>
                     </div>
-                    <div className="stats w-1/4 shadow">
-                        <div className="stat">
-                            <div className="stat-title">
+                    <div className="card w-1/4 bg-base-100 shadow">
+                        <div className="card-body">
+                            <h2 className="font-medium">
                                 Berkas Jatuh Tempo Bulan Depan
-                            </div>
+                            </h2>
                             <div className="stat-value">{fourthCard}</div>
                         </div>
                     </div>
