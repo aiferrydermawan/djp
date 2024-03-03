@@ -36,6 +36,7 @@ return new class extends Migration
             $table->date('tanggal_surat_wp');
             $table->string('nomor_lpad');
             $table->date('tanggal_diterima');
+            $table->date('tanggal_berakhir');
             $table->string('no_surat_pengantar_kpp');
             $table->date('tanggal_surat_pengantar');
             $table->date('tanggal_pengiriman_kpp');

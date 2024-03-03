@@ -8,9 +8,13 @@ use App\Http\Controllers\KEBNKEB\PermohonanKEBNKEBController;
 use App\Http\Controllers\KEBNKEB\SPIDPembahasanController;
 use App\Http\Controllers\KEBNKEB\SPUHController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
+Route::get('lol', function () {
+    dd(Hash::make('password'));
+});
 
 Route::middleware('auth')->group(function () {
 
