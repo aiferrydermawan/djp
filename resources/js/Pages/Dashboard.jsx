@@ -40,7 +40,7 @@ export default function Dashboard({
 
             <div className="p-5">
                 <p className={`mb-5 text-2xl font-bold`}>
-                    Welcome back, {auth.user.name}
+                    Welcome, {auth.user.name}
                 </p>
                 <div className="flex gap-5">
                     <div className="card w-1/4 bg-base-100 shadow">
