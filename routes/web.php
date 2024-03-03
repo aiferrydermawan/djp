@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('keb-nkeb')->group(function () {
         Route::get('/permohonan-keb-nkeb', App\Livewire\KebNkeb\Permohonan\Index::class)->name('permohonan-keb-nkeb.index');
+        Route::get('/permohonan-keb-nkeb/import', App\Livewire\KebNkeb\Permohonan\Import::class)->name('permohonan-keb-nkeb.import');
         Route::get('/penelitian-formal', App\Livewire\KebNkeb\PenelitianFormal\Index::class)->name('penelitian-formal.index');
         Route::get('/spid-pembahasan', App\Livewire\KebNkeb\SpidPembahasan\Index::class)->name('spid-pembahasan.index');
         Route::get('/spuh', App\Livewire\KebNkeb\Spuh\Index::class)->name('spuh.index');

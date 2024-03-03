@@ -1,64 +1,94 @@
 <div class="p-5">
-    <div class="text-sm breadcrumbs">
+    <div class="breadcrumbs text-sm">
         <ul>
             <li>Permohonan Keb dan Non Keb</li>
         </ul>
     </div>
-    <div class="flex justify-between mt-5">
-        <input wire:model.lazy="search" type="text" placeholder="Nomor LPAD"
-               class="input input-bordered w-full max-w-xs"/>
-        <a class="btn btn-primary" href="{{ route('permohonan-keb-nkeb.create') }}">Buat</a>
+    <div class="mt-5 flex justify-between">
+        <input
+            wire:model.lazy="search"
+            type="text"
+            placeholder="Nomor LPAD"
+            class="input input-bordered w-full max-w-xs"
+        />
+        <div>
+            <a
+                class="btn btn-success"
+                href="{{ route("permohonan-keb-nkeb.import") }}"
+            >
+                Import
+            </a>
+            <a
+                class="btn btn-primary"
+                href="{{ route("permohonan-keb-nkeb.create") }}"
+            >
+                Buat
+            </a>
+        </div>
     </div>
-    <div class="card bg-base-100 shadow mt-5">
+    <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body">
             <div class="overflow-x-auto">
                 <table class="table table-xs">
                     <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>No LPAD</th>
-                        <th>Tanggal LPAD</th>
-                        <th>Nama WP</th>
-                        <th>NPWP</th>
-                        <th>Jenis Permohonan</th>
-                        <th>Jenis Pajak</th>
-                        <th>Masa Pajak</th>
-                        <th>Tahun Pajak</th>
-                        <th>Nomor Ketetapan</th>
-                        <th>Nama PK</th>
-                        <th>Seksi PK</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>No LPAD</th>
+                            <th>Tanggal LPAD</th>
+                            <th>Nama WP</th>
+                            <th>NPWP</th>
+                            <th>Jenis Permohonan</th>
+                            <th>Jenis Pajak</th>
+                            <th>Masa Pajak</th>
+                            <th>Tahun Pajak</th>
+                            <th>Nomor Ketetapan</th>
+                            <th>Nama PK</th>
+                            <th>Seksi PK</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach($permohonan_all as $key => $item)
-                        <tr wire:key="{{ $item->id }}">
-                            <th>{{ $permohonan_all->firstItem() + $key }}</th>
-                            <td>{{ $item->nomor_lpad }}</td>
-                            <td>{{ $item->tanggal_lpad }}</td>
-                            <td>{{ $item->nama_wp }}</td>
-                            <td>{{ $item->npwp }}</td>
-                            <td>{{ $item->jenisPermohonan->nama }}</td>
-                            <td>{{ $item->jenisPajak->nama }}</td>
-                            <td>{{ $item->masa_pajak }}</td>
-                            <td>{{ $item->tahun_pajak }}</td>
-                            <td>{{ $item->nomor_ketetapan }}</td>
-                            <td>{{ $item->penelaahKeberatan->name }}</td>
-                            <td>{{ $item->penelaahKeberatan->detail->organisasi->nama }}</td>
-                            <td>
-                                <a class="btn btn-xs btn-warning mr-1"
-                                   href="{{ route('permohonan-keb-nkeb.edit',$item->id) }}">Edit</a>
-                                <button class="btn btn-xs btn-error" wire:click="delete({{ $item->id }})"
-                                        wire:confirm="Apakah Anda Yakin?">Delete
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                    @if(count($permohonan_all) == 0)
-                        <tr>
-                            <th colspan="13">Kosong</th>
-                        </tr>
-                    @endif
+                        @foreach ($permohonan_all as $key => $item)
+                            <tr wire:key="{{ $item->id }}">
+                                <th>
+                                    {{ $permohonan_all->firstItem() + $key }}
+                                </th>
+                                <td>{{ $item->nomor_lpad }}</td>
+                                <td>{{ $item->tanggal_lpad }}</td>
+                                <td>{{ $item->nama_wp }}</td>
+                                <td>{{ $item->npwp }}</td>
+                                <td>{{ $item->jenisPermohonan->nama }}</td>
+                                <td>{{ $item->jenisPajak->nama }}</td>
+                                <td>{{ $item->masa_pajak }}</td>
+                                <td>{{ $item->tahun_pajak }}</td>
+                                <td>{{ $item->nomor_ketetapan }}</td>
+                                <td>{{ $item->penelaahKeberatan->name }}</td>
+                                <td>
+                                    {{ $item->penelaahKeberatan->detail->organisasi->nama }}
+                                </td>
+                                <td>
+                                    <a
+                                        class="btn btn-warning btn-xs mr-1"
+                                        href="{{ route("permohonan-keb-nkeb.edit", $item->id) }}"
+                                    >
+                                        Edit
+                                    </a>
+                                    <button
+                                        class="btn btn-error btn-xs"
+                                        wire:click="delete({{ $item->id }})"
+                                        wire:confirm="Apakah Anda Yakin?"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        @if (count($permohonan_all) == 0)
+                            <tr>
+                                <th colspan="13">Kosong</th>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
