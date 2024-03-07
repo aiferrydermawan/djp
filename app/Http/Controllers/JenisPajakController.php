@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JenisPajak;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class JenisPajakController extends Controller
 {
@@ -51,7 +52,7 @@ class JenisPajakController extends Controller
 
         session()->flash('success', 'Data berhasil dibuat');
 
-        return to_route('jenis-pajak.index');
+        return Inertia::location(route('jenis-pajak.index'));
     }
 
     /**
@@ -95,7 +96,7 @@ class JenisPajakController extends Controller
 
         session()->flash('success', 'Data berhasil diubah');
 
-        return to_route('jenis-pajak.index');
+        return Inertia::location(route('jenis-pajak.index'));
     }
 
     /**
@@ -107,6 +108,6 @@ class JenisPajakController extends Controller
 
         session()->flash('success', 'Data berhasil dihapus');
 
-        return to_route('jenis-pajak.index');
+        return Inertia::location(route('jenis-pajak.index'));
     }
 }

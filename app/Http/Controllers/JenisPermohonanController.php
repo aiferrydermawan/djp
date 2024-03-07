@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JenisPermohonan;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class JenisPermohonanController extends Controller
 {
@@ -46,7 +47,7 @@ class JenisPermohonanController extends Controller
 
         session()->flash('success', 'Data berhasil dibuat');
 
-        return to_route('jenis-permohonan.index');
+        return Inertia::location(route('jenis-permohonan.index'));
     }
 
     /**
@@ -89,7 +90,7 @@ class JenisPermohonanController extends Controller
 
         session()->flash('success', 'Data berhasil diubah');
 
-        return to_route('jenis-permohonan.index');
+        return Inertia::location(route('jenis-permohonan.index'));
     }
 
     /**
@@ -101,6 +102,6 @@ class JenisPermohonanController extends Controller
 
         session()->flash('success', 'Data berhasil dihapus');
 
-        return to_route('jenis-permohonan.index');
+        return Inertia::location(route('jenis-permohonan.index'));
     }
 }

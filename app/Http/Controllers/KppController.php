@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kpp;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class KppController extends Controller
 {
@@ -44,7 +45,7 @@ class KppController extends Controller
 
         session()->flash('success', 'Data berhasil dibuat');
 
-        return to_route('kpp.index');
+        return Inertia::location(route('kpp.index'));
     }
 
     /**
@@ -84,7 +85,7 @@ class KppController extends Controller
 
         session()->flash('success', 'Data berhasil diubah');
 
-        return to_route('kpp.index');
+        return Inertia::location(route('kpp.index'));
     }
 
     /**
@@ -96,6 +97,6 @@ class KppController extends Controller
 
         session()->flash('success', 'Data berhasil dihapus');
 
-        return to_route('kpp.index');
+        return Inertia::location(route('kpp.index'));
     }
 }

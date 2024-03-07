@@ -8,6 +8,7 @@ use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class PegawaiController extends Controller
 {
@@ -68,7 +69,7 @@ class PegawaiController extends Controller
 
         session()->flash('success', 'Data berhasil dibuat');
 
-        return to_route('pegawai.index');
+        return Inertia::location(route('pegawai.index'));
     }
 
     /**
@@ -125,7 +126,7 @@ class PegawaiController extends Controller
 
         session()->flash('success', 'Data berhasil diubah');
 
-        return to_route('pegawai.index');
+        return Inertia::location(route('pegawai.index'));
     }
 
     /**

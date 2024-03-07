@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ReferensiResource;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ReferensiController extends Controller
 {
@@ -58,7 +59,7 @@ class ReferensiController extends Controller
 
         session()->flash('success', 'Data berhasil dibuat');
 
-        return to_route('referensi.index', ['kategori' => $request->kategori]);
+        return Inertia::location(route('referensi.index', ['kategori' => $request->kategori]));
     }
 
     public function edit(Request $request, $id)
@@ -86,7 +87,7 @@ class ReferensiController extends Controller
 
         session()->flash('success', 'Data berhasil diubah');
 
-        return to_route('referensi.index', ['kategori' => $request->kategori]);
+        return Inertia::location(route('referensi.index', ['kategori' => $request->kategori]));
     }
 
     public function destroy(Request $request, $id)
@@ -95,6 +96,6 @@ class ReferensiController extends Controller
 
         session()->flash('success', 'Data berhasil dihapus');
 
-        return to_route('referensi.index', ['kategori' => $request->kategori]);
+        return Inertia::location(route('referensi.index', ['kategori' => $request->kategori]));
     }
 }
