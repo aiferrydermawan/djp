@@ -5,7 +5,7 @@ namespace App\Livewire\KebNkeb\Permohonan;
 use App\Imports\PermohonanImport;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Import extends Component
 {
