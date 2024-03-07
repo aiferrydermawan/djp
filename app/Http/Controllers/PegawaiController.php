@@ -46,7 +46,7 @@ class PegawaiController extends Controller
             'email' => ['required', 'unique:users'],
             'password' => ['required'],
             'nip' => ['required', 'unique:user_details'],
-            'ip' => ['required', 'unique:user_details'],
+            'ip' => ['required', 'unique:user_details', 'min:9'],
             'jabatan' => ['required'],
             'pangkat' => ['required'],
             'unit_organisasi' => ['nullable'],
