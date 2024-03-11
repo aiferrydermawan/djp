@@ -16,8 +16,4 @@ class JenisPermohonan extends Model
     protected $table = 'jenis_permohonan';
 
     protected $guarded = [];
-
-    protected $casts = [
-        'jatuh_tempo_iku' => 'hashed',
-    ];
 }
