@@ -57,11 +57,11 @@ function Edit(props) {
                 },
             }),
         };
-        router.post(route("jenis-permohonan.store"), data);
+        router.put(route("jenis-permohonan.update", existingData.id), data);
     };
     return (
         <>
-            <Head title="Buat KPP" />
+            <Head title="Edit KPP" />
             <AuthenticatedLayout>
                 <div className={`p-5`}>
                     <div className="breadcrumbs text-sm">
@@ -71,7 +71,7 @@ function Edit(props) {
                                     Jenis Permohonan
                                 </Link>
                             </li>
-                            <li>Buat</li>
+                            <li>Edit</li>
                         </ul>
                     </div>
                     <div className="card mt-5 bg-base-100 shadow">
@@ -205,9 +205,9 @@ function Edit(props) {
                                 <div className={`mt-4`}>
                                     <button
                                         type="submit"
-                                        className={`btn btn-primary`}
+                                        className={`btn btn-warning`}
                                     >
-                                        Buat
+                                        Update
                                     </button>
                                 </div>
                             </form>

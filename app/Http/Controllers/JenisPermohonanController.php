@@ -79,13 +79,15 @@ class JenisPermohonanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'kode_kpp' => ['required', 'integer'],
             'nama' => ['required'],
+            'jatuh_tempo_iku' => ['nullable'],
+            'jatuh_tempo_uu' => ['nullable'],
         ]);
 
         JenisPermohonan::where('id', $id)->update([
-            'kode_kpp' => $request->kode_kpp,
             'nama' => $request->nama,
+            'jatuh_tempo_iku' => $request->jatuh_tempo_iku ? json_encode($request->jatuh_tempo_iku) : null,
+            'jatuh_tempo_uu' => $request->jatuh_tempo_uu ? json_encode($request->jatuh_tempo_uu) : null,
         ]);
 
         session()->flash('success', 'Data berhasil diubah');
