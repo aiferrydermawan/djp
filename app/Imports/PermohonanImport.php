@@ -28,7 +28,7 @@ class PermohonanImport implements ToModel, WithStartRow
         $kode_kpp_id = $this->getKppId($row[3]);
         $unit_yang_memproses_id = $this->getUserId($row[5]);
         $tanggal_berakhir = $this->getTanggalBerakhir($row[22], $row[4]);
-        $pk_id = $this->getUserId($row[28]);
+        $pk_id = $this->getUserId($row[30]);
         if (! empty($row[33])) {
             $pk_pengganti_id = $this->getUserId($row[33]);
         } else {
@@ -36,42 +36,42 @@ class PermohonanImport implements ToModel, WithStartRow
         }
 
         return new Permohonan([
-            'nama_wp' => $row[0],
-            'npwp' => $row[1],
-            'nop' => $row[2],
-            'kode_kpp_terdaftar' => $kode_kpp_id,
-            'jenis_permohonan' => $row[4],
-            'unit_yang_memproses' => $unit_yang_memproses_id,
-            'jenis_pajak' => $row[6],
-            'masa_pajak' => $row[7],
-            'tahun_pajak' => $row[8],
-            'mata_uang' => $row[9],
-            'jenis_ketetapan' => $row[10],
-            'nomor_ketetapan' => $row[11],
-            'tanggal_ketetapan' => Carbon::parse($row[12]),
-            'tanggal_kirim_ketetapan' => Carbon::parse($row[13]),
-            'nilai_1' => $row[14],
-            'nilai_2' => $row[15],
-            'nilai_3' => $row[16],
-            'nilai_4' => $row[17],
-            'dasar_pemrosesan' => $row[18],
-            'nomor_surat_wp' => $row[19],
-            'tanggal_surat_wp' => Carbon::parse($row[20]),
-            'nomor_lpad' => $row[21],
-            'tanggal_diterima' => Carbon::parse($row[22]),
-            'tanggal_berakhir' => $tanggal_berakhir,
-            'no_surat_pengantar_kpp' => $row[23],
-            'tanggal_surat_pengantar' => Carbon::parse($row[24]),
-            'tanggal_pengiriman_kpp' => Carbon::parse($row[25]),
-            'nomor_surat_tugas' => $row[26],
-            'tanggal_surat_tugas' => Carbon::parse($row[27]),
-            'nama_pk' => $pk_id,
-            'no_matriks' => $row[29],
-            'tanggal_matriks' => Carbon::parse($row[30]),
-            'nomor_surat_tugas_2' => $row[31],
-            'tanggal_surat_tugas_2' => Carbon::parse($row[32]),
-            'nama_pk_2' => $pk_pengganti_id,
-            'pembuat' => auth()->user()->id,
+            'nama_wp' => $row[0], // done
+            'npwp' => $row[1], // done
+            'nop' => $row[2], // done
+            'kode_kpp_terdaftar' => $kode_kpp_id, // done
+            'jenis_permohonan' => $row[4], // done
+            'unit_yang_memproses' => $unit_yang_memproses_id, // done
+            'jenis_pajak' => $row[10], // done
+            'masa_pajak' => $row[11], // done
+            'tahun_pajak' => $row[12], // done
+            'mata_uang' => $row[13], // done
+            'jenis_ketetapan' => $row[6], // done
+            'nomor_ketetapan' => $row[7], // done
+            'tanggal_ketetapan' => Carbon::parse($row[8]), // done
+            'tanggal_kirim_ketetapan' => Carbon::parse($row[9]), // done
+            'nilai_1' => $row[14], // done
+            'nilai_2' => $row[15], // done
+            'nilai_3' => $row[16], // done
+            'nilai_4' => $row[17], // done
+            'dasar_pemrosesan' => $row[18], // done
+            'nomor_surat_wp' => $row[19], // done
+            'tanggal_surat_wp' => Carbon::parse($row[20]), // done
+            'nomor_lpad' => $row[21], // done
+            'tanggal_diterima' => Carbon::parse($row[22]), // done
+            'tanggal_berakhir' => $tanggal_berakhir, // done
+            'no_surat_pengantar_kpp' => $row[23], // done
+            'tanggal_surat_pengantar' => Carbon::parse($row[24]), // done
+            'tanggal_pengiriman_kpp' => Carbon::parse($row[25]), // done
+            'nomor_surat_tugas' => $row[26], // done
+            'tanggal_surat_tugas' => Carbon::parse($row[27]), // done
+            'nama_pk' => $pk_id, // done
+            'no_matriks' => $row[28], // done
+            'tanggal_matriks' => Carbon::parse($row[29]), // done
+            'nomor_surat_tugas_2' => $row[31], // done
+            'tanggal_surat_tugas_2' => $row[32] ? Carbon::parse($row[32]) : null, // done
+            'nama_pk_2' => $pk_pengganti_id, // done
+            'pembuat' => auth()->user()->id, // done
         ]);
     }
 

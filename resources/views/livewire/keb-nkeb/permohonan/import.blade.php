@@ -44,6 +44,7 @@
             <table class="table table-xs">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Kolom</th>
                         <th>Data</th>
                         <th>Contoh</th>
@@ -301,7 +302,8 @@
                         :key="permohonan.id"
                     >
                         <tr class="hover">
-                            <th x-text="permohonan.kolom"></th>
+                            <th x-text="permohonan.id - 1"></th>
+                            <td x-text="permohonan.kolom"></td>
                             <td x-text="permohonan.data"></td>
                             <td x-text="permohonan.contoh"></td>
                             <td x-text="permohonan.keterangan"></td>
