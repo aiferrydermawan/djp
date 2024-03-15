@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Cetak;
 
 use App\Http\Controllers\Controller;
 use App\Models\Permohonan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Spatie\LaravelPdf\Enums\Format;
-use Spatie\LaravelPdf\Facades\Pdf;
 
 class TemplateMapController extends Controller
 {
@@ -20,11 +19,11 @@ class TemplateMapController extends Controller
             return to_route('template-map.index');
         }
 
-        $pdf = Pdf::view('pdf.permohonan', [
+        $pdf = Pdf::loadView('pdf.permohonan', [
             'data' => $data,
-        ])->format(Format::A4);
+        ])->setPaper('a4', 'potrait');
 
-        return $pdf->save('permohonan.pdf');
+        return $pdf->download('permohonan.pdf');
     }
 
     public function cetakTanggal(Request $request)
@@ -47,9 +46,9 @@ class TemplateMapController extends Controller
             return to_route('template-map.index');
         }
 
-        $pdf = Pdf::view('pdf.permohonan', [
+        $pdf = Pdf::loadView('pdf.permohonan', [
             'data' => $data->get(),
-        ])->format(Format::A4);
+        ])->setPaper('a4', 'potrait');
 
         return $pdf->download('permohonan.pdf');
     }
