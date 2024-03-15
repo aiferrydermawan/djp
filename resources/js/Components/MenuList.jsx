@@ -168,8 +168,7 @@ function MenuList(props) {
                             </a>
                         </li>
                         <li>
-                            <a href="">
-                                <IconLock />
+                            <a href={route("template-map.index")}>
                                 Template MAP
                             </a>
                         </li>

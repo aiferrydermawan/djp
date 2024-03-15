@@ -1,0 +1,1 @@
+import{j as a}from"./app-BEjPPcJp.js";function r({className:e,name:s,...l}){return a.jsx("div",{...l,className:`label ${e}`,children:a.jsx("span",{className:"label-text",children:s})})}function n({className:e,children:s,...l}){return a.jsx("div",{...l,className:`label ${e}`,children:a.jsx("span",{className:"label-text-alt text-error",children:s})})}export{r as L,n as V};

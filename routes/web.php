@@ -56,6 +56,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/distribusi-berkas', App\Livewire\Statistik\DistribusiBerkas\Index::class)->name('distribusi-berkas.index');
         Route::get('/list-tunggakan-keb-nkeb', App\Livewire\Statistik\ListTunggakanKebNKeb\Index::class)->name('list-tunggakan-keb-nkeb.index');
     });
+    Route::prefix('cetak')->group(function () {
+        Route::get('/template-map', App\Livewire\Cetak\TemplateMap\Index::class)->name('template-map.index');
+        Route::post('/template-map/npwp', [App\Http\Controllers\Cetak\TemplateMapController::class, 'cetakNpwp'])->name('template-map.npwp');
+        Route::post('/template-map/tanggal', [App\Http\Controllers\Cetak\TemplateMapController::class, 'cetakTanggal'])->name('template-map.tanggal');
+    });
 });
 
 Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
