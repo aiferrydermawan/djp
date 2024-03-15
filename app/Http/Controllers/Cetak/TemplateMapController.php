@@ -51,6 +51,6 @@ class TemplateMapController extends Controller
             'data' => $data->get(),
         ])->format(Format::A4);
 
-        return $pdf->save('permohonan.pdf');
+        return $pdf->download('permohonan.pdf');
     }
 }
