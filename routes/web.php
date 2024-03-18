@@ -8,6 +8,9 @@ use App\Http\Controllers\KEBNKEB\PermohonanKEBNKEBController;
 use App\Http\Controllers\KEBNKEB\SPIDPembahasanController;
 use App\Http\Controllers\KEBNKEB\SPUHController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SUBSTG\InputPermintaanController;
+use App\Http\Controllers\SUBSTG\PengirimanController;
+use App\Http\Controllers\SUBSTG\SuratJawabanController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +53,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('/data-keputusan', DataKeputusanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
         Route::resource('/kriteria-permohonan', KriteriaPermohonanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
         Route::resource('/data-pengiriman', DataPengirimanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+    });
+    Route::prefix('sub-stg')->group(function () {
+        Route::get('/input-permintaan', App\Livewire\SubStg\InputPermintaan\Index::class)->name('input-permintaan');
+        Route::get('/surat-jawaban', App\Livewire\SubStg\SuratJawaban\Index::class)->name('surat-jawaban');
+        Route::get('/pengiriman', App\Livewire\SubStg\Pengiriman\Index::class)->name('pengiriman');
+
+        Route::resource('/input-permintaan', InputPermintaanController::class)->except(['index', 'show']);
+        Route::resource('/surat-jawaban', SuratJawabanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::resource('/pengiriman', PengirimanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
     });
     Route::prefix('statistik')->group(function () {
         Route::get('/berkas-masuk-selesai', App\Livewire\Statistik\BerkasMasukSelesai\Index::class)->name('berkas-masuk-selesai.index');

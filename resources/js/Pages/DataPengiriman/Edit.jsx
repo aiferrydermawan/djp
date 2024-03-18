@@ -47,9 +47,9 @@ function Edit({ errors, permohonan }) {
                     <div className="breadcrumbs text-sm">
                         <ul>
                             <li>
-                                <Link href={route("data-keputusan.index")}>
+                                <a href={route("data-keputusan.index")}>
                                     Data Keputusan
-                                </Link>
+                                </a>
                             </li>
                             <li>Edit</li>
                         </ul>

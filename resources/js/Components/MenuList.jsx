@@ -71,28 +71,15 @@ function MenuList(props) {
                     </summary>
                     <ul>
                         <li>
-                            <a href="">
-                                <IconLock />
+                            <a href={route("input-permintaan")}>
                                 Input Permintaan
                             </a>
                         </li>
                         <li>
-                            <a href="">
-                                <IconLock />
-                                Edit Permintaan
-                            </a>
+                            <a href={route("surat-jawaban")}>Surat Jawaban</a>
                         </li>
                         <li>
-                            <a href="">
-                                <IconLock />
-                                Surat Jawaban
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <IconLock />
-                                Pengiriman
-                            </a>
+                            <a href={route("pengiriman")}>Pengiriman</a>
                         </li>
                     </ul>
                 </details>
