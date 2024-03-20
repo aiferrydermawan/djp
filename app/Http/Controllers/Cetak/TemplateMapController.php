@@ -23,7 +23,7 @@ class TemplateMapController extends Controller
             'data' => $data,
         ])->setPaper('a4', 'potrait');
 
-        return $pdf->download('permohonan.pdf');
+        return $pdf->stream('permohonan.pdf');
     }
 
     public function cetakTanggal(Request $request)
@@ -50,6 +50,6 @@ class TemplateMapController extends Controller
             'data' => $data->get(),
         ])->setPaper('a4', 'potrait');
 
-        return $pdf->download('permohonan.pdf');
+        return $pdf->stream('permohonan.pdf');
     }
 }

@@ -1,7 +1,7 @@
 <div class="p-5">
     <div class="breadcrumbs text-sm">
         <ul>
-            <li>Jenis Pajak</li>
+            <li>Jenis Permohonan</li>
         </ul>
     </div>
     <div class="mt-5 flex justify-between">

@@ -57,7 +57,7 @@ class DataKeputusanController extends Controller
             'noKeputusan' => ['required'],
             'tanggalKeputusan' => ['required'],
             'amarKeputusanId' => ['required'],
-            'nilaiAkhirMenurutKeputusan' => ['required', 'integer'],
+            'nilaiAkhirMenurutKeputusan' => ['required'],
         ]);
 
         DataKeputusan::updateOrCreate(

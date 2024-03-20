@@ -82,7 +82,7 @@ class InputPermintaanController extends Controller
 
     public function edit($id)
     {
-        $permintaan = Permintaan::find($id);
+        $permintaan = Permintaan::with('detail')->find($id);
         $user = User::with('detail')->find(auth()->user()->id);
         $pk_all = User::whereHas('detail', function ($query) use ($user) {
             $query
@@ -117,8 +117,8 @@ class InputPermintaanController extends Controller
             'tgl_surat_tugas' => ['required'],
             'no_matriks' => ['required'],
             'tgl_matriks' => ['required'],
-            'no_surat_tugas_pengganti' => ['required'],
-            'tgl_surat_tugas_pengganti' => ['required'],
+            'no_surat_tugas_pengganti' => ['nullable'],
+            'tgl_surat_tugas_pengganti' => ['nullable'],
             'pk' => ['required'],
         ]);
 
@@ -141,8 +141,8 @@ class InputPermintaanController extends Controller
             'tgl_surat_tugas' => $request->tgl_surat_tugas,
             'no_matriks' => $request->no_matriks,
             'tgl_matriks' => $request->tgl_matriks,
-            'no_surat_tugas_pengganti' => $request->no_surat_tugas_pengganti,
-            'tgl_surat_tugas_pengganti' => $request->tgl_surat_tugas_pengganti,
+            'no_surat_tugas_pengganti' => $request->no_surat_tugas_pengganti ?? null,
+            'tgl_surat_tugas_pengganti' => $request->tgl_surat_tugas_pengganti ?? null,
             'pk_id' => $request->pk,
         ];
 

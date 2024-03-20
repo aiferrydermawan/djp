@@ -3,133 +3,139 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Daftar Pengguna</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            .table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            .table td,
+            .table th {
+                border: 1px solid #000;
+                padding: 2px;
+                text-align: left;
+            }
+        </style>
     </head>
     <body>
         @foreach ($data as $index => $item)
-            <div class="w-full p-10 text-left text-black">
-                <div class="flex flex-col border-x border-t border-black">
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            NAMA WAJIB PAJAK
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->nama_wp }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            NPWP
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->npwp }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            NOP
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->nop ?? "-" }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            KEBERATAN / BANDING / GUGATAN PERMOHONAN PASAL
-                            16/26/36 (1) A/B/C/D
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">
-                            {{ $item->jenisPermohonan->nama }}
-                        </div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            JENIS PAJAK
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->jenisPajak->nama }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            MASA / TAHUN PAJAK
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->tahun_pajak }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            NOMOR SKP / STP / KEPUTUSAN
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->nomor_ketetapan }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            TANGGAL SKP / STP / KEPUTUSAN
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->tanggal_ketetapan }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            TANGGAL DITERIMA KPP / TGL LPAD
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->tanggal_diterima }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            PENELAAH KEBERATAN / NIP
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">
-                            {{ $item->pelaksana->name }} /
-                            {{ $item->pelaksana->detail->nip }}
-                        </div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            TANGGAL BERKAS DITERIMA PENELAAH KEBERATAN
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1"></div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            NOMOR ST
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->nomor_surat_tugas }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            TANGGAL ST
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">
-                            {{ $item->tanggal_surat_tugas }}
-                        </div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            NOMOR MATRIK
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->no_matriks }}</div>
-                    </div>
-                    <div class="flex border-b border-black">
-                        <div class="w-1/2 border-r border-black px-1 font-bold">
-                            TANGGAL MATRIK
-                        </div>
-                        <div class="border-r border-black px-1">:</div>
-                        <div class="px-1">{{ $item->tanggal_matriks }}</div>
-                    </div>
-                </div>
-            </div>
+            <table class="table" style="table-layout: fixed">
+                <tr>
+                    <td style="width: 50%">NAMA WAJIB PAJAK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->nama_wp }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">NPWP</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->npwp }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">NOP</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->nop ?? "-" }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">
+                        KEBERATAN / BANDING / GUGATAN PERMOHONAN PASAL 16/26/36
+                        (1) A/B/C/D
+                    </td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->jenisPermohonan->nama }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">JENIS PAJAK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->jenisPajak->nama }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">MASA / TAHUN PAJAK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->tahun_pajak }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">NOMOR SKP / STP / KEPUTUSAN</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->nomor_ketetapan }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">TANGGAL SKP / STP / KEPUTUSAN</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->tanggal_ketetapan }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">TANGGAL DITERIMA KPP / TGL LPAD</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->tanggal_diterima }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">PENELAAH KEBERATAN / NIP</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->pelaksana->name }} /
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->pelaksana->detail->nip }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">
+                        TANGGAL BERKAS DITERIMA PENELAAH KEBERATAN
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">NOMOR ST</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->nomor_surat_tugas }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">TANGGAL ST</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->tanggal_surat_tugas }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">NOMOR MATRIK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->no_matriks }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">TANGGAL MATRIK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->tanggal_matriks }}
+                    </td>
+                </tr>
+            </table>
             @if ($index % 2 != 0)
                 @pageBreak
             @endif
 
             @if ($index % 2 == 0)
-                <div class="px-10">---</div>
+                <div style="padding-top: 10px; padding-bottom: 10px">---</div>
             @endif
         @endforeach
     </body>
