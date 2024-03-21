@@ -99,6 +99,9 @@ export default function Authenticated({ children, auth }) {
                         </div>
                     ) : null}
                     <div>{children}</div>
+                    <footer className="p-4 text-sm font-medium">
+                        Copyright &copy; bsn2024
+                    </footer>
                 </div>
             </div>
         </div>

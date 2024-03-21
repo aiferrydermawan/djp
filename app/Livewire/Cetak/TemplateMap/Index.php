@@ -21,7 +21,7 @@ class Index extends Component
 
     public function render()
     {
-        $permohonan = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'pelaksana.detail']);
+        $permohonan = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail', 'penelaahKeberatan2.detail']);
         if ($this->filter == 1) {
             $permohonan->where('npwp', 'like', '%'.$this->search.'%');
         } elseif ($this->filter == 2 && isset($this->start)) {

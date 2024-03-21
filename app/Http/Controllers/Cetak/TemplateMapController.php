@@ -12,7 +12,7 @@ class TemplateMapController extends Controller
 {
     public function cetakNpwp(Request $request)
     {
-        $data = Permohonan::with(['jenisPermohonan', 'jenisPajak', 'pelaksana.detail'])->where('npwp', $request->search)->get();
+        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail', 'penelaahKeberatan2.detail']);
         if (count($data) == 0) {
             session()->flash('error', 'NPWP tidak ditemukan');
 
@@ -33,7 +33,7 @@ class TemplateMapController extends Controller
 
             return to_route('template-map.index');
         }
-        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail']);
+        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail', 'penelaahKeberatan2.detail']);
         if (isset($request->end)) {
             $end = Carbon::parse($request->end)->addDay(1);
             $data->whereBetween('dibuat', [$request->start, $end]);

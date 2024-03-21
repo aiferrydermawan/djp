@@ -10,7 +10,6 @@ import Select from "@/Components/Select.jsx";
 function Create({ errors, pk_all, permintaan }) {
     const [npwp, setNpwp] = useState(permintaan.npwp);
     const [formData, setFormData] = useState({
-        nomor_urut: permintaan.nomor_urut,
         nomor_surat_pp: permintaan.nomor_surat_pp,
         tgl_surat_pp: permintaan.tgl_surat_pp,
         tgl_resi_pp: permintaan.tgl_resi_pp,
@@ -46,7 +45,6 @@ function Create({ errors, pk_all, permintaan }) {
     const store = async (e) => {
         e.preventDefault();
         router.put(route("input-permintaan.update", permintaan.id), {
-            nomor_urut: formData.nomor_urut,
             nomor_surat_pp: formData.nomor_surat_pp,
             tgl_surat_pp: formData.tgl_surat_pp,
             tgl_resi_pp: formData.tgl_resi_pp,
@@ -94,21 +92,6 @@ function Create({ errors, pk_all, permintaan }) {
                         <form onSubmit={store}>
                             <div className="grid grid-cols-2 gap-5">
                                 <label className={`form-control col-span-1`}>
-                                    <Label name="NOMOR URUT" />
-                                    <Input
-                                        type="text"
-                                        name="nomor_urut"
-                                        placeholder="Type Here"
-                                        value={formData.nomor_urut}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.nomor_urut && (
-                                        <Validation>
-                                            {errors.nomor_urut}
-                                        </Validation>
-                                    )}
-                                </label>
-                                <label className={`form-control col-span-1`}>
                                     <Label name="NOMOR SURAT PP" />
                                     <Input
                                         type="text"
@@ -123,6 +106,7 @@ function Create({ errors, pk_all, permintaan }) {
                                         </Validation>
                                     )}
                                 </label>
+                                <div className="col-span-1"></div>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT PP" />
                                     <Input
@@ -208,9 +192,7 @@ function Create({ errors, pk_all, permintaan }) {
                                         }
                                     />
                                     {errors.npwp && (
-                                        <Validation>
-                                            {errorsnpwpnomor_urut}
-                                        </Validation>
+                                        <Validation>{errors.npwp}</Validation>
                                     )}
                                 </label>
                                 <label className={`form-control col-span-1`}>

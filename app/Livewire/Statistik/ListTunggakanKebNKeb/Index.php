@@ -26,6 +26,7 @@ class Index extends Component
             'jenisPermohonan',
             'jenisPajak',
             'pelaksana.detail.organisasi',
+            'penelaahKeberatan.detail.organisasi',
         ])
             ->doesntHave('dataPengiriman')
             ->where(function ($query) use ($user_id) {

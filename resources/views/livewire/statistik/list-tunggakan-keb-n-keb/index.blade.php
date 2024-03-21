@@ -29,6 +29,7 @@
                             <th>Tahun Pajak</th>
                             <th>Nomor Ketetapan</th>
                             <th>Pelaksana</th>
+                            <th>PK</th>
                             <th>Sisa Waktu</th>
                             <th></th>
                         </tr>
@@ -49,15 +50,9 @@
                                 <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
                                 <td>{{ $item->pelaksana->name }}</td>
+                                <td>{{ $item->penelaahKeberatan->name }}</td>
                                 <td>{{ $item->sisa_waktu }}</td>
-                                <td>
-                                    {{-- <a --}}
-                                    {{-- class="btn btn-warning btn-xs mr-1" --}}
-                                    {{-- href="{{ route("data-pengiriman.edit", $item->id) }}" --}}
-                                    {{-- > --}}
-                                    {{-- Edit --}}
-                                    {{-- </a> --}}
-                                </td>
+                                <td></td>
                             </tr>
                         @endforeach
 

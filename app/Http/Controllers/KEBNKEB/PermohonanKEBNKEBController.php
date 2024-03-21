@@ -297,21 +297,24 @@ class PermohonanKEBNKEBController extends Controller
         $tanggal_diterima = Carbon::parse($tanggal_diterima);
         switch ($kategori) {
             case 'hari':
-                $tanggal_berakhir = $tanggal_diterima->addDays($kuantitas)->format('Y-m-d');
+                $tanggal_berakhir = $tanggal_diterima->addDays($kuantitas);
                 break;
             case 'minggu':
-                $tanggal_berakhir = $tanggal_diterima->addWeeks($kuantitas)->format('Y-m-d');
+                $tanggal_berakhir = $tanggal_diterima->addWeeks($kuantitas);
                 break;
             case 'bulan':
-                $tanggal_berakhir = $tanggal_diterima->addMonths($kuantitas)->format('Y-m-d');
+                $tanggal_berakhir = $tanggal_diterima->addMonths($kuantitas);
                 break;
             case 'tahun':
-                $tanggal_berakhir = $tanggal_diterima->addYears($kuantitas)->format('Y-m-d');
+                $tanggal_berakhir = $tanggal_diterima->addYears($kuantitas);
                 break;
             default:
                 $tanggal_berakhir = null;
         }
-
-        return $tanggal_berakhir;
+        if ($tanggal_berakhir) {
+            return Carbon::parse($tanggal_berakhir)->subDay()->format('Y-m-d');
+        } else {
+            return null;
+        }
     }
 }

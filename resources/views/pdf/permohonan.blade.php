@@ -89,10 +89,17 @@
                 <tr>
                     <td style="width: 50%">PENELAAH KEBERATAN / NIP</td>
                     <td>
-                        <span style="margin-right: 5px">:</span>
-                        {{ $item->penelaahKeberatan->name }} /
-                        <span style="margin-right: 5px">:</span>
-                        {{ $item->penelaahKeberatan->detail->nip }}
+                        @if ($item->penelaahKeberatan2)
+                            <span style="margin-right: 5px">:</span>
+                            {{ $item->penelaahKeberatan2->name }} /
+                            <span style="margin-right: 5px">:</span>
+                            {{ $item->penelaahKeberatan2->detail->nip }}
+                        @else
+                            <span style="margin-right: 5px">:</span>
+                            {{ $item->penelaahKeberatan->name }} /
+                            <span style="margin-right: 5px">:</span>
+                            {{ $item->penelaahKeberatan->detail->nip }}
+                        @endif
                     </td>
                 </tr>
                 <tr>

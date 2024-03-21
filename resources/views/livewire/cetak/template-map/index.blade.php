@@ -109,8 +109,13 @@
                                 <td>{{ $item->tanggal_ketetapan }}</td>
                                 <td>{{ $item->tanggal_diterima }}</td>
                                 <td>
-                                    {{ $item->pelaksana->name }} /
-                                    {{ $item->pelaksana->detail->nip }}
+                                    @if ($item->penelaahKeberatan2)
+                                        {{ $item->penelaahKeberatan2->name }} /
+                                        {{ $item->penelaahKeberatan2->detail->nip }}
+                                    @else
+                                        {{ $item->penelaahKeberatan->name }} /
+                                        {{ $item->penelaahKeberatan->detail->nip }}
+                                    @endif
                                 </td>
                                 <td>{{ $item->nomor_surat_tugas }}</td>
                                 <td>{{ $item->tanggal_surat_tugas }}</td>

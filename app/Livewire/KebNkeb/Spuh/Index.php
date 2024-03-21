@@ -28,6 +28,9 @@ class Index extends Component
             'pelaksana.detail.organisasi',
             'spuh',
         ])
+            ->whereHas('jenisPermohonan', function ($query) {
+                $query->where('nama', 'Pasal 26 KUP');
+            })
             ->whereHas('penelitianFormal', function ($query) {
                 $query->where('status', 'ya');
             })

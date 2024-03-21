@@ -12,7 +12,7 @@ import axios from "axios";
 import Select from "@/Components/Select.jsx";
 import { IconLoader2 } from "@tabler/icons-react";
 import NumberInput from "@/Components/NumberInput.jsx";
-import Alert from "../../Components/Alert.jsx";
+import DatePicker from "react-datepicker";
 
 const masaPajakAll = [
     "00",
@@ -50,7 +50,7 @@ function Create({
     const [unitYangMemproses, setUnitYangMemproses] = useState(null);
     const [jenisKetetapan, setJenisKetetapan] = useState(null);
     const [nomorKetetapan, setNomorKetetapan] = useState("");
-    const [tanggalKetetapan, setTanggalKetetapan] = useState("");
+    const [tanggalKetetapan, setTanggalKetetapan] = useState();
     const [tanggalKirimKetetapan, setTanggalKirimKetetapan] = useState("");
     const [jenisPajak, setJenisPajak] = useState("");
     const [masaPajak, setMasaPajak] = useState("");
@@ -96,6 +96,33 @@ function Create({
     }, [jenisKetetapan]);
     const store = async (e) => {
         e.preventDefault();
+        const tanggal_ketetapan = tanggalKetetapan
+            ? tanggalKetetapan.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_kirim_ketetapan = tanggalKirimKetetapan
+            ? tanggalKirimKetetapan.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_wp = tanggalSuratWp
+            ? tanggalSuratWp.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_diterima = tanggalDiterima
+            ? tanggalDiterima.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_pengantar = tanggalSuratPengantar
+            ? tanggalSuratPengantar.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_pengiriman_kpp = tanggalPengirimanKpp
+            ? tanggalPengirimanKpp.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_tugas = tanggalSuratTugas
+            ? tanggalSuratTugas.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_matriks = tanggalMatriks
+            ? tanggalMatriks.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_tugas_2 = tanggalSuratTugas2
+            ? tanggalSuratTugas2.toLocaleDateString("en-CA")
+            : null;
         router.post(route("permohonan-keb-nkeb.store"), {
             nama_wp: namaWp,
             npwp: npwp,
@@ -107,8 +134,8 @@ function Create({
                 : null,
             jenis_ketetapan: jenisKetetapan ? jenisKetetapan.id : null,
             nomor_ketetapan: nomorKetetapan,
-            tanggal_ketetapan: tanggalKetetapan,
-            tanggal_kirim_ketetapan: tanggalKirimKetetapan,
+            tanggal_ketetapan: tanggal_ketetapan,
+            tanggal_kirim_ketetapan: tanggal_kirim_ketetapan,
             jenis_pajak: jenisPajak,
             masa_pajak: masaPajak,
             tahun_pajak: tahunPajak,
@@ -119,19 +146,19 @@ function Create({
             nilai_4: nilai4,
             dasar_pemrosesan: dasarPemrosesan,
             nomor_surat_wp: nomorSuratWp,
-            tanggal_surat_wp: tanggalSuratWp,
+            tanggal_surat_wp: tanggal_surat_wp,
             nomor_lpad: nomorLpad,
-            tanggal_diterima: tanggalDiterima,
+            tanggal_diterima: tanggal_diterima,
             no_surat_pengantar_kpp: noSuratPengantarKpp,
-            tanggal_surat_pengantar: tanggalSuratPengantar,
-            tanggal_pengiriman_kpp: tanggalPengirimanKpp,
+            tanggal_surat_pengantar: tanggal_surat_pengantar,
+            tanggal_pengiriman_kpp: tanggal_pengiriman_kpp,
             nomor_surat_tugas: nomorSuratTugas,
-            tanggal_surat_tugas: tanggalSuratTugas,
+            tanggal_surat_tugas: tanggal_surat_tugas,
             no_matriks: noMatriks,
-            tanggal_matriks: tanggalMatriks,
+            tanggal_matriks: tanggal_matriks,
             nama_pk: namaPk,
             nomor_surat_tugas_2: nomorSuratTugas2 ?? null,
-            tanggal_surat_tugas_2: tanggalSuratTugas2 ?? null,
+            tanggal_surat_tugas_2: tanggal_surat_tugas_2,
             nama_pk_2: namaPk2 ?? null,
         });
     };
@@ -303,13 +330,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Ketetapan" />
-                                        <Input
-                                            type="date"
-                                            onChange={(e) =>
-                                                setTanggalKetetapan(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalKetetapan}
+                                            onChange={(date) =>
+                                                setTanggalKetetapan(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_ketetapan && (
                                             <Validation>
@@ -321,13 +349,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Kirim Ketetapan" />
-                                        <Input
-                                            type="date"
-                                            onChange={(e) =>
-                                                setTanggalKirimKetetapan(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalKirimKetetapan}
+                                            onChange={(date) =>
+                                                setTanggalKirimKetetapan(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_kirim_ketetapan && (
                                             <Validation>
@@ -556,14 +585,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Surat WP" />
-                                        <Input
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalSuratWp(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSuratWp}
+                                            onChange={(date) =>
+                                                setTanggalSuratWp(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_surat_wp && (
                                             <Validation>
@@ -592,14 +621,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Diterima" />
-                                        <Input
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalDiterima(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            onChange={(date) =>
+                                                setTanggalDiterima(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_diterima && (
                                             <Validation>
@@ -630,14 +659,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Surat Pengantar" />
-                                        <Input
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalSuratPengantar(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSuratPengantar}
+                                            onChange={(date) =>
+                                                setTanggalSuratPengantar(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_surat_pengantar && (
                                             <Validation>
@@ -649,14 +678,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Pengiriman KPP" />
-                                        <Input
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalPengirimanKpp(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalPengirimanKpp}
+                                            onChange={(date) =>
+                                                setTanggalPengirimanKpp(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_pengiriman_kpp && (
                                             <Validation>
@@ -687,14 +716,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Surat Tugas" />
-                                        <Input
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalSuratTugas(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSuratTugas}
+                                            onChange={(date) =>
+                                                setTanggalSuratTugas(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_surat_tugas && (
                                             <Validation>
@@ -723,14 +752,14 @@ function Create({
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Matriks" />
-                                        <Input
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalMatriks(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalMatriks}
+                                            onChange={(date) =>
+                                                setTanggalMatriks(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_matriks && (
                                             <Validation>
@@ -787,15 +816,14 @@ function Create({
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="Tanggal Surat Tugas Pengganti *Tidak Wajib" />
-                                        <Input
-                                            className={`max-w-xs`}
-                                            type="date"
-                                            placeholder="Kosong"
-                                            onChange={(e) =>
-                                                setTanggalSuratTugas2(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSuratTugas2}
+                                            onChange={(date) =>
+                                                setTanggalSuratTugas2(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggal_surat_tugas_2 && (
                                             <Validation>
