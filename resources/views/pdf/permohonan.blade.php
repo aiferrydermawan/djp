@@ -76,30 +76,31 @@
                     <td style="width: 50%">TANGGAL SKP / STP / KEPUTUSAN</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->tanggal_ketetapan }}
+                        {{ $item->formatWaktu($item->tanggal_ketetapan) }}
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 50%">TANGGAL DITERIMA KPP / TGL LPAD</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->tanggal_diterima }}
+                        {{ $item->formatWaktu($item->tanggal_diterima) }}
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 50%">PENELAAH KEBERATAN / NIP</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->pelaksana->name }} /
+                        {{ $item->penelaahKeberatan->name }} /
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->pelaksana->detail->nip }}
+                        {{ $item->penelaahKeberatan->detail->nip }}
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%">
-                        TANGGAL BERKAS DITERIMA PENELAAH KEBERATAN
+                    <td style="width: 50%">TANGGAL JATUH TEMPO</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->formatWaktu($item->tanggal_berakhir) }}
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
                     <td style="width: 50%">NOMOR ST</td>
@@ -112,7 +113,7 @@
                     <td style="width: 50%">TANGGAL ST</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->tanggal_surat_tugas }}
+                        {{ $item->formatWaktu($item->tanggal_surat_tugas) }}
                     </td>
                 </tr>
                 <tr>
@@ -126,7 +127,7 @@
                     <td style="width: 50%">TANGGAL MATRIK</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->tanggal_matriks }}
+                        {{ $item->formatWaktu($item->tanggal_matriks) }}
                     </td>
                 </tr>
             </table>

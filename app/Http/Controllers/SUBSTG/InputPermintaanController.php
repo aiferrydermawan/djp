@@ -82,7 +82,7 @@ class InputPermintaanController extends Controller
 
     public function edit($id)
     {
-        $permintaan = Permintaan::with('detail')->find($id);
+        $permintaan = Permintaan::find($id);
         $user = User::with('detail')->find(auth()->user()->id);
         $pk_all = User::whereHas('detail', function ($query) use ($user) {
             $query

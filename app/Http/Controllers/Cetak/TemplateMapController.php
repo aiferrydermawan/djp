@@ -33,7 +33,7 @@ class TemplateMapController extends Controller
 
             return to_route('template-map.index');
         }
-        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'pelaksana.detail']);
+        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail']);
         if (isset($request->end)) {
             $end = Carbon::parse($request->end)->addDay(1);
             $data->whereBetween('dibuat', [$request->start, $end]);

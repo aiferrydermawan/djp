@@ -81,4 +81,9 @@ class Permohonan extends Model
 
         return $sisa_waktu.' Hari';
     }
+
+    public function formatWaktu($value)
+    {
+        return Carbon::parse($value)->format('d F Y');
+    }
 }
