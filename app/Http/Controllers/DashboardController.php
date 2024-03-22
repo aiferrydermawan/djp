@@ -65,7 +65,7 @@ class DashboardController extends Controller
     {
         $permohonan = Permohonan::query();
 
-        return $permohonan->where('tanggal_berakhir', '<', Carbon::now()->addMonth())
+        return $permohonan->doesntHave('dataPengiriman')
             ->whereMonth('tanggal_berakhir', '=', Carbon::now()->addMonth())
             ->whereYear('tanggal_berakhir', '=', Carbon::now()->year)
             ->count();
