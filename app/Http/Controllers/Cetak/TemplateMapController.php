@@ -12,7 +12,7 @@ class TemplateMapController extends Controller
 {
     public function cetakNpwp(Request $request)
     {
-        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail', 'penelaahKeberatan2.detail']);
+        $data = Permohonan::query()->with(['jenisPermohonan', 'jenisPajak', 'penelaahKeberatan.detail', 'penelaahKeberatan2.detail'])->where('npwp', $request->search)->get();
         if (count($data) == 0) {
             session()->flash('error', 'NPWP tidak ditemukan');
 
