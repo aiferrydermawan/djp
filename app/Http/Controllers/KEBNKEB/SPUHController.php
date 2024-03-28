@@ -7,6 +7,7 @@ use App\Http\Resources\PermohonanResource;
 use App\Models\Permohonan;
 use App\Models\Spuh;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SPUHController extends Controller
 {
@@ -71,6 +72,6 @@ class SPUHController extends Controller
 
         session()->flash('success', 'Data berhasil diperbarui');
 
-        return to_route('spuh.index');
+        return Inertia::location(route('spuh.index'));
     }
 }

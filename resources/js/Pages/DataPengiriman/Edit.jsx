@@ -5,9 +5,12 @@ import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
 import Select from "@/Components/Select.jsx";
 import Validation from "@/Components/Validation.jsx";
+import DatePicker from "react-datepicker";
 function Edit({ errors, permohonan }) {
     const nomorLpad = permohonan.nomor_lpad;
-    const tanggalDiterima = permohonan.tanggal_diterima;
+    const tanggalDiterima = permohonan.tanggal_diterima
+        ? new Date(permohonan.tanggal_diterima)
+        : null;
     const namaWp = permohonan.nama_wp;
     const npwp = permohonan.npwp;
     const jenisPermohonan = permohonan.jenis_permohonan.nama;
@@ -23,19 +26,30 @@ function Edit({ errors, permohonan }) {
 
     useEffect(() => {
         if (permohonan.data_pengiriman != null) {
-            setNomorResiWp(permohonan.data_pengiriman.nomor_resi_wp);
-            setTanggalResiWp(permohonan.data_pengiriman.tanggal_resi_wp);
-            setNomorResiKpp(permohonan.data_pengiriman.nomor_resi_kpp);
-            setTanggalResiKpp(permohonan.data_pengiriman.tanggal_resi_kpp);
+            const data = permohonan.data_pengiriman;
+            setNomorResiWp(data.nomor_resi_wp);
+            setTanggalResiWp(
+                data.tanggal_resi_wp ? new Date(data.tanggal_resi_wp) : null,
+            );
+            setNomorResiKpp(data.nomor_resi_kpp);
+            setTanggalResiKpp(
+                data.tanggal_resi_kpp ? new Date(data.tanggal_resi_kpp) : null,
+            );
         }
     }, [permohonan]);
     const edit = async (e) => {
         e.preventDefault();
+        const tanggal_resi_wp = tanggalResiWp
+            ? tanggalResiWp.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_resi_kpp = tanggalResiKpp
+            ? tanggalResiKpp.toLocaleDateString("en-CA")
+            : null;
         router.put(route("data-pengiriman.update", permohonan.id), {
             nomorResiWp: nomorResiWp,
-            tanggalResiWp: tanggalResiWp,
+            tanggalResiWp: tanggal_resi_wp,
             nomorResiKpp: nomorResiKpp,
-            tanggalResiKpp: tanggalResiKpp,
+            tanggalResiKpp: tanggal_resi_kpp,
         });
     };
 
@@ -68,8 +82,11 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="TGL DITERIMA (TGL LPAD/TGL CAP POS)" />
-                                        <Input
-                                            value={tanggalDiterima}
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            dateFormat="dd-MM-yyyy"
                                             disabled
                                         />
                                     </label>
@@ -144,12 +161,14 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="Tanggal Resi WP" />
-                                        <Input
-                                            type="date"
-                                            value={tanggalResiWp}
-                                            onChange={(e) =>
-                                                setTanggalResiWp(e.target.value)
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalResiWp}
+                                            onChange={(date) =>
+                                                setTanggalResiWp(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalResiWp && (
                                             <Validation>
@@ -180,14 +199,14 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="Tanggal Resi KPP" />
-                                        <Input
-                                            type="date"
-                                            value={tanggalResiKpp}
-                                            onChange={(e) =>
-                                                setTanggalResiKpp(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalResiKpp}
+                                            onChange={(date) =>
+                                                setTanggalResiKpp(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalResiKpp && (
                                             <Validation>

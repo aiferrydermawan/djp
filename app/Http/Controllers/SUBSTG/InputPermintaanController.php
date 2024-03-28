@@ -44,8 +44,8 @@ class InputPermintaanController extends Controller
             'tgl_surat_tugas' => ['required'],
             'no_matriks' => ['required'],
             'tgl_matriks' => ['required'],
-            'no_surat_tugas_pengganti' => ['required'],
-            'tgl_surat_tugas_pengganti' => ['required'],
+            'no_surat_tugas_pengganti' => ['nullable'],
+            'tgl_surat_tugas_pengganti' => ['nullable'],
             'pk' => ['required'],
         ]);
 

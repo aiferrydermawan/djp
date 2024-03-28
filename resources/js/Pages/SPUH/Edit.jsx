@@ -3,13 +3,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
-import Select from "@/Components/Select.jsx";
 import Validation from "@/Components/Validation.jsx";
+import DatePicker from "react-datepicker";
 function Edit({ errors, permohonan }) {
     const [nomorLpad, setNomorLpad] = useState(permohonan.nomor_lpad);
-    const [tanggalDiterima, setTanggalDiterima] = useState(
-        permohonan.tanggal_diterima,
-    );
+    const tanggalDiterima = permohonan.tanggal_diterima
+        ? new Date(permohonan.tanggal_diterima)
+        : null;
     const [namaWp, setNamaWp] = useState(permohonan.nama_wp);
     const [npwp, setNpwp] = useState(permohonan.npwp);
     const [jenisPermohonan, setJenisPermohonan] = useState(
@@ -31,23 +31,41 @@ function Edit({ errors, permohonan }) {
 
     useEffect(() => {
         if (permohonan.spuh != null) {
-            setNomorSpuh(permohonan.spuh.nomor_spuh);
-            setTanggalSpuh(permohonan.spuh.tanggal_spuh);
-            setTanggalKirimSpuh(permohonan.spuh.tanggal_kirim_spuh);
-            setNoBaPembahasanAkhir(permohonan.spuh.no_ba_pembahasan_akhir);
+            const data = permohonan.spuh;
+            setNomorSpuh(data.nomor_spuh);
+            setTanggalSpuh(
+                data.tanggal_spuh ? new Date(data.tanggal_spuh) : null,
+            );
+            setTanggalKirimSpuh(
+                data.tanggal_kirim_spuh
+                    ? new Date(data.tanggal_kirim_spuh)
+                    : null,
+            );
+            setNoBaPembahasanAkhir(data.no_ba_pembahasan_akhir);
             setTanggalBaPembahasanAkhir(
-                permohonan.spuh.tanggal_ba_pembahasan_akhir,
+                data.tanggal_ba_pembahasan_akhir
+                    ? new Date(data.tanggal_ba_pembahasan_akhir)
+                    : null,
             );
         }
     }, [permohonan]);
     const edit = async (e) => {
         e.preventDefault();
+        const tanggal_spuh = tanggalSpuh
+            ? tanggalSpuh.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_kirim_spuh = tanggalKirimSpuh
+            ? tanggalKirimSpuh.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_pembahasan_akhir = tanggalBaPembahasanAkhir
+            ? tanggalBaPembahasanAkhir.toLocaleDateString("en-CA")
+            : null;
         router.put(route("spuh.update", permohonan.id), {
             nomorSpuh: nomorSpuh,
-            tanggalSpuh: tanggalSpuh,
-            tanggalKirimSpuh: tanggalKirimSpuh,
+            tanggalSpuh: tanggal_spuh,
+            tanggalKirimSpuh: tanggal_kirim_spuh,
             noBaPembahasanAkhir: noBaPembahasanAkhir,
-            tanggalBaPembahasanAkhir: tanggalBaPembahasanAkhir,
+            tanggalBaPembahasanAkhir: tanggal_ba_pembahasan_akhir,
         });
     };
 
@@ -78,8 +96,11 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="TGL DITERIMA (TGL LPAD/TGL CAP POS)" />
-                                        <Input
-                                            value={tanggalDiterima}
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            dateFormat="dd-MM-yyyy"
                                             disabled
                                         />
                                     </label>
@@ -154,13 +175,14 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal SPUH" />
-                                        <Input
-                                            type="date"
-                                            value={tanggalSpuh}
-                                            onChange={(e) =>
-                                                setTanggalSpuh(e.target.value)
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpuh}
+                                            onChange={(date) =>
+                                                setTanggalSpuh(date)
                                             }
-                                            placeholder="Kosong"
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpuh && (
                                             <Validation>
@@ -172,15 +194,14 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Kirim SPUH" />
-                                        <Input
-                                            type="date"
-                                            value={tanggalKirimSpuh}
-                                            onChange={(e) =>
-                                                setTanggalKirimSpuh(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalKirimSpuh}
+                                            onChange={(date) =>
+                                                setTanggalKirimSpuh(date)
                                             }
-                                            placeholder="Kosong"
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalKirimSpuh && (
                                             <Validation>
@@ -212,15 +233,16 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="No BA Pembahasan Akhir" />
-                                        <Input
-                                            type="date"
-                                            value={tanggalBaPembahasanAkhir}
-                                            onChange={(e) =>
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalBaPembahasanAkhir}
+                                            onChange={(date) =>
                                                 setTanggalBaPembahasanAkhir(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
-                                            placeholder="Kosong"
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanAkhir && (
                                             <Validation>

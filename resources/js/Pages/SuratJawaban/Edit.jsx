@@ -6,28 +6,42 @@ import NPWPInput from "@/Components/NPWPInput.jsx";
 import Validation from "@/Components/Validation.jsx";
 import Input from "@/Components/Input.jsx";
 import Select from "@/Components/Select.jsx";
+import DatePicker from "react-datepicker";
 
-function Create({ errors, permintaan }) {
+function Edit({ errors, permintaan }) {
     const [npwp, setNpwp] = useState(permintaan.npwp);
+    const [tglSuratPp, setTglSuratPp] = useState(
+        permintaan.tgl_surat_pp ? new Date(permintaan.tgl_surat_pp) : null,
+    );
+    const [tglResiPp, setTglResiPp] = useState(
+        permintaan.tgl_resi_pp ? new Date(permintaan.tgl_resi_pp) : null,
+    );
+    const [tglDiterimaKanwil, setTglDiterimaKanwil] = useState(
+        permintaan.tgl_diterima_kanwil
+            ? new Date(permintaan.tgl_diterima_kanwil)
+            : null,
+    );
+    const [tglSuratKeDkb, setTglSuratKeDkb] = useState(
+        permintaan.surat_jawaban
+            ? new Date(permintaan.surat_jawaban.tgl_surat_ke_dkb)
+            : null,
+    );
+    const [tglSuratKePp, setTglSuratKePp] = useState(
+        permintaan.surat_jawaban
+            ? new Date(permintaan.surat_jawaban.tgl_surat_ke_pp)
+            : null,
+    );
     const [formData, setFormData] = useState({
         nomor_urut: permintaan.nomor_urut,
         nomor_surat_pp: permintaan.nomor_surat_pp,
-        tgl_surat_pp: permintaan.tgl_surat_pp,
-        tgl_resi_pp: permintaan.tgl_resi_pp,
-        tgl_diterima_kanwil: permintaan.tgl_diterima_kanwil,
         nomor_sengketa: permintaan.nomor_sengketa,
         jenis_sengketa: permintaan.jenis_sengketa,
+        nama_wajib_pajak: permintaan.nama_wajib_pajak,
         nomor_surat_ke_dkb: permintaan.surat_jawaban
             ? permintaan.surat_jawaban.nomor_surat_ke_dkb
             : "",
-        tgl_surat_ke_dkb: permintaan.surat_jawaban
-            ? permintaan.surat_jawaban.tgl_surat_ke_dkb
-            : "",
         nomor_surat_ke_pp: permintaan.surat_jawaban
             ? permintaan.surat_jawaban.nomor_surat_ke_pp
-            : "",
-        tgl_surat_ke_pp: permintaan.surat_jawaban
-            ? permintaan.surat_jawaban.tgl_surat_ke_pp
             : "",
     });
 
@@ -41,11 +55,17 @@ function Create({ errors, permintaan }) {
 
     const store = async (e) => {
         e.preventDefault();
+        const tgl_surat_ke_dkb = tglSuratKeDkb
+            ? tglSuratKeDkb.toLocaleDateString("en-CA")
+            : null;
+        const tgl_surat_ke_pp = tglSuratKePp
+            ? tglSuratKePp.toLocaleDateString("en-CA")
+            : null;
         router.put(route("surat-jawaban.update", permintaan.id), {
             nomor_surat_ke_dkb: formData.nomor_surat_ke_dkb,
-            tgl_surat_ke_dkb: formData.tgl_surat_ke_dkb,
+            tgl_surat_ke_dkb: tgl_surat_ke_dkb,
             nomor_surat_ke_pp: formData.nomor_surat_ke_pp,
-            tgl_surat_ke_pp: formData.tgl_surat_ke_pp,
+            tgl_surat_ke_pp: tgl_surat_ke_pp,
         });
     };
 
@@ -101,12 +121,12 @@ function Create({ errors, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT PP" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_pp"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_surat_pp}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratPp}
+                                        onChange={(date) => setTglSuratPp(date)}
+                                        dateFormat="dd-MM-yyyy"
                                         disabled
                                     />
                                     {errors.tgl_surat_pp && (
@@ -117,12 +137,12 @@ function Create({ errors, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL RESI PP" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_resi_pp"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_resi_pp}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglResiPp}
+                                        onChange={(date) => setTglResiPp(date)}
+                                        dateFormat="dd-MM-yyyy"
                                         disabled
                                     />
                                     {errors.tgl_resi_pp && (
@@ -133,12 +153,14 @@ function Create({ errors, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL DITERIMA KANWIL" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_diterima_kanwil"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_diterima_kanwil}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglDiterimaKanwil}
+                                        onChange={(date) =>
+                                            setTglDiterimaKanwil(date)
+                                        }
+                                        dateFormat="dd-MM-yyyy"
                                         disabled
                                     />
                                     {errors.tgl_diterima_kanwil && (
@@ -228,12 +250,14 @@ function Create({ errors, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT KE DKB" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_ke_dkb"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_surat_ke_dkb}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratKeDkb}
+                                        onChange={(date) =>
+                                            setTglSuratKeDkb(date)
+                                        }
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_surat_ke_dkb && (
                                         <Validation>
@@ -258,12 +282,14 @@ function Create({ errors, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT KE PP" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_ke_pp"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_surat_ke_pp}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratKePp}
+                                        onChange={(date) =>
+                                            setTglSuratKePp(date)
+                                        }
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_surat_ke_pp && (
                                         <Validation>
@@ -288,4 +314,4 @@ function Create({ errors, permintaan }) {
     );
 }
 
-export default Create;
+export default Edit;

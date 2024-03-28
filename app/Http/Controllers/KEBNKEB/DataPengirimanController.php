@@ -7,6 +7,7 @@ use App\Http\Resources\PermohonanResource;
 use App\Models\DataPengiriman;
 use App\Models\Permohonan;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DataPengirimanController extends Controller
 {
@@ -68,6 +69,6 @@ class DataPengirimanController extends Controller
 
         session()->flash('success', 'Data berhasil diperbarui');
 
-        return to_route('data-pengiriman.index');
+        return Inertia::location(route('data-pengiriman.index'));
     }
 }

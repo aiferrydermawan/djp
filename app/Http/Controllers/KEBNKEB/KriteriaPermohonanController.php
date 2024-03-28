@@ -8,6 +8,7 @@ use App\Models\KriteriaPermohonan;
 use App\Models\Permohonan;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class KriteriaPermohonanController extends Controller
 {
@@ -42,8 +43,8 @@ class KriteriaPermohonanController extends Controller
     public function edit($id)
     {
         $permohonan = Permohonan::with(['jenisPermohonan', 'jenisPajak', 'kriteriaPermohonan'])->find($id);
-        $alasan_all = Referensi::where('kategori', 'alasan')->get();
-        $pemenuhan_kriteria_all = Referensi::where(
+        $alasan_all = Referensi::select(['nama as value', 'nama as label'])->where('kategori', 'alasan')->get();
+        $pemenuhan_kriteria_all = Referensi::select(['nama as value', 'nama as label'])->where(
             'kategori',
             'pemenuhan-kriteria',
         )->get();
@@ -57,22 +58,17 @@ class KriteriaPermohonanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'alasanWp' => ['required'],
-            'pemenuhanKriteria' => ['required'],
-        ]);
-
         KriteriaPermohonan::updateOrCreate(
             ['permohonan_id' => $id],
             [
-                'alasan_id' => $request->alasanWp,
-                'pemenuhan_kriteria_id' => $request->pemenuhanKriteria,
+                'alasan_id' => json_encode($request->alasanWp),
+                'pemenuhan_kriteria_id' => json_encode($request->pemenuhanKriteria),
                 'pembuat' => auth()->user()->id,
             ]
         );
 
         session()->flash('success', 'Data berhasil diperbarui');
 
-        return to_route('kriteria-permohonan.index');
+        return Inertia::location(route('kriteria-permohonan.index'));
     }
 }

@@ -3,11 +3,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
-import Select from "@/Components/Select.jsx";
 import Validation from "@/Components/Validation.jsx";
+import DatePicker from "react-datepicker";
 function Edit({ errors, permohonan }) {
     const nomorLpad = permohonan.nomor_lpad;
-    const tanggalDiterima = permohonan.tanggal_diterima;
+    const tanggalDiterima = permohonan.tanggal_diterima
+        ? new Date(permohonan.tanggal_diterima)
+        : null;
 
     const namaWp = permohonan.nama_wp;
     const npwp = permohonan.npwp;
@@ -87,143 +89,235 @@ function Edit({ errors, permohonan }) {
 
     useEffect(() => {
         if (permohonan.spid_pembahasan != null) {
-            setSpidKpp(permohonan.spid_pembahasan.spid_kpp);
-            setTanggalSpidKpp(permohonan.spid_pembahasan.tanggal_spid_kpp);
-            setSpidKpp2(permohonan.spid_pembahasan.spid_kpp_2);
-            setTanggalSpidKpp2(permohonan.spid_pembahasan.tanggal_spid_kpp_2);
-            setSpidKpp3(permohonan.spid_pembahasan.spid_kpp_3);
-            setTanggalSpidKpp3(permohonan.spid_pembahasan.tanggal_spid_kpp_3);
-            setSpidWp1(permohonan.spid_pembahasan.spid_wp_1);
-            setTanggalSpidWp1(permohonan.spid_pembahasan.tanggal_spid_wp_1);
-            setSpidWp2(permohonan.spid_pembahasan.spid_wp_2);
-            setTanggalSpidWp2(permohonan.spid_pembahasan.tanggal_spid_wp_2);
-            setSpidWp3(permohonan.spid_pembahasan.spid_wp_3);
-            setTanggalSpidWp3(permohonan.spid_pembahasan.tanggal_spid_wp_3);
-            setNomorBaTidakBeriDokumen(
-                permohonan.spid_pembahasan.nomor_ba_tidak_beri_dokumen,
+            const data = permohonan.spid_pembahasan;
+            setSpidKpp(data.spid_kpp);
+            setTanggalSpidKpp(
+                data.tanggal_spid_kpp ? new Date(data.tanggal_spid_kpp) : null,
             );
+            setSpidKpp2(data.spid_kpp_2);
+            setTanggalSpidKpp2(
+                data.tanggal_spid_kpp_2
+                    ? new Date(data.tanggal_spid_kpp_2)
+                    : null,
+            );
+            setSpidKpp3(data.spid_kpp_3);
+            setTanggalSpidKpp3(
+                data.tanggal_spid_kpp_3
+                    ? new Date(data.tanggal_spid_kpp_3)
+                    : null,
+            );
+            setSpidWp1(data.spid_wp_1);
+            setTanggalSpidWp1(
+                data.tanggal_spid_wp_1
+                    ? new Date(data.tanggal_spid_wp_1)
+                    : null,
+            );
+            setSpidWp2(data.spid_wp_2);
+            setTanggalSpidWp2(
+                data.tanggal_spid_wp_2
+                    ? new Date(data.tanggal_spid_wp_2)
+                    : null,
+            );
+            setSpidWp3(data.spid_wp_3);
+            setTanggalSpidWp3(
+                data.tanggal_spid_wp_3
+                    ? new Date(data.tanggal_spid_wp_3)
+                    : null,
+            );
+            setNomorBaTidakBeriDokumen(data.nomor_ba_tidak_beri_dokumen);
             setTanggalBaTidakBeriDokumen(
-                permohonan.spid_pembahasan.tanggal_ba_tidak_beri_dokumen,
+                data.tanggal_ba_tidak_beri_dokumen
+                    ? new Date(data.tanggal_ba_tidak_beri_dokumen)
+                    : null,
             );
             setNomorSuratPemanggilanPemeriksa(
-                permohonan.spid_pembahasan.nomor_surat_pemanggilan_pemeriksa,
+                data.nomor_surat_pemanggilan_pemeriksa,
             );
             setTanggalSuratPemanggilanPemeriksa(
-                permohonan.spid_pembahasan.tanggal_surat_pemanggilan_pemeriksa,
+                data.tanggal_surat_pemanggilan_pemeriksa
+                    ? new Date(data.tanggal_surat_pemanggilan_pemeriksa)
+                    : null,
             );
             setNomorSuratPemanggilanPemeriksa2(
-                permohonan.spid_pembahasan.nomor_surat_pemanggilan_pemeriksa_2,
+                data.nomor_surat_pemanggilan_pemeriksa_2,
             );
             setTanggalSuratPemanggilanPemeriksa2(
-                permohonan.spid_pembahasan
-                    .tanggal_surat_pemanggilan_pemeriksa_2,
+                data.tanggal_surat_pemanggilan_pemeriksa_2
+                    ? new Date(data.tanggal_surat_pemanggilan_pemeriksa_2)
+                    : null,
             );
             setNomorSuratPemanggilanPemeriksa3(
-                permohonan.spid_pembahasan.nomor_surat_pemanggilan_pemeriksa_3,
+                data.nomor_surat_pemanggilan_pemeriksa_3,
             );
             setTanggalSuratPemanggilanPemeriksa3(
-                permohonan.spid_pembahasan
-                    .tanggal_surat_pemanggilan_pemeriksa_3,
+                data.tanggal_surat_pemanggilan_pemeriksa_3
+                    ? new Date(data.tanggal_surat_pemanggilan_pemeriksa_3)
+                    : null,
             );
-            setNomorBaPembahasanPemeriksa(
-                permohonan.spid_pembahasan.nomor_ba_pembahasan_pemeriksa,
-            );
+            setNomorBaPembahasanPemeriksa(data.nomor_ba_pembahasan_pemeriksa);
             setTanggalBaPembahasanPemeriksa(
-                permohonan.spid_pembahasan.tanggal_ba_pembahasan_pemeriksa,
+                data.tanggal_ba_pembahasan_pemeriksa
+                    ? new Date(data.tanggal_ba_pembahasan_pemeriksa)
+                    : null,
             );
             setNomorBaPembahasanPemeriksa2(
-                permohonan.spid_pembahasan.nomor_ba_pembahasan_pemeriksa_2,
+                data.nomor_ba_pembahasan_pemeriksa_2,
             );
             setTanggalBaPembahasanPemeriksa2(
-                permohonan.spid_pembahasan.tanggal_ba_pembahasan_pemeriksa_2,
+                data.tanggal_ba_pembahasan_pemeriksa_2
+                    ? new Date(data.tanggal_ba_pembahasan_pemeriksa_2)
+                    : null,
             );
             setNomorBaPembahasanPemeriksa3(
-                permohonan.spid_pembahasan.nomor_ba_pembahasan_pemeriksa_3,
+                data.nomor_ba_pembahasan_pemeriksa_3,
             );
             setTanggalBaPembahasanPemeriksa3(
-                permohonan.spid_pembahasan.tanggal_ba_pembahasan_pemeriksa_3,
+                data.tanggal_ba_pembahasan_pemeriksa_3
+                    ? new Date(data.tanggal_ba_pembahasan_pemeriksa_3)
+                    : null,
             );
-            setNomorSuratPemanggilanWp(
-                permohonan.spid_pembahasan.nomor_surat_pemanggilan_wp,
-            );
+            setNomorSuratPemanggilanWp(data.nomor_surat_pemanggilan_wp);
             setTanggalSuratPemanggilanWp(
-                permohonan.spid_pembahasan.tanggal_surat_pemanggilan_wp,
+                data.tanggal_surat_pemanggilan_wp
+                    ? new Date(data.tanggal_surat_pemanggilan_wp)
+                    : null,
             );
-            setNomorSuratPemanggilanWp2(
-                permohonan.spid_pembahasan.nomor_surat_pemanggilan_wp_2,
-            );
+            setNomorSuratPemanggilanWp2(data.nomor_surat_pemanggilan_wp_2);
             setTanggalSuratPemanggilanWp2(
-                permohonan.spid_pembahasan.tanggal_surat_pemanggilan_wp_2,
+                data.tanggal_surat_pemanggilan_wp_2
+                    ? new Date(data.tanggal_surat_pemanggilan_wp_2)
+                    : null,
             );
-            setNomorSuratPemanggilanWp3(
-                permohonan.spid_pembahasan.nomor_surat_pemanggilan_wp_3,
-            );
+            setNomorSuratPemanggilanWp3(data.nomor_surat_pemanggilan_wp_3);
             setTanggalSuratPemanggilanWp3(
-                permohonan.spid_pembahasan.tanggal_surat_pemanggilan_wp_3,
+                data.tanggal_surat_pemanggilan_wp_3
+                    ? new Date(data.tanggal_surat_pemanggilan_wp_3)
+                    : null,
             );
-            setNomorBaPembahasanWp(
-                permohonan.spid_pembahasan.nomor_ba_pembahasan_wp,
-            );
+            setNomorBaPembahasanWp(data.nomor_ba_pembahasan_wp);
             setTanggalBaPembahasanWp(
-                permohonan.spid_pembahasan.tanggal_ba_pembahasan_wp,
+                data.tanggal_ba_pembahasan_wp
+                    ? new Date(data.tanggal_ba_pembahasan_wp)
+                    : null,
             );
-            setNomorBaPembahasanWp2(
-                permohonan.spid_pembahasan.nomor_ba_pembahasan_wp_2,
-            );
+            setNomorBaPembahasanWp2(data.nomor_ba_pembahasan_wp_2);
             setTanggalBaPembahasanWp2(
-                permohonan.spid_pembahasan.tanggal_ba_pembahasan_wp_2,
+                data.tanggal_ba_pembahasan_wp_2
+                    ? new Date(data.tanggal_ba_pembahasan_wp_2)
+                    : null,
             );
-            setNomorBaPembahasanWp3(
-                permohonan.spid_pembahasan.nomor_ba_pembahasan_wp_3,
-            );
+            setNomorBaPembahasanWp3(data.nomor_ba_pembahasan_wp_3);
             setTanggalBaPembahasanWp3(
-                permohonan.spid_pembahasan.tanggal_ba_pembahasan_wp_3,
+                data.tanggal_ba_pembahasan_wp_3
+                    ? new Date(data.tanggal_ba_pembahasan_wp_3)
+                    : null,
             );
         }
     }, [permohonan]);
     const edit = async (e) => {
         e.preventDefault();
+        const tanggal_spid_kpp = tanggalSpidKpp
+            ? tanggalSpidKpp.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_spid_kpp_2 = tanggalSpidKpp2
+            ? tanggalSpidKpp2.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_spid_kpp_3 = tanggalSpidKpp3
+            ? tanggalSpidKpp3.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_spid_wp_1 = tanggalSpidWp1
+            ? tanggalSpidWp1.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_spid_wp_2 = tanggalSpidWp2
+            ? tanggalSpidWp2.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_spid_wp_3 = tanggalSpidWp3
+            ? tanggalSpidWp3.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_tidak_beri_dokumen = tanggalBaTidakBeriDokumen
+            ? tanggalBaTidakBeriDokumen.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_pemanggilan_pemeriksa =
+            tanggalSuratPemanggilanPemeriksa
+                ? tanggalSuratPemanggilanPemeriksa.toLocaleDateString("en-CA")
+                : null;
+        const tanggal_surat_pemanggilan_pemeriksa_2 =
+            tanggalSuratPemanggilanPemeriksa2
+                ? tanggalSuratPemanggilanPemeriksa2.toLocaleDateString("en-CA")
+                : null;
+        const tanggal_surat_pemanggilan_pemeriksa_3 =
+            tanggalSuratPemanggilanPemeriksa3
+                ? tanggalSuratPemanggilanPemeriksa3.toLocaleDateString("en-CA")
+                : null;
+        const tanggal_ba_pembahasan_pemeriksa = tanggalBaPembahasanPemeriksa
+            ? tanggalBaPembahasanPemeriksa.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_pembahasan_pemeriksa_2 = tanggalBaPembahasanPemeriksa2
+            ? tanggalBaPembahasanPemeriksa2.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_pembahasan_pemeriksa_3 = tanggalBaPembahasanPemeriksa3
+            ? tanggalBaPembahasanPemeriksa3.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_pemanggilan_wp = tanggalSuratPemanggilanWp
+            ? tanggalSuratPemanggilanWp.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_pemanggilan_wp_2 = tanggalSuratPemanggilanWp2
+            ? tanggalSuratPemanggilanWp2.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_surat_pemanggilan_wp_3 = tanggalSuratPemanggilanWp3
+            ? tanggalSuratPemanggilanWp3.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_pembahasan_wp = tanggalBaPembahasanWp
+            ? tanggalBaPembahasanWp.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_pembahasan_wp_2 = tanggalBaPembahasanWp2
+            ? tanggalBaPembahasanWp2.toLocaleDateString("en-CA")
+            : null;
+        const tanggal_ba_pembahasan_wp_3 = tanggalBaPembahasanWp3
+            ? tanggalBaPembahasanWp3.toLocaleDateString("en-CA")
+            : null;
         router.put(route("spid-pembahasan.update", permohonan.id), {
             spidKpp: spidKpp,
-            tanggalSpidKpp: tanggalSpidKpp,
+            tanggalSpidKpp: tanggal_spid_kpp,
             spidKpp2: spidKpp2,
-            tanggalSpidKpp2: tanggalSpidKpp2,
+            tanggalSpidKpp2: tanggal_spid_kpp_2,
             spidKpp3: spidKpp3,
-            tanggalSpidKpp3: tanggalSpidKpp3,
+            tanggalSpidKpp3: tanggal_spid_kpp_3,
             spidWp1: spidWp1,
-            tanggalSpidWp1: tanggalSpidWp1,
+            tanggalSpidWp1: tanggal_spid_wp_1,
             spidWp2: spidWp2,
-            tanggalSpidWp2: tanggalSpidWp2,
+            tanggalSpidWp2: tanggal_spid_wp_2,
             spidWp3: spidWp3,
-            tanggalSpidWp3: tanggalSpidWp3,
+            tanggalSpidWp3: tanggal_spid_wp_3,
             nomorBaTidakBeriDokumen: nomorBaTidakBeriDokumen,
-            tanggalBaTidakBeriDokumen: tanggalBaTidakBeriDokumen,
+            tanggalBaTidakBeriDokumen: tanggal_ba_tidak_beri_dokumen,
             nomorSuratPemanggilanPemeriksa: nomorSuratPemanggilanPemeriksa,
-            tanggalSuratPemanggilanPemeriksa: tanggalSuratPemanggilanPemeriksa,
+            tanggalSuratPemanggilanPemeriksa:
+                tanggal_surat_pemanggilan_pemeriksa,
             nomorSuratPemanggilanPemeriksa2: nomorSuratPemanggilanPemeriksa2,
             tanggalSuratPemanggilanPemeriksa2:
-                tanggalSuratPemanggilanPemeriksa2,
+                tanggal_surat_pemanggilan_pemeriksa_2,
             nomorSuratPemanggilanPemeriksa3: nomorSuratPemanggilanPemeriksa3,
             tanggalSuratPemanggilanPemeriksa3:
-                tanggalSuratPemanggilanPemeriksa3,
+                tanggal_surat_pemanggilan_pemeriksa_3,
             nomorBaPembahasanPemeriksa: nomorBaPembahasanPemeriksa,
-            tanggalBaPembahasanPemeriksa: tanggalBaPembahasanPemeriksa,
+            tanggalBaPembahasanPemeriksa: tanggal_ba_pembahasan_pemeriksa,
             nomorBaPembahasanPemeriksa2: nomorBaPembahasanPemeriksa2,
-            tanggalBaPembahasanPemeriksa2: tanggalBaPembahasanPemeriksa2,
+            tanggalBaPembahasanPemeriksa2: tanggal_ba_pembahasan_pemeriksa_2,
             nomorBaPembahasanPemeriksa3: nomorBaPembahasanPemeriksa3,
-            tanggalBaPembahasanPemeriksa3: tanggalBaPembahasanPemeriksa3,
+            tanggalBaPembahasanPemeriksa3: tanggal_ba_pembahasan_pemeriksa_3,
             nomorSuratPemanggilanWp: nomorSuratPemanggilanWp,
-            tanggalSuratPemanggilanWp: tanggalSuratPemanggilanWp,
+            tanggalSuratPemanggilanWp: tanggal_surat_pemanggilan_wp,
             nomorSuratPemanggilanWp2: nomorSuratPemanggilanWp2,
-            tanggalSuratPemanggilanWp2: tanggalSuratPemanggilanWp2,
+            tanggalSuratPemanggilanWp2: tanggal_surat_pemanggilan_wp_2,
             nomorSuratPemanggilanWp3: nomorSuratPemanggilanWp3,
-            tanggalSuratPemanggilanWp3: tanggalSuratPemanggilanWp3,
+            tanggalSuratPemanggilanWp3: tanggal_surat_pemanggilan_wp_3,
             nomorBaPembahasanWp: nomorBaPembahasanWp,
-            tanggalBaPembahasanWp: tanggalBaPembahasanWp,
+            tanggalBaPembahasanWp: tanggal_ba_pembahasan_wp,
             nomorBaPembahasanWp2: nomorBaPembahasanWp2,
-            tanggalBaPembahasanWp2: tanggalBaPembahasanWp2,
+            tanggalBaPembahasanWp2: tanggal_ba_pembahasan_wp_2,
             nomorBaPembahasanWp3: nomorBaPembahasanWp3,
-            tanggalBaPembahasanWp3: tanggalBaPembahasanWp3,
+            tanggalBaPembahasanWp3: tanggal_ba_pembahasan_wp_3,
         });
     };
 
@@ -235,9 +329,9 @@ function Edit({ errors, permohonan }) {
                     <div className="breadcrumbs text-sm">
                         <ul>
                             <li>
-                                <Link href={route("spid-pembahasan.index")}>
+                                <a href={route("spid-pembahasan.index")}>
                                     SPID dan Pembahasan
-                                </Link>
+                                </a>
                             </li>
                             <li>Edit</li>
                         </ul>
@@ -256,8 +350,11 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="TGL DITERIMA" />
-                                        <Input
-                                            value={tanggalDiterima}
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            dateFormat="dd-MM-yyyy"
                                             disabled
                                         />
                                     </label>
@@ -335,15 +432,14 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="Tanggal SPID KPP" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSpidKpp}
-                                            onChange={(e) =>
-                                                setTanggalSpidKpp(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpidKpp}
+                                            onChange={(date) =>
+                                                setTanggalSpidKpp(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpidKpp && (
                                             <Validation>
@@ -369,15 +465,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal SPID KPP 2" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSpidKpp2}
-                                            onChange={(e) =>
-                                                setTanggalSpidKpp2(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpidKpp2}
+                                            onChange={(date) =>
+                                                setTanggalSpidKpp2(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpidKpp2 && (
                                             <Validation>
@@ -403,15 +498,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal SPID KPP 3" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSpidKpp3}
-                                            onChange={(e) =>
-                                                setTanggalSpidKpp3(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpidKpp3}
+                                            onChange={(date) =>
+                                                setTanggalSpidKpp3(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpidKpp3 && (
                                             <Validation>
@@ -437,15 +531,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal SPID WP 1" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSpidWp1}
-                                            onChange={(e) =>
-                                                setTanggalSpidWp1(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpidWp1}
+                                            onChange={(date) =>
+                                                setTanggalSpidWp1(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpidWp1 && (
                                             <Validation>
@@ -471,15 +564,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal SPID WP 2" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSpidWp2}
-                                            onChange={(e) =>
-                                                setTanggalSpidWp2(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpidWp2}
+                                            onChange={(date) =>
+                                                setTanggalSpidWp2(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpidWp2 && (
                                             <Validation>
@@ -505,15 +597,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal SPID WP 3" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSpidWp3}
-                                            onChange={(e) =>
-                                                setTanggalSpidWp3(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSpidWp3}
+                                            onChange={(date) =>
+                                                setTanggalSpidWp3(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSpidWp3 && (
                                             <Validation>
@@ -541,15 +632,16 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Tidak Beri Dokumen" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalBaTidakBeriDokumen}
-                                            onChange={(e) =>
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalBaTidakBeriDokumen}
+                                            onChange={(date) =>
                                                 setTanggalBaTidakBeriDokumen(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaTidakBeriDokumen && (
                                             <Validation>
@@ -583,17 +675,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal Surat Pemanggilan Pemeriksa" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
                                                 tanggalSuratPemanggilanPemeriksa
                                             }
-                                            onChange={(e) =>
+                                            onChange={(date) =>
                                                 setTanggalSuratPemanggilanPemeriksa(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSuratPemanggilanPemeriksa && (
                                             <Validation>
@@ -628,17 +721,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal Surat Pemanggilan Pemeriksa 2" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
                                                 tanggalSuratPemanggilanPemeriksa2
                                             }
-                                            onChange={(e) =>
+                                            onChange={(date) =>
                                                 setTanggalSuratPemanggilanPemeriksa2(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSuratPemanggilanPemeriksa2 && (
                                             <Validation>
@@ -673,17 +767,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal Surat Pemanggilan Pemeriksa 3" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
                                                 tanggalSuratPemanggilanPemeriksa3
                                             }
-                                            onChange={(e) =>
+                                            onChange={(date) =>
                                                 setTanggalSuratPemanggilanPemeriksa3(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSuratPemanggilanPemeriksa3 && (
                                             <Validation>
@@ -716,15 +811,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Pembahasan Pemeriksa" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalBaPembahasanPemeriksa}
-                                            onChange={(e) =>
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
+                                                tanggalBaPembahasanPemeriksa
+                                            }
+                                            onChange={(date) =>
                                                 setTanggalBaPembahasanPemeriksa(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanPemeriksa && (
                                             <Validation>
@@ -757,17 +855,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Pembahasan Pemeriksa 2" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
                                                 tanggalBaPembahasanPemeriksa2
                                             }
-                                            onChange={(e) =>
+                                            onChange={(date) =>
                                                 setTanggalBaPembahasanPemeriksa2(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanPemeriksa2 && (
                                             <Validation>
@@ -800,17 +899,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Pembahasan Pemeriksa 3" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
                                                 tanggalBaPembahasanPemeriksa3
                                             }
-                                            onChange={(e) =>
+                                            onChange={(date) =>
                                                 setTanggalBaPembahasanPemeriksa3(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanPemeriksa3 && (
                                             <Validation>
@@ -841,15 +941,16 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal Surat Pemanggilan WP" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSuratPemanggilanWp}
-                                            onChange={(e) =>
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalSuratPemanggilanWp}
+                                            onChange={(date) =>
                                                 setTanggalSuratPemanggilanWp(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSuratPemanggilanWp && (
                                             <Validation>
@@ -882,15 +983,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal Surat Pemanggilan WP 2" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSuratPemanggilanWp2}
-                                            onChange={(e) =>
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
+                                                tanggalSuratPemanggilanWp2
+                                            }
+                                            onChange={(date) =>
                                                 setTanggalSuratPemanggilanWp2(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSuratPemanggilanWp2 && (
                                             <Validation>
@@ -923,15 +1027,18 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal Surat Pemanggilan WP 3" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalSuratPemanggilanWp3}
-                                            onChange={(e) =>
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={
+                                                tanggalSuratPemanggilanWp3
+                                            }
+                                            onChange={(date) =>
                                                 setTanggalSuratPemanggilanWp3(
-                                                    e.target.value,
+                                                    date,
                                                 )
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalSuratPemanggilanWp3 && (
                                             <Validation>
@@ -962,15 +1069,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Pembahasan WP" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalBaPembahasanWp}
-                                            onChange={(e) =>
-                                                setTanggalBaPembahasanWp(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalBaPembahasanWp}
+                                            onChange={(date) =>
+                                                setTanggalBaPembahasanWp(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanWp && (
                                             <Validation>
@@ -999,15 +1105,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Pembahasan WP 2" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalBaPembahasanWp2}
-                                            onChange={(e) =>
-                                                setTanggalBaPembahasanWp2(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalBaPembahasanWp2}
+                                            onChange={(date) =>
+                                                setTanggalBaPembahasanWp2(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanWp2 && (
                                             <Validation>
@@ -1036,15 +1141,14 @@ function Edit({ errors, permohonan }) {
                                     </label>
                                     <label className="form-control col-span-2">
                                         <Label name="Tanggal BA Pembahasan WP 3" />
-                                        <Input
-                                            className="w-1/2"
-                                            type="date"
-                                            value={tanggalBaPembahasanWp3}
-                                            onChange={(e) =>
-                                                setTanggalBaPembahasanWp3(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalBaPembahasanWp3}
+                                            onChange={(date) =>
+                                                setTanggalBaPembahasanWp3(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalBaPembahasanWp3 && (
                                             <Validation>

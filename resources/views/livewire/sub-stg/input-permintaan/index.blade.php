@@ -23,7 +23,7 @@
             <table class="table table-xs">
                 <thead>
                     <tr>
-                        <th>NOMOR URUT</th>
+                        <th>No</th>
                         <th>NOMOR SURAT PP</th>
                         <th>TGL SURAT PP</th>
                         <th>NOMOR SENGKETA</th>
@@ -37,7 +37,7 @@
                 <tbody>
                     @foreach ($permintaan as $key => $item)
                         <tr wire:key="{{ $item->id }}">
-                            <th>{{ $item->nomor_urut }}</th>
+                            <th>{{ $permintaan->firstItem() + $key }}</th>
                             <th>{{ $item->nomor_surat_pp }}</th>
                             <th>{{ $item->tgl_surat_pp }}</th>
                             <th>{{ $item->nomor_sengketa }}</th>

@@ -3,11 +3,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
-import Select from "@/Components/Select.jsx";
 import Validation from "@/Components/Validation.jsx";
+import DatePicker from "react-datepicker";
+import Select from "react-select";
 function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
     const nomorLpad = permohonan.nomor_lpad;
-    const tanggalDiterima = permohonan.tanggal_diterima;
+    const tanggalDiterima = permohonan.tanggal_diterima
+        ? new Date(permohonan.tanggal_diterima)
+        : null;
 
     const namaWp = permohonan.nama_wp;
     const npwp = permohonan.npwp;
@@ -18,17 +21,20 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
     const tahunPajak = permohonan.tahun_pajak;
     const nomorKetetapan = permohonan.nomor_ketetapan;
 
-    const [alasanWp, setAlasanWp] = useState("");
-    const [pemenuhanKriteria, setPemenuhanKriteria] = useState("");
+    const [alasanWp, setAlasanWp] = useState(null);
+    const [pemenuhanKriteria, setPemenuhanKriteria] = useState(null);
 
     useEffect(() => {
         if (permohonan.kriteria_permohonan != null) {
-            setAlasanWp(permohonan.kriteria_permohonan.alasan_id);
-            setPemenuhanKriteria(
-                permohonan.kriteria_permohonan.pemenuhan_kriteria_id,
-            );
+            const data = permohonan.kriteria_permohonan;
+            setAlasanWp(JSON.parse(data.alasan_id));
+            setPemenuhanKriteria(JSON.parse(data.pemenuhan_kriteria_id));
         }
     }, [permohonan]);
+
+    useEffect(() => {
+        console.log(alasanWp);
+    }, [alasanWp, pemenuhanKriteria]);
     const edit = async (e) => {
         e.preventDefault();
         router.put(route("kriteria-permohonan.update", permohonan.id), {
@@ -66,8 +72,11 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="TGL DITERIMA (TGL LPAD/TGL CAP POS)" />
-                                        <Input
-                                            value={tanggalDiterima}
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            dateFormat="dd-MM-yyyy"
                                             disabled
                                         />
                                     </label>
@@ -125,21 +134,11 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
                                     >
                                         <Label name="Alasan WP" />
                                         <Select
+                                            isMulti
                                             value={alasanWp}
-                                            onChange={(e) =>
-                                                setAlasanWp(e.target.value)
-                                            }
-                                        >
-                                            <option value="">Pilih 1</option>
-                                            {alasan_all.map((item, index) => (
-                                                <option
-                                                    key={item.id}
-                                                    value={item.id}
-                                                >
-                                                    {item.nama}
-                                                </option>
-                                            ))}
-                                        </Select>
+                                            onChange={setAlasanWp}
+                                            options={alasan_all}
+                                        />
                                         {errors.alasanWp && (
                                             <Validation>
                                                 {errors.alasanWp}
@@ -151,25 +150,11 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
                                     >
                                         <Label name="Pemenuhan Kriteria" />
                                         <Select
+                                            isMulti
                                             value={pemenuhanKriteria}
-                                            onChange={(e) =>
-                                                setPemenuhanKriteria(
-                                                    e.target.value,
-                                                )
-                                            }
-                                        >
-                                            <option value="">Pilih 1</option>
-                                            {pemenuhan_kriteria_all.map(
-                                                (item, index) => (
-                                                    <option
-                                                        key={item.id}
-                                                        value={item.id}
-                                                    >
-                                                        {item.nama}
-                                                    </option>
-                                                ),
-                                            )}
-                                        </Select>
+                                            onChange={setPemenuhanKriteria}
+                                            options={pemenuhan_kriteria_all}
+                                        />
                                         {errors.pemenuhanKriteria && (
                                             <Validation>
                                                 {errors.pemenuhanKriteria}

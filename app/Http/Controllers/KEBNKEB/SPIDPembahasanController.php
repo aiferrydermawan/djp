@@ -7,6 +7,7 @@ use App\Http\Resources\PermohonanResource;
 use App\Models\Permohonan;
 use App\Models\SpidPembahasan;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SPIDPembahasanController extends Controller
 {
@@ -137,6 +138,6 @@ class SPIDPembahasanController extends Controller
 
         session()->flash('success', 'Data berhasil diperbarui');
 
-        return to_route('spid-pembahasan.index');
+        return Inertia::location(route('spid-pembahasan.index'));
     }
 }

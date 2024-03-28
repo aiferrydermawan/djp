@@ -7,6 +7,7 @@ use App\Http\Resources\PermohonanResource;
 use App\Models\PenelitianFormal;
 use App\Models\Permohonan;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PenelitianFormalController extends Controller
 {
@@ -60,6 +61,6 @@ class PenelitianFormalController extends Controller
 
         session()->flash('success', 'Data berhasil diperbarui');
 
-        return to_route('penelitian-formal.index');
+        return Inertia::location(route('penelitian-formal.index'));
     }
 }

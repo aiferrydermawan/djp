@@ -6,31 +6,62 @@ import NPWPInput from "@/Components/NPWPInput.jsx";
 import Validation from "@/Components/Validation.jsx";
 import Input from "@/Components/Input.jsx";
 import Select from "@/Components/Select.jsx";
+import DatePicker from "react-datepicker";
 
 function Create({ errors, pk_all, permintaan }) {
     const [npwp, setNpwp] = useState(permintaan.npwp);
+    const [tglSuratPp, setTglSuratPp] = useState(
+        permintaan.tgl_surat_pp ? new Date(permintaan.tgl_surat_pp) : null,
+    );
+    const [tglResiPp, setTglResiPp] = useState(
+        permintaan.tgl_resi_pp ? new Date(permintaan.tgl_resi_pp) : null,
+    );
+    const [tglDiterimaKanwil, setTglDiterimaKanwil] = useState(
+        permintaan.tgl_diterima_kanwil
+            ? new Date(permintaan.tgl_diterima_kanwil)
+            : null,
+    );
+    const [tglSuratBandingGugatan, setTglSuratBandingGugatan] = useState(
+        permintaan.tgl_surat_banding_gugatan
+            ? new Date(permintaan.tgl_surat_banding_gugatan)
+            : null,
+    );
+    const [tglDiterimaPp, setTglDiterimaPp] = useState(
+        permintaan.tgl_diterima_pp
+            ? new Date(permintaan.tgl_diterima_pp)
+            : null,
+    );
+    const [tglKepSuratYangDiBandingGugat, setTglKepSuratYangDiBandingGugat] =
+        useState(
+            permintaan.tgl_kep_surat_yang_di_banding_gugat
+                ? new Date(permintaan.tgl_kep_surat_yang_di_banding_gugat)
+                : null,
+        );
+    const [tglSuratTugas, setTglSuratTugas] = useState(
+        permintaan.tgl_surat_tugas
+            ? new Date(permintaan.tgl_surat_tugas)
+            : null,
+    );
+    const [tglMatriks, setTglMatriks] = useState(
+        permintaan.tgl_matriks ? new Date(permintaan.tgl_matriks) : null,
+    );
+    const [tglSuratTugasPengganti, setTglSuratTugasPengganti] = useState(
+        permintaan.tgl_surat_tugas_pengganti
+            ? new Date(permintaan.tgl_surat_tugas_pengganti)
+            : null,
+    );
     const [formData, setFormData] = useState({
         nomor_surat_pp: permintaan.nomor_surat_pp,
-        tgl_surat_pp: permintaan.tgl_surat_pp,
-        tgl_resi_pp: permintaan.tgl_resi_pp,
-        tgl_diterima_kanwil: permintaan.tgl_diterima_kanwil,
         nomor_sengketa: permintaan.nomor_sengketa,
         jenis_sengketa: permintaan.jenis_sengketa,
         nama_wajib_pajak: permintaan.nama_wajib_pajak,
         nomor_surat_banding_gugatan_wp:
             permintaan.nomor_surat_banding_gugatan_wp,
-        tgl_surat_banding_gugatan: permintaan.tgl_surat_banding_gugatan,
-        tgl_diterima_pp: permintaan.tgl_diterima_pp,
         nomor_kep_surat_yang_di_banding_gugat:
             permintaan.nomor_kep_surat_yang_di_banding_gugat,
-        tgl_kep_surat_yang_di_banding_gugat:
-            permintaan.tgl_kep_surat_yang_di_banding_gugat,
         no_surat_tugas: permintaan.no_surat_tugas,
-        tgl_surat_tugas: permintaan.tgl_surat_tugas,
         no_matriks: permintaan.no_matriks,
-        tgl_matriks: permintaan.tgl_matriks,
         no_surat_tugas_pengganti: permintaan.no_surat_tugas_pengganti,
-        tgl_surat_tugas_pengganti: permintaan.tgl_surat_tugas_pengganti,
         pk: permintaan.pk_id,
     });
 
@@ -44,29 +75,57 @@ function Create({ errors, pk_all, permintaan }) {
 
     const store = async (e) => {
         e.preventDefault();
+        const tgl_surat_pp = tglSuratPp
+            ? tglSuratPp.toLocaleDateString("en-CA")
+            : null;
+        const tgl_resi_pp = tglResiPp
+            ? tglResiPp.toLocaleDateString("en-CA")
+            : null;
+        const tgl_diterima_kanwil = tglDiterimaKanwil
+            ? tglDiterimaKanwil.toLocaleDateString("en-CA")
+            : null;
+        const tgl_surat_banding_gugatan = tglSuratBandingGugatan
+            ? tglSuratBandingGugatan.toLocaleDateString("en-CA")
+            : null;
+        const tgl_diterima_pp = tglDiterimaPp
+            ? tglDiterimaPp.toLocaleDateString("en-CA")
+            : null;
+        const tgl_kep_surat_yang_di_banding_gugat =
+            tglKepSuratYangDiBandingGugat
+                ? tglKepSuratYangDiBandingGugat.toLocaleDateString("en-CA")
+                : null;
+        const tgl_surat_tugas = tglSuratTugas
+            ? tglSuratTugas.toLocaleDateString("en-CA")
+            : null;
+        const tgl_matriks = tglMatriks
+            ? tglMatriks.toLocaleDateString("en-CA")
+            : null;
+        const tgl_surat_tugas_pengganti = tglSuratTugasPengganti
+            ? tglSuratTugasPengganti.toLocaleDateString("en-CA")
+            : null;
         router.put(route("input-permintaan.update", permintaan.id), {
             nomor_surat_pp: formData.nomor_surat_pp,
-            tgl_surat_pp: formData.tgl_surat_pp,
-            tgl_resi_pp: formData.tgl_resi_pp,
-            tgl_diterima_kanwil: formData.tgl_diterima_kanwil,
+            tgl_surat_pp: tgl_surat_pp,
+            tgl_resi_pp: tgl_resi_pp,
+            tgl_diterima_kanwil: tgl_diterima_kanwil,
             nomor_sengketa: formData.nomor_sengketa,
             jenis_sengketa: formData.jenis_sengketa,
             npwp: npwp,
             nama_wajib_pajak: formData.nama_wajib_pajak,
             nomor_surat_banding_gugatan_wp:
                 formData.nomor_surat_banding_gugatan_wp,
-            tgl_surat_banding_gugatan: formData.tgl_surat_banding_gugatan,
-            tgl_diterima_pp: formData.tgl_diterima_pp,
+            tgl_surat_banding_gugatan: tgl_surat_banding_gugatan,
+            tgl_diterima_pp: tgl_diterima_pp,
             nomor_kep_surat_yang_di_banding_gugat:
                 formData.nomor_kep_surat_yang_di_banding_gugat,
             tgl_kep_surat_yang_di_banding_gugat:
-                formData.tgl_kep_surat_yang_di_banding_gugat,
+                tgl_kep_surat_yang_di_banding_gugat,
             no_surat_tugas: formData.no_surat_tugas,
-            tgl_surat_tugas: formData.tgl_surat_tugas,
+            tgl_surat_tugas: tgl_surat_tugas,
             no_matriks: formData.no_matriks,
-            tgl_matriks: formData.tgl_matriks,
+            tgl_matriks: tgl_matriks,
             no_surat_tugas_pengganti: formData.no_surat_tugas_pengganti,
-            tgl_surat_tugas_pengganti: formData.tgl_surat_tugas_pengganti,
+            tgl_surat_tugas_pengganti: tgl_surat_tugas_pengganti,
             pk: formData.pk,
         });
     };
@@ -109,12 +168,12 @@ function Create({ errors, pk_all, permintaan }) {
                                 <div className="col-span-1"></div>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT PP" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_pp"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_surat_pp}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratPp}
+                                        onChange={(date) => setTglSuratPp(date)}
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_surat_pp && (
                                         <Validation>
@@ -124,12 +183,12 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL RESI PP" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_resi_pp"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_resi_pp}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglResiPp}
+                                        onChange={(date) => setTglResiPp(date)}
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_resi_pp && (
                                         <Validation>
@@ -139,12 +198,14 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL DITERIMA KANWIL" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_diterima_kanwil"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_diterima_kanwil}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglDiterimaKanwil}
+                                        onChange={(date) =>
+                                            setTglDiterimaKanwil(date)
+                                        }
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_diterima_kanwil && (
                                         <Validation>
@@ -231,14 +292,14 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT BANDING/GUGATAN" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_banding_gugatan"
-                                        placeholder="Type Here"
-                                        value={
-                                            formData.tgl_surat_banding_gugatan
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratBandingGugatan}
+                                        onChange={(date) =>
+                                            setTglSuratBandingGugatan(date)
                                         }
-                                        onChange={handleChange}
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_surat_banding_gugatan && (
                                         <Validation>
@@ -248,12 +309,14 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL DITERIMA PP" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_diterima_pp"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_diterima_pp}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglDiterimaPp}
+                                        onChange={(date) =>
+                                            setTglDiterimaPp(date)
+                                        }
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_diterima_pp && (
                                         <Validation>
@@ -283,14 +346,16 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL KEP/SURAT YANG DI BANDING/GUGAT" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_kep_surat_yang_di_banding_gugat"
-                                        placeholder="Type Here"
-                                        value={
-                                            formData.tgl_kep_surat_yang_di_banding_gugat
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglKepSuratYangDiBandingGugat}
+                                        onChange={(date) =>
+                                            setTglKepSuratYangDiBandingGugat(
+                                                date,
+                                            )
                                         }
-                                        onChange={handleChange}
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_kep_surat_yang_di_banding_gugat && (
                                         <Validation>
@@ -317,12 +382,14 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT TUGAS" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_tugas"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_surat_tugas}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratTugas}
+                                        onChange={(date) =>
+                                            setTglSuratTugas(date)
+                                        }
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_surat_tugas && (
                                         <Validation>
@@ -347,12 +414,12 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL MATRIKS" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_matriks"
-                                        placeholder="Type Here"
-                                        value={formData.tgl_matriks}
-                                        onChange={handleChange}
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglMatriks}
+                                        onChange={(date) => setTglMatriks(date)}
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_matriks && (
                                         <Validation>
@@ -379,14 +446,14 @@ function Create({ errors, pk_all, permintaan }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="TGL SURAT TUGAS PENGGANTI" />
-                                    <Input
-                                        type="date"
-                                        name="tgl_surat_tugas_pengganti"
-                                        placeholder="Type Here"
-                                        value={
-                                            formData.tgl_surat_tugas_pengganti
+                                    <DatePicker
+                                        placeholderText="kosong"
+                                        className="input input-bordered w-full"
+                                        selected={tglSuratTugasPengganti}
+                                        onChange={(date) =>
+                                            setTglSuratTugasPengganti(date)
                                         }
-                                        onChange={handleChange}
+                                        dateFormat="dd-MM-yyyy"
                                     />
                                     {errors.tgl_surat_tugas_pengganti && (
                                         <Validation>

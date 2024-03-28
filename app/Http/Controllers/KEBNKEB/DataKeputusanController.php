@@ -8,6 +8,7 @@ use App\Models\DataKeputusan;
 use App\Models\Permohonan;
 use App\Models\Referensi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DataKeputusanController extends Controller
 {
@@ -67,13 +68,13 @@ class DataKeputusanController extends Controller
                 'no_keputusan' => $request->noKeputusan,
                 'tanggal_keputusan' => $request->tanggalKeputusan,
                 'amar_keputusan_id' => $request->amarKeputusanId,
-                'nilai_akhir_menurut_keputusan' => $request->nilaiAkhirMenurutKeputusan,
+                'nilai_akhir_menurut_keputusan' => str_replace('.', '', $request->nilaiAkhirMenurutKeputusan),
                 'pembuat' => auth()->user()->id,
             ]
         );
 
         session()->flash('success', 'Data berhasil diperbarui');
 
-        return to_route('data-keputusan.index');
+        return Inertia::location(route('data-keputusan.index'));
     }
 }

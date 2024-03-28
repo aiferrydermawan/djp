@@ -15,10 +15,9 @@ class Index extends Component
     public function render()
     {
         $permintaan = Permintaan::query()->with(['penelaahKeberatan.detail.organisasi', 'pengiriman'])->has('suratJawaban');
-        $permintaan->orderBy('nomor_urut', 'desc');
 
         return view('livewire.sub-stg.pengiriman.index', [
-            'permintaan' => $permintaan->paginate(10),
+            'permintaan' => $permintaan->latest()->paginate(10),
         ]);
     }
 }

@@ -5,13 +5,13 @@ import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
 import Select from "@/Components/Select.jsx";
 import Validation from "@/Components/Validation.jsx";
+import DatePicker from "react-datepicker";
 function Edit({ errors, permohonan }) {
-    console.log(permohonan);
     const [status, setStatus] = useState("");
     const [nomorLpad, setNomorLpad] = useState(permohonan.nomor_lpad);
-    const [tanggalDiterima, setTanggalDiterima] = useState(
-        permohonan.tanggal_diterima,
-    );
+    const tanggalDiterima = permohonan.tanggal_diterima
+        ? new Date(permohonan.tanggal_diterima)
+        : null;
     const [namaWp, setNamaWp] = useState(permohonan.nama_wp);
     const [npwp, setNpwp] = useState(permohonan.npwp);
     const [jenisPermohonan, setJenisPermohonan] = useState(
@@ -67,8 +67,11 @@ function Edit({ errors, permohonan }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="TGL DITERIMA (TGL LPAD/TGL CAP POS)" />
-                                        <Input
-                                            value={tanggalDiterima}
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            dateFormat="dd-MM-yyyy"
                                             disabled
                                         />
                                     </label>

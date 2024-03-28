@@ -5,11 +5,18 @@ import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
 import Select from "@/Components/Select.jsx";
 import Validation from "@/Components/Validation.jsx";
+import DatePicker from "react-datepicker";
+import NumberInput from "@/Components/NumberInput.jsx";
 function Edit({ errors, permohonan, amar_putusan_all }) {
+    const formatNumber = (value) => {
+        const numbers = value.toString().replace(/\D/g, ""); // Make sure value is a string
+        return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    };
+
     const [nomorLpad, setNomorLpad] = useState(permohonan.nomor_lpad);
-    const [tanggalDiterima, setTanggalDiterima] = useState(
-        permohonan.tanggal_diterima,
-    );
+    const tanggalDiterima = permohonan.tanggal_diterima
+        ? new Date(permohonan.tanggal_diterima)
+        : null;
     const [namaWp, setNamaWp] = useState(permohonan.nama_wp);
     const [npwp, setNpwp] = useState(permohonan.npwp);
     const [jenisPermohonan, setJenisPermohonan] = useState(
@@ -31,21 +38,29 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
 
     useEffect(() => {
         if (permohonan.data_keputusan != null) {
-            setJenisKeputusan(permohonan.data_keputusan.jenis_keputusan);
-            setNoKeputusan(permohonan.data_keputusan.no_keputusan);
-            setTanggalKeputusan(permohonan.data_keputusan.tanggal_keputusan);
-            setAmarKeputusanId(permohonan.data_keputusan.amar_keputusan_id);
+            const data = permohonan.data_keputusan;
+            setJenisKeputusan(data.jenis_keputusan);
+            setNoKeputusan(data.no_keputusan);
+            setTanggalKeputusan(
+                data.tanggal_keputusan
+                    ? new Date(data.tanggal_keputusan)
+                    : null,
+            );
+            setAmarKeputusanId(data.amar_keputusan_id);
             setNilaiAkhirMenurutKeputusan(
-                permohonan.data_keputusan.nilai_akhir_menurut_keputusan,
+                formatNumber(data.nilai_akhir_menurut_keputusan),
             );
         }
     }, [permohonan]);
     const edit = async (e) => {
         e.preventDefault();
+        const tanggal_keputusan = tanggalKeputusan
+            ? tanggalKeputusan.toLocaleDateString("en-CA")
+            : null;
         router.put(route("data-keputusan.update", permohonan.id), {
             jenisKeputusan: jenisKeputusan,
             noKeputusan: noKeputusan,
-            tanggalKeputusan: tanggalKeputusan,
+            tanggalKeputusan: tanggal_keputusan,
             amarKeputusanId: amarKeputusanId,
             nilaiAkhirMenurutKeputusan: nilaiAkhirMenurutKeputusan,
         });
@@ -80,8 +95,11 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                         className={`form-control col-span-2`}
                                     >
                                         <Label name="TGL DITERIMA (TGL LPAD/TGL CAP POS)" />
-                                        <Input
-                                            value={tanggalDiterima}
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalDiterima}
+                                            dateFormat="dd-MM-yyyy"
                                             disabled
                                         />
                                     </label>
@@ -139,7 +157,6 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                     >
                                         <Label name="Jenis Keputusan" />
                                         <Select
-                                            type="date"
                                             value={jenisKeputusan}
                                             onChange={(e) =>
                                                 setJenisKeputusan(
@@ -183,14 +200,14 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Tanggal Keputusan" />
-                                        <Input
-                                            type="date"
-                                            value={tanggalKeputusan}
-                                            onChange={(e) =>
-                                                setTanggalKeputusan(
-                                                    e.target.value,
-                                                )
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalKeputusan}
+                                            onChange={(date) =>
+                                                setTanggalKeputusan(date)
                                             }
+                                            dateFormat="dd-MM-yyyy"
                                         />
                                         {errors.tanggalKeputusan && (
                                             <Validation>
@@ -233,15 +250,14 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                         className={`form-control col-span-1`}
                                     >
                                         <Label name="Nilai Akhir Menurut Keputusan" />
-                                        <Input
-                                            type="text"
+                                        <NumberInput
                                             value={nilaiAkhirMenurutKeputusan}
-                                            onChange={(e) =>
+                                            placeholder="Kosong"
+                                            onChange={(formattedValue) =>
                                                 setNilaiAkhirMenurutKeputusan(
-                                                    e.target.value,
+                                                    formattedValue,
                                                 )
                                             }
-                                            placeholder="Kosong"
                                         />
                                         {errors.nilaiAkhirMenurutKeputusan && (
                                             <Validation>
