@@ -28,9 +28,7 @@ class Index extends Component
             'pelaksana.detail.organisasi',
             'dataKeputusan',
         ])
-            ->whereHas('penelitianFormal', function ($query) {
-                $query->where('status', 'ya');
-            })
+            ->has('penelitianFormal')
             ->where(function ($query) use ($user_id) {
                 $query->where('nama_pk', $user_id)
                     ->whereNull('nama_pk_2');

@@ -27,10 +27,41 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
     useEffect(() => {
         if (permohonan.kriteria_permohonan != null) {
             const data = permohonan.kriteria_permohonan;
-            setAlasanWp(JSON.parse(data.alasan_id));
-            setPemenuhanKriteria(JSON.parse(data.pemenuhan_kriteria_id));
+            const alasanAll = [data.alasan_1, data.alasan_2, data.alasan_3];
+            const pemenuhanKriteriaAll = [
+                data.pemenuhan_kriteria_1,
+                data.pemenuhan_kriteria_2,
+                data.pemenuhan_kriteria_3,
+            ];
+            const modified = alasanAll
+                .filter((item) => item !== null)
+                .map((item) => ({
+                    label: item,
+                    value: item,
+                }));
+            setAlasanWp(modified);
+            const modified2 = pemenuhanKriteriaAll
+                .filter((item) => item !== null)
+                .map((item) => ({
+                    label: item,
+                    value: item,
+                }));
+            setPemenuhanKriteria(modified2);
         }
     }, [permohonan]);
+
+    const handleChange1 = (selected) => {
+        // Batasi jumlah opsi yang bisa dipilih menjadi maksimal 3
+        if (selected.length <= 3) {
+            setAlasanWp(selected);
+        }
+    };
+    const handleChange2 = (selected) => {
+        // Batasi jumlah opsi yang bisa dipilih menjadi maksimal 3
+        if (selected.length <= 3) {
+            setPemenuhanKriteria(selected);
+        }
+    };
 
     useEffect(() => {
         console.log(alasanWp);
@@ -136,7 +167,7 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
                                         <Select
                                             isMulti
                                             value={alasanWp}
-                                            onChange={setAlasanWp}
+                                            onChange={handleChange1}
                                             options={alasan_all}
                                         />
                                         {errors.alasanWp && (
@@ -152,7 +183,7 @@ function Edit({ errors, permohonan, alasan_all, pemenuhan_kriteria_all }) {
                                         <Select
                                             isMulti
                                             value={pemenuhanKriteria}
-                                            onChange={setPemenuhanKriteria}
+                                            onChange={handleChange2}
                                             options={pemenuhan_kriteria_all}
                                         />
                                         {errors.pemenuhanKriteria && (

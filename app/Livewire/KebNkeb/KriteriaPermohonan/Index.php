@@ -28,7 +28,7 @@ class Index extends Component
             'pelaksana.detail.organisasi',
             'kriteriaPermohonan',
         ])
-            ->whereHas('dataKeputusan')
+            ->Has('dataKeputusan')
             ->where(function ($query) use ($user_id) {
                 $query->where('nama_pk', $user_id)
                     ->whereNull('nama_pk_2');

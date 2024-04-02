@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\KEBNKEB;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PermohonanResource;
 use App\Models\KriteriaPermohonan;
 use App\Models\Permohonan;
 use App\Models\Referensi;
@@ -12,34 +11,6 @@ use Inertia\Inertia;
 
 class KriteriaPermohonanController extends Controller
 {
-    public $loadDefault = 10;
-
-    public function index(Request $request)
-    {
-        $user_id = auth()->user()->id;
-        $query = Permohonan::query();
-        $permohonanAll = PermohonanResource::collection($query->with([
-            'jenisPermohonan',
-            'jenisPajak',
-            'penelaahKeberatan.detail.organisasi',
-            'pelaksana.detail.organisasi',
-            // Batas
-            'kriteriaPermohonan',
-        ])
-            ->whereHas('dataKeputusan')
-            ->where(function ($query) use ($user_id) {
-                $query->where('nama_pk', $user_id)
-                    ->whereNull('nama_pk_2');
-            })->orWhere(function ($query) use ($user_id) {
-                $query->where('nama_pk_2', $user_id);
-            })->latest()
-            ->paginate($this->loadDefault));
-
-        return inertia('KriteriaPermohonan/Index', [
-            'permohonanAll' => $permohonanAll,
-        ]);
-    }
-
     public function edit($id)
     {
         $permohonan = Permohonan::with(['jenisPermohonan', 'jenisPajak', 'kriteriaPermohonan'])->find($id);
@@ -58,11 +29,17 @@ class KriteriaPermohonanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $alasanWp = array_column($request->alasanWp, 'value');
+        $pemenuhanKriteria = array_column($request->pemenuhanKriteria, 'value');
         KriteriaPermohonan::updateOrCreate(
             ['permohonan_id' => $id],
             [
-                'alasan_id' => json_encode($request->alasanWp),
-                'pemenuhan_kriteria_id' => json_encode($request->pemenuhanKriteria),
+                'alasan_1' => $alasanWp[0] ?? null,
+                'alasan_2' => $alasanWp[1] ?? null,
+                'alasan_3' => $alasanWp[2] ?? null,
+                'pemenuhan_kriteria_1' => $pemenuhanKriteria[0] ?? null,
+                'pemenuhan_kriteria_2' => $pemenuhanKriteria[1] ?? null,
+                'pemenuhan_kriteria_3' => $pemenuhanKriteria[2] ?? null,
                 'pembuat' => auth()->user()->id,
             ]
         );
