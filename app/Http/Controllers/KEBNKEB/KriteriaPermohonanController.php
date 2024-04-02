@@ -29,8 +29,8 @@ class KriteriaPermohonanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $alasanWp = array_column($request->alasanWp, 'value');
-        $pemenuhanKriteria = array_column($request->pemenuhanKriteria, 'value');
+        $alasanWp = array_column($request->alasanWp ?? [], 'value');
+        $pemenuhanKriteria = array_column($request->pemenuhanKriteria ?? [], 'value');
         KriteriaPermohonan::updateOrCreate(
             ['permohonan_id' => $id],
             [
