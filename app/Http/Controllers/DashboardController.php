@@ -44,13 +44,13 @@ class DashboardController extends Controller
             $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
         }
 
-        if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            });
-        }
+        //        if ($jabatan == 'kepala seksi') {
+        //            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            });
+        //        }
 
         return $permohonan->get();
     }
@@ -67,13 +67,13 @@ class DashboardController extends Controller
             $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
         }
 
-        if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            });
-        }
+        //        if ($jabatan == 'kepala seksi') {
+        //            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            });
+        //        }
 
         return $permohonan->get();
     }
@@ -87,13 +87,13 @@ class DashboardController extends Controller
             $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
         }
 
-        if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            });
-        }
+        //        if ($jabatan == 'kepala seksi') {
+        //            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            });
+        //        }
 
         return $permohonan->doesntHave('dataPengiriman')->count();
     }
@@ -106,6 +106,14 @@ class DashboardController extends Controller
         if ($jabatan == 'penelaah keberatan') {
             $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
         }
+
+        //        if ($jabatan == 'kepala seksi') {
+        //            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            });
+        //        }
 
         $permohonan->doesntHave('dataPengiriman')->whereMonth('tanggal_berakhir', '=', Carbon::now()->month)
             ->whereYear('tanggal_berakhir', '=', Carbon::now()->year)
@@ -121,13 +129,13 @@ class DashboardController extends Controller
             $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
         }
 
-        if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            });
-        }
+        //        if ($jabatan == 'kepala seksi') {
+        //            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+        //                $query->where('jabatan', $jabatan);
+        //            });
+        //        }
 
         return $permohonan->doesntHave('dataPengiriman')
             ->whereMonth('tanggal_berakhir', '=', Carbon::now()->addMonth())
