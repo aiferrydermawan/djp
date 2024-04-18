@@ -8,7 +8,7 @@
         <input
             wire:model.lazy="search"
             type="text"
-            placeholder="Nomor LPAD"
+            placeholder="Nomor LPAD & NPWP"
             class="input input-bordered w-full max-w-xs"
         />
     </div>

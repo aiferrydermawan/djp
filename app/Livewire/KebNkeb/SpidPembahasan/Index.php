@@ -21,7 +21,7 @@ class Index extends Component
     {
         $user_id = auth()->user()->id;
         $query = Permohonan::query();
-        $query->where('nomor_lpad', 'like', '%'.$this->search.'%');
+        $query->where('nomor_lpad', 'like', '%'.$this->search.'%')->orWhere('npwp', 'like', '%'.$this->search.'%');
         $permohonan_all = $query->with([
             'jenisPermohonan',
             'jenisPajak',
