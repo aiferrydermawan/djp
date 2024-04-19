@@ -21,21 +21,27 @@ class Index extends Component
     {
         $user_id = auth()->user()->id;
         $query = Permohonan::query();
-        $query->where('nomor_lpad', 'like', '%'.$this->search.'%')->orWhere('npwp', 'like', '%'.$this->search.'%');
-        $permohonan_all = $query->with([
-            'jenisPermohonan',
-            'jenisPajak',
-            'pelaksana.detail.organisasi',
-            'penelaahKeberatan.detail.organisasi',
-        ])
-            ->doesntHave('dataPengiriman')
+        $query->where(function ($query) {
+            $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
+                ->orWhere('npwp', 'like', '%'.$this->search.'%');
+        })
             ->where(function ($query) use ($user_id) {
-                $query->where('nama_pk', $user_id)
-                    ->whereNull('nama_pk_2');
-            })->orWhere(function ($query) use ($user_id) {
-                $query->where('nama_pk_2', $user_id);
-            })->orderBy('tanggal_berakhir', 'asc')
-            ->paginate(10);
+                $query->where(function ($query) use ($user_id) {
+                    $query->where('nama_pk', $user_id)
+                        ->whereNull('nama_pk_2');
+                })
+                    ->orWhere('nama_pk_2', $user_id);
+            })
+            ->with([
+                'jenisPermohonan',
+                'jenisPajak',
+                'pelaksana.detail.organisasi',
+                'penelaahKeberatan.detail.organisasi',
+            ])
+            ->doesntHave('dataPengiriman')
+            ->orderBy('tanggal_berakhir', 'asc');
+
+        $permohonan_all = $query->paginate(10);
 
         return view('livewire.statistik.list-tunggakan-keb-n-keb.index', [
             'permohonan_all' => $permohonan_all,

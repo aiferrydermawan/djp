@@ -40,8 +40,14 @@ class DashboardController extends Controller
             ->with('jenisPermohonan')
             ->doesntHave('dataPengiriman');
 
-        if ($jabatan == 'penelaah keberatan') {
-            $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where('nama_pk', $user_id)
+                    ->orWhere(function ($query) use ($user_id) {
+                        $query->where('nama_pk_2', $user_id)
+                            ->whereNotNull('nama_pk_2');
+                    });
+            });
         }
 
         //        if ($jabatan == 'kepala seksi') {
@@ -63,8 +69,14 @@ class DashboardController extends Controller
             ->select('jenis_permohonan', DB::raw('COUNT(*) as total'))->groupBy('jenis_permohonan')
             ->with('jenisPermohonan');
 
-        if ($jabatan == 'penelaah keberatan') {
-            $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where('nama_pk', $user_id)
+                    ->orWhere(function ($query) use ($user_id) {
+                        $query->where('nama_pk_2', $user_id)
+                            ->whereNotNull('nama_pk_2');
+                    });
+            });
         }
 
         //        if ($jabatan == 'kepala seksi') {
@@ -83,8 +95,14 @@ class DashboardController extends Controller
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
 
-        if ($jabatan == 'penelaah keberatan') {
-            $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where('nama_pk', $user_id)
+                    ->orWhere(function ($query) use ($user_id) {
+                        $query->where('nama_pk_2', $user_id)
+                            ->whereNotNull('nama_pk_2');
+                    });
+            });
         }
 
         //        if ($jabatan == 'kepala seksi') {
@@ -103,8 +121,14 @@ class DashboardController extends Controller
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
 
-        if ($jabatan == 'penelaah keberatan') {
-            $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where('nama_pk', $user_id)
+                    ->orWhere(function ($query) use ($user_id) {
+                        $query->where('nama_pk_2', $user_id)
+                            ->whereNotNull('nama_pk_2');
+                    });
+            });
         }
 
         //        if ($jabatan == 'kepala seksi') {
@@ -125,8 +149,14 @@ class DashboardController extends Controller
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
 
-        if ($jabatan == 'penelaah keberatan') {
-            $permohonan->where('nama_pk', $user_id)->orWhere('nama_pk_2', $user_id);
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where('nama_pk', $user_id)
+                    ->orWhere(function ($query) use ($user_id) {
+                        $query->where('nama_pk_2', $user_id)
+                            ->whereNotNull('nama_pk_2');
+                    });
+            });
         }
 
         //        if ($jabatan == 'kepala seksi') {
