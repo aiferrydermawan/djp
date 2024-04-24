@@ -27,6 +27,10 @@ class Index extends Component
         }
 
         $query = Permohonan::query();
+        $query->where(function ($query) {
+            $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
+                ->orWhere('npwp', 'like', '%'.$this->search.'%');
+        });
         $query->with([
             'jenisPermohonan',
             'jenisPajak',
@@ -45,9 +49,7 @@ class Index extends Component
         }
 
         if ($jabatan == 'kepala seksi') {
-            $query->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            $query->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }

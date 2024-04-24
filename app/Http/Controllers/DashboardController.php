@@ -53,8 +53,6 @@ class DashboardController extends Controller
         if ($jabatan == 'kepala seksi') {
             $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
             });
         }
 
@@ -82,8 +80,6 @@ class DashboardController extends Controller
         if ($jabatan == 'kepala seksi') {
             $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
             });
         }
 
@@ -107,8 +103,6 @@ class DashboardController extends Controller
 
         if ($jabatan == 'kepala seksi') {
             $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
@@ -154,8 +148,6 @@ class DashboardController extends Controller
 
         if ($jabatan == 'kepala seksi') {
             $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
-            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
