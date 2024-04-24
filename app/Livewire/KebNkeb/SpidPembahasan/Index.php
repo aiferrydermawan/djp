@@ -3,6 +3,7 @@
 namespace App\Livewire\KebNkeb\SpidPembahasan;
 
 use App\Models\Permohonan;
+use App\Models\UserDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,18 @@ class Index extends Component
     use WithPagination;
 
     public $search = '';
+
+    public function mount()
+    {
+        $user_detail = UserDetail::where('user_id', auth()->user()->id)->first();
+        if (! $user_detail) {
+            abort('403', 'Anda belum terdaftar sebagai pegawai');
+        }
+
+        if ($user_detail->jabatan !== 'penelaah keberatan') {
+            abort('403', 'Anda bukan penelaah keberatan');
+        }
+    }
 
     public function updatingSearch()
     {
@@ -21,23 +34,26 @@ class Index extends Component
     {
         $user_id = auth()->user()->id;
         $query = Permohonan::query();
-        $query->where('nomor_lpad', 'like', '%'.$this->search.'%')->orWhere('npwp', 'like', '%'.$this->search.'%');
+        $query->where(function ($query) {
+            $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
+                ->orWhere('npwp', 'like', '%'.$this->search.'%');
+        });
+        $query->where(function ($query) use ($user_id) {
+            $query->where('nama_pk', $user_id)
+                ->orWhere(function ($query) use ($user_id) {
+                    $query->where('nama_pk_2', $user_id)
+                        ->whereNotNull('nama_pk_2');
+                });
+        });
+        $query->whereHas('penelitianFormal', function ($query) {
+            $query->where('status', 'ya');
+        });
         $permohonan_all = $query->with([
             'jenisPermohonan',
             'jenisPajak',
             'pelaksana.detail.organisasi',
             'spidPembahasan',
-        ])
-            ->whereHas('penelitianFormal', function ($query) {
-                $query->where('status', 'ya');
-            })
-            ->where(function ($query) use ($user_id) {
-                $query->where('nama_pk', $user_id)
-                    ->whereNull('nama_pk_2');
-            })->orWhere(function ($query) use ($user_id) {
-                $query->where('nama_pk_2', $user_id);
-            })->latest()
-            ->paginate(10);
+        ])->latest()->paginate(10);
 
         return view('livewire.keb-nkeb.spid-pembahasan.index', [
             'permohonan_all' => $permohonan_all,

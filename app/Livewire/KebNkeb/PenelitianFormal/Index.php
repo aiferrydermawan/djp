@@ -3,6 +3,7 @@
 namespace App\Livewire\KebNkeb\PenelitianFormal;
 
 use App\Models\Permohonan;
+use App\Models\UserDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,18 @@ class Index extends Component
     use WithPagination;
 
     public $search = '';
+
+    public function mount()
+    {
+        $user_detail = UserDetail::where('user_id', auth()->user()->id)->first();
+        if (! $user_detail) {
+            abort('403', 'Anda belum terdaftar sebagai pegawai');
+        }
+
+        if ($user_detail->jabatan !== 'penelaah keberatan') {
+            abort('403', 'Anda bukan penelaah keberatan');
+        }
+    }
 
     public function updatingSearch()
     {

@@ -51,9 +51,9 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
@@ -80,9 +80,9 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            })->orWhereHas('pelaksana2.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
@@ -106,9 +106,9 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
@@ -153,9 +153,9 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('penelaahKeberatan.detail', function ($query) use ($jabatan) {
+            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
