@@ -34,7 +34,7 @@ class SPUHController extends Controller
             })->latest()
             ->paginate($this->loadDefault));
 
-        return inertia('SPUH/Index', [
+        return inertia('SPUH/PenelaahKeberatan', [
             'permohonanAll' => $permohonanAll,
         ]);
     }

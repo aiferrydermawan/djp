@@ -34,7 +34,7 @@ class SPIDPembahasanController extends Controller
             })->latest()
             ->paginate($this->loadDefault));
 
-        return inertia('SPIDPembahasan/Index', [
+        return inertia('SPIDPembahasan/PenelaahKeberatan', [
             'permohonanAll' => $permohonanAll,
         ]);
     }

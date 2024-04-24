@@ -34,7 +34,7 @@ class DataPengirimanController extends Controller
             })->latest()
             ->paginate($this->loadDefault));
 
-        return inertia('DataPengiriman/Index', [
+        return inertia('DataPengiriman/PenelaahKeberatan', [
             'permohonanAll' => $permohonanAll,
         ]);
     }

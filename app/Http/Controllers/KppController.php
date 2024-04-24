@@ -15,7 +15,7 @@ class KppController extends Controller
     {
         $kpp_all = Kpp::latest()->paginate(10);
 
-        return inertia('Kpp/Index', [
+        return inertia('Kpp/PenelaahKeberatan', [
             'kpp_all' => $kpp_all,
         ]);
     }

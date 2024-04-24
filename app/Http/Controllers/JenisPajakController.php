@@ -16,7 +16,7 @@ class JenisPajakController extends Controller
     {
         $jenis_pajak_all = JenisPajak::with('ketetapan')->latest()->paginate(10);
 
-        return inertia('JenisPajak/Index', [
+        return inertia('JenisPajak/PenelaahKeberatan', [
             'jenis_pajak_all' => $jenis_pajak_all,
         ]);
     }

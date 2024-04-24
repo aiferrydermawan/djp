@@ -65,7 +65,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('statistik')->group(function () {
         Route::get('/berkas-masuk-selesai', App\Livewire\Statistik\BerkasMasukSelesai\Index::class)->name('berkas-masuk-selesai.index');
-        Route::get('/distribusi-berkas', App\Livewire\Statistik\DistribusiBerkas\Index::class)->name('distribusi-berkas.index');
+        Route::get('/distribusi-berkas/penelaah-keberatan', App\Livewire\Statistik\DistribusiBerkas\PenelaahKeberatan::class)->name('distribusi-berkas.penelaah-keberatan');
+        Route::get('/distribusi-berkas/seksi', App\Livewire\Statistik\DistribusiBerkas\Seksi::class)->name('distribusi-berkas.seksi');
         Route::get('/list-tunggakan-keb-nkeb', App\Livewire\Statistik\ListTunggakanKebNKeb\Index::class)->name('list-tunggakan-keb-nkeb.index');
     });
     Route::prefix('cetak')->group(function () {

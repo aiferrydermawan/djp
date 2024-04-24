@@ -31,7 +31,7 @@ class PenelitianFormalController extends Controller
             })->latest()
             ->paginate($this->loadDefault));
 
-        return inertia('PenelitianFormal/Index', [
+        return inertia('PenelitianFormal/PenelaahKeberatan', [
             'permohonanAll' => $permohonanAll,
         ]);
     }

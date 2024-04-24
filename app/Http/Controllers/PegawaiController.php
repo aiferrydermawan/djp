@@ -19,7 +19,7 @@ class PegawaiController extends Controller
     {
         $users = User::with('detail')->latest()->paginate(10);
 
-        return inertia('Pegawai/Index', [
+        return inertia('Pegawai/PenelaahKeberatan', [
             'users' => $users,
         ]);
     }

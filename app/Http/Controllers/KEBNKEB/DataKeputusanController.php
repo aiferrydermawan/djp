@@ -35,7 +35,7 @@ class DataKeputusanController extends Controller
             })->latest()
             ->paginate($this->loadDefault));
 
-        return inertia('DataKeputusan/Index', [
+        return inertia('DataKeputusan/PenelaahKeberatan', [
             'permohonanAll' => $permohonanAll,
         ]);
     }

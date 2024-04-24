@@ -153,7 +153,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route("distribusi-berkas.index") }}">
+                    <a
+                        href="{{ route("distribusi-berkas.penelaah-keberatan") }}"
+                    >
                         Distribusi Berkas
                     </a>
                 </li>

@@ -15,7 +15,7 @@ class JenisPermohonanController extends Controller
     {
         $permohonan_all = JenisPermohonan::latest()->paginate(10);
 
-        return inertia('JenisPermohonan/Index', [
+        return inertia('JenisPermohonan/PenelaahKeberatan', [
             'permohonan_all' => $permohonan_all,
         ]);
     }

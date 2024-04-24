@@ -34,7 +34,7 @@ class PermohonanKEBNKEBController extends Controller
             ->latest()
             ->paginate($this->loadDefault));
 
-        return inertia('PermohonanKEBNKEB/Index', [
+        return inertia('PermohonanKEBNKEB/PenelaahKeberatan', [
             'permohonanAll' => $permohonanAll,
         ]);
     }

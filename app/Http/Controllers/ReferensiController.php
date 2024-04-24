@@ -28,7 +28,7 @@ class ReferensiController extends Controller
             ->latest()
             ->paginate(5));
 
-        return inertia('Referensi/Index', [
+        return inertia('Referensi/PenelaahKeberatan', [
             'title' => $title,
             'kategori' => $kategori,
             'referensi_all' => $referensi_all,
