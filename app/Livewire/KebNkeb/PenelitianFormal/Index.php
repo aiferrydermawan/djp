@@ -21,20 +21,24 @@ class Index extends Component
     {
         $user_id = auth()->user()->id;
         $query = Permohonan::query();
-        $query->where('nomor_lpad', 'like', '%'.$this->search.'%')->orWhere('npwp', 'like', '%'.$this->search.'%');
-        $permohonan_all = $query->with([
+        $query->where(function ($query) {
+            $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
+                ->orWhere('npwp', 'like', '%'.$this->search.'%');
+        });
+        $query->where(function ($query) use ($user_id) {
+            $query->where('nama_pk', $user_id)
+                ->orWhere(function ($query) use ($user_id) {
+                    $query->where('nama_pk_2', $user_id)
+                        ->whereNotNull('nama_pk_2');
+                });
+        });
+        $query->with([
             'jenisPermohonan',
             'jenisPajak',
             'pelaksana.detail.organisasi',
             'penelitianFormal',
-        ])
-            ->where(function ($query) use ($user_id) {
-                $query->where('nama_pk', $user_id)
-                    ->whereNull('nama_pk_2');
-            })->orWhere(function ($query) use ($user_id) {
-                $query->where('nama_pk_2', $user_id);
-            })->latest()
-            ->paginate(10);
+        ]);
+        $permohonan_all = $query->latest()->paginate(10);
 
         return view('livewire.keb-nkeb.penelitian-formal.index', [
             'permohonan_all' => $permohonan_all,
