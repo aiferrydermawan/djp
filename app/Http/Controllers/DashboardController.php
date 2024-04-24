@@ -82,7 +82,7 @@ class DashboardController extends Controller
         if ($jabatan == 'kepala seksi') {
             $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
-            })->orWhereHas('pelaksana2.detail', function ($query) use ($jabatan) {
+            })->orWhereHas('pelaksana.detail', function ($query) use ($jabatan) {
                 $query->where('jabatan', $jabatan);
             });
         }
