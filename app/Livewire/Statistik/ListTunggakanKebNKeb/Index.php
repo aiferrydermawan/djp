@@ -21,10 +21,12 @@ class Index extends Component
     public function render()
     {
         $user_id = auth()->user()->id;
-        $jabatan = UserDetail::select('jabatan')->where('user_id', $user_id)->first()->jabatan;
-        if (! $jabatan) {
-            abort(403, 'Anda belum mempunyai jabatan');
+        $user = UserDetail::where('user_id', $user_id)->first();
+        if (! $user) {
+            abort(403, 'Anda belum terdaftar di pegawai');
         }
+        $jabatan = $user->jabatan;
+        $unit_organisasi_id = $user->unit_organisasi_id;
 
         $query = Permohonan::query();
         $query->where(function ($query) {
@@ -49,8 +51,8 @@ class Index extends Component
         }
 
         if ($jabatan == 'kepala seksi') {
-            $query->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
+            $query->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
+                $query->where('unit_organisasi_id', $unit_organisasi_id);
             });
         }
 

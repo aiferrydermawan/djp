@@ -12,15 +12,17 @@ class DashboardController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $jabatan = UserDetail::select('jabatan')->where('user_id', auth()->user()->id)->first()->jabatan;
-        if (! $jabatan) {
-            abort(403, 'Anda belum mempunyai jabatan');
+        $user = UserDetail::where('user_id', auth()->user()->id)->first();
+        if (! $user) {
+            abort(403, 'Anda belum terdaftar di pegawai');
         }
-        $firstCard = $this->tunggakanBerkasKEBnNKEB($jabatan);
-        $thirdCard = $this->berkasJatuhTempoBulanIni($jabatan);
-        $fourthCard = $this->berkasJatuhTempoBulanDepan($jabatan);
-        $firstChart = $this->tunggakanBerkas($jabatan);
-        $secondChart = $this->permohonanMasuk($jabatan);
+        $jabatan = $user->jabatan;
+        $unit_organisasi_id = $user->unit_organisasi_id;
+        $firstCard = $this->tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id);
+        $thirdCard = $this->berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id);
+        $fourthCard = $this->berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id);
+        $firstChart = $this->tunggakanBerkas($jabatan, $unit_organisasi_id);
+        $secondChart = $this->permohonanMasuk($jabatan, $unit_organisasi_id);
 
         return inertia('Dashboard', [
             'firstCard' => $firstCard,
@@ -31,7 +33,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function tunggakanBerkas($jabatan)
+    public function tunggakanBerkas($jabatan, $unit_organisasi_id)
     {
         $user_id = auth()->user()->id;
 
@@ -51,15 +53,15 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
+                $query->where('unit_organisasi_id', $unit_organisasi_id);
             });
         }
 
         return $permohonan->get();
     }
 
-    public function permohonanMasuk($jabatan)
+    public function permohonanMasuk($jabatan, $unit_organisasi_id)
     {
         $user_id = auth()->user()->id;
 
@@ -78,15 +80,15 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
+                $query->where('unit_organisasi_id', $unit_organisasi_id);
             });
         }
 
         return $permohonan->get();
     }
 
-    public function tunggakanBerkasKEBnNKEB($jabatan)
+    public function tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id)
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
@@ -102,15 +104,15 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
+                $query->where('unit_organisasi_id', $unit_organisasi_id);
             });
         }
 
         return $permohonan->doesntHave('dataPengiriman')->count();
     }
 
-    public function berkasJatuhTempoBulanIni($jabatan)
+    public function berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id)
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
@@ -122,6 +124,12 @@ class DashboardController extends Controller
                         $query->where('nama_pk_2', $user_id)
                             ->whereNotNull('nama_pk_2');
                     });
+            });
+        }
+
+        if ($jabatan == 'kepala seksi') {
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
+                $query->where('unit_organisasi_id', $unit_organisasi_id);
             });
         }
 
@@ -131,7 +139,7 @@ class DashboardController extends Controller
         return $permohonan->count();
     }
 
-    public function berkasJatuhTempoBulanDepan($jabatan)
+    public function berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id)
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
@@ -147,8 +155,8 @@ class DashboardController extends Controller
         }
 
         if ($jabatan == 'kepala seksi') {
-            $permohonan->whereHas('pelaksana.detail', function ($query) use ($jabatan) {
-                $query->where('jabatan', $jabatan);
+            $permohonan->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
+                $query->where('unit_organisasi_id', $unit_organisasi_id);
             });
         }
 
