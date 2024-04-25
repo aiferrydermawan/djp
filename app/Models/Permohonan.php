@@ -35,7 +35,7 @@ class Permohonan extends Model
 
     public function penelaahKeberatan2()
     {
-        return $this->belongsTo(User::class, 'nama_pk2', 'id');
+        return $this->belongsTo(User::class, 'nama_pk_2', 'id');
     }
 
     public function pelaksana()
