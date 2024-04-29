@@ -31,6 +31,7 @@
                             <th>Pelaksana</th>
                             <th>PK</th>
                             <th>Sisa Waktu</th>
+                            <th>Tanggal Berakhir</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
                                 <td>{{ $item->pelaksana->name }}</td>
                                 <td>{{ $item->penelaahKeberatan->name }}</td>
                                 <td>{{ $item->sisa_waktu }}</td>
+                                <td>{{ $item->tanggal_berakhir }}</td>
                                 <td></td>
                             </tr>
                         @endforeach

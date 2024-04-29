@@ -181,9 +181,8 @@ class DashboardController extends Controller
             });
         }
 
-        $permohonan->doesntHave('dataPengiriman');
-
-        $permohonan->whereMonth('tanggal_berakhir', '=', Carbon::now()->month)
+        $permohonan->doesntHave('dataPengiriman')
+            ->whereMonth('tanggal_berakhir', '=', Carbon::now()->month)
             ->whereYear('tanggal_berakhir', '=', Carbon::now()->year);
 
         return $permohonan->count();
