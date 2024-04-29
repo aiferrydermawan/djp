@@ -53,8 +53,18 @@ class Index extends Component
         }
 
         if ($jabatan == 'kepala seksi') {
-            $query->whereHas('pelaksana.detail', function ($query) use ($unit_organisasi_id) {
-                $query->where('unit_organisasi_id', $unit_organisasi_id);
+            $query->where(function ($query) use ($unit_organisasi_id) {
+                $query->where(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan2.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                })->orWhere(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                });
             });
         }
 
