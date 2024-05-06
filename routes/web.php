@@ -64,7 +64,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/pengiriman', PengirimanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
     });
     Route::prefix('statistik')->group(function () {
-        Route::get('/berkas-masuk-selesai', App\Livewire\Statistik\BerkasMasukSelesai\Index::class)->name('berkas-masuk-selesai.index');
+        Route::get('/berkas-masuk-selesai/masuk', App\Livewire\Statistik\BerkasMasukSelesai\Masuk::class)->name('berkas-masuk-selesai.masuk');
+        Route::get('/berkas-masuk-selesai/selesai', App\Livewire\Statistik\BerkasMasukSelesai\Selesai::class)->name('berkas-masuk-selesai.selesai');
         Route::get('/distribusi-berkas/penelaah-keberatan', App\Livewire\Statistik\DistribusiBerkas\PenelaahKeberatan::class)->name('distribusi-berkas.penelaah-keberatan');
         Route::get('/distribusi-berkas/seksi', App\Livewire\Statistik\DistribusiBerkas\Seksi::class)->name('distribusi-berkas.seksi');
         Route::get('/list-tunggakan-keb-nkeb', App\Livewire\Statistik\ListTunggakanKebNKeb\Index::class)->name('list-tunggakan-keb-nkeb.index');

@@ -148,7 +148,7 @@
             </summary>
             <ul>
                 <li>
-                    <a href="{{ route("berkas-masuk-selesai.index") }}">
+                    <a href="{{ route("berkas-masuk-selesai.masuk") }}">
                         Statistik Berkas Masuk/Selesai
                     </a>
                 </li>
