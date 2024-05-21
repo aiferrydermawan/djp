@@ -7,7 +7,7 @@ export default function Guest({ children }) {
             <div>
                 <Link href="/">
                     <img
-                        src="/images/kbp.webp"
+                        src="/images/login.webp"
                         alt="KBP Logo"
                         className="h-20"
                     />

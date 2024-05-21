@@ -10,6 +10,7 @@ class Masuk extends Component
     public function render()
     {
         $yearNow = now()->year;
+        //        dd($this->getData());
 
         return view('livewire.statistik.berkas-masuk-selesai.masuk', [
             'permohonan_all' => $this->getData(),

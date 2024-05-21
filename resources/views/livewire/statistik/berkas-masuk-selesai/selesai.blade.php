@@ -35,9 +35,9 @@
                         @if ($row->nama_kpp !== $currentKPP && $currentKPP !== "")
                             {{-- Menampilkan total untuk KPP sebelumnya --}}
                             <tr>
-                                <td colspan="2">Total</td>
+                                <td colspan="2" class="font-bold">Total</td>
                                 @for ($year = $yearStart; $year <= $yearNow; $year++)
-                                    <td>
+                                    <td class="font-bold">
                                         {{ $totalsPerKPP[$currentKPP][$year] ?? 0 }}
                                     </td>
                                 @endfor
@@ -73,9 +73,9 @@
                     {{-- Menampilkan total untuk KPP terakhir --}}
                     @if ($currentKPP !== "")
                         <tr>
-                            <td colspan="2">Total</td>
+                            <td colspan="2" class="font-bold">Total</td>
                             @for ($year = $yearStart; $year <= $yearNow; $year++)
-                                <td>
+                                <td class="font-bold">
                                     {{ $totalsPerKPP[$currentKPP][$year] }}
                                 </td>
                             @endfor
