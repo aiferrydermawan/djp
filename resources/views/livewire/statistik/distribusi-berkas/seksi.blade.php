@@ -19,28 +19,41 @@
         </a>
     </div>
     <div class="card mt-5 bg-base-100 shadow">
-        <div class="card-body">
+        <div class="card-body overflow-x-auto">
             <table class="table">
                 <thead>
                     <tr>
-                        <th rowspan="2">No</th>
-                        <th rowspan="2">Nama</th>
-                        <th colspan="3">Jenis Permohonan</th>
-                        <th rowspan="2">Jumlah Berkas Masuk</th>
-                        <th rowspan="2">Jumlah Berkas Selesai</th>
+                        <th rowspan="2">Nama Unit Organisasi</th>
+                        <th colspan="{{ count($allJenisPermohonan) }}">
+                            Jenis Permohonan
+                        </th>
+                        <th rowspan="2">Berkas Masuk</th>
+                        <th rowspan="2">Berkas Selesai</th>
                         <th rowspan="2">Jumlah Tunggakan</th>
                         <th rowspan="2">% Selesai</th>
                     </tr>
                     <tr>
-                        <th>Pasal 1</th>
-                        <th>Pasal 2</th>
-                        <th>Pasal 3</th>
+                        @foreach ($allJenisPermohonan as $jenisPermohonan)
+                            <th>{{ $jenisPermohonan->nama }}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                    </tr>
+                    @foreach ($results as $result)
+                        <tr>
+                            <td>{{ $result["Nama Unit Organisasi"] }}</td>
+                            @foreach ($allJenisPermohonan as $jenisPermohonan)
+                                <td>
+                                    {{ $result["Jenis Permohonan"][$jenisPermohonan->nama] }}
+                                </td>
+                            @endforeach
+
+                            <td>{{ $result["Berkas Masuk"] }}</td>
+                            <td>{{ $result["Berkas Selesai"] }}</td>
+                            <td>{{ $result["Jumlah Tunggakan"] }}</td>
+                            <td>{{ $result["Persentase Selesai"] }}%</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
