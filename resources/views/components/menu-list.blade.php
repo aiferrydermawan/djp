@@ -160,7 +160,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">Statistik Amar Putusan</a>
+                    <a href="{{ route("amar-putusan") }}">
+                        Statistik Amar Putusan
+                    </a>
                 </li>
                 <li>
                     <a href="{{ route("list-tunggakan-keb-nkeb.index") }}">

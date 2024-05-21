@@ -97,10 +97,18 @@ function MenuList(props) {
                             </a>
                         </li>
                         <li>
-                            <a href="">Distribusi Berkas</a>
+                            <a
+                                href={route(
+                                    "distribusi-berkas.penelaah-keberatan",
+                                )}
+                            >
+                                Distribusi Berkas
+                            </a>
                         </li>
                         <li>
-                            <a href="">Statistik Amar Putusan</a>
+                            <a href={route("amar-putusan")}>
+                                Statistik Amar Putusan
+                            </a>
                         </li>
                         <li>
                             <a href={route("list-tunggakan-keb-nkeb.index")}>
