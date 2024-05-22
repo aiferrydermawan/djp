@@ -50,17 +50,7 @@ class PenelaahKeberatan extends Component
                 ->count();
 
             // Menghitung total permohonan tertunggak
-            $totalPermohonanTertunggak = DB::table('permohonan')
-                ->leftJoin('data_pengiriman', 'permohonan.id', '=', 'data_pengiriman.permohonan_id')
-                ->whereNull('data_pengiriman.permohonan_id') // Mengecualikan permohonan yang sudah ada di data_pengiriman
-                ->where(function ($query) use ($userId) {
-                    $query->where('nama_pk_2', $userId)
-                        ->orWhere(function ($subQuery) use ($userId) {
-                            $subQuery->whereNull('nama_pk_2')->where('nama_pk', $userId);
-                        });
-                })
-                ->where('tanggal_berakhir', '<', $today)
-                ->count();
+            $totalPermohonanTertunggak = $totalPermohonanMasuk - $totalPermohonanSelesai;
 
             // Menghitung persentase selesai
             $persentaseSelesai = $totalPermohonanMasuk > 0 ? ($totalPermohonanSelesai / $totalPermohonanMasuk) * 100 : 0;

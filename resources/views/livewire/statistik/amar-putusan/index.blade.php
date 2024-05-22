@@ -20,7 +20,15 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Amar Keputusan</th>
+                            <th rowspan="2">Amar Keputusan</th>
+
+                            <th colspan="{{ count($jenisPermohonan) }}">
+                                Jenis Permohonan
+                            </th>
+                            <th rowspan="2">Jumlah SK Terbit</th>
+                            <th rowspan="2">%</th>
+                        </tr>
+                        <tr>
                             @foreach ($jenisPermohonan as $jenis)
                                 <th>{{ $jenis }}</th>
                             @endforeach
@@ -35,24 +43,22 @@
                                         {{ isset($stat->$jenis) ? $stat->$jenis : 0 }}
                                     </td>
                                 @endforeach
+
+                                <td>{{ $stat->total }}</td>
+                                <td>
+                                    {{ $grandTotal > 0 ? number_format(($stat->total / $grandTotal) * 100, 2) : 0 }}%
+                                </td>
                             </tr>
                         @endforeach
 
                         <tr>
-                            <td class="font-bold">Total</td>
-                            @foreach ($jenisPermohonan as $jenis)
-                                <td class="font-bold">
-                                    <?php
-                                    $totalPasal = 0;
-                                    foreach ($statistics as $stat) {
-                                        if (isset($stat->$jenis)) {
-                                            $totalPasal += $stat->$jenis;
-                                        }
-                                    }
-                                    echo $totalPasal;
-                                    ?>
-                                </td>
+                            <td>Total</td>
+                            @foreach ($totalPasal as $total)
+                                <td>{{ $total }}</td>
                             @endforeach
+
+                            <td>{{ $grandTotal }}</td>
+                            <td>100%</td>
                         </tr>
                     </tbody>
                 </table>

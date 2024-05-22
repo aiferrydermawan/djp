@@ -46,16 +46,7 @@ class Seksi extends Component
                 ->count();
 
             // Menghitung total permohonan tertunggak
-            $totalPermohonanTertunggak = DB::table('permohonan')
-                ->leftJoin('data_pengiriman', 'permohonan.id', '=', 'data_pengiriman.permohonan_id')
-                ->join('user_details', function ($join) {
-                    $join->on('permohonan.nama_pk', '=', 'user_details.user_id')
-                        ->orOn('permohonan.nama_pk_2', '=', 'user_details.user_id');
-                })
-                ->whereNull('data_pengiriman.permohonan_id') // Mengecualikan permohonan yang sudah ada di data_pengiriman
-                ->where('user_details.unit_organisasi_id', $unitId)
-                ->where('tanggal_berakhir', '<', $today)
-                ->count();
+            $totalPermohonanTertunggak = $totalPermohonanMasuk - $totalPermohonanSelesai;
 
             // Menghitung persentase selesai
             $persentaseSelesai = $totalPermohonanMasuk > 0 ? ($totalPermohonanSelesai / $totalPermohonanMasuk) * 100 : 0;
