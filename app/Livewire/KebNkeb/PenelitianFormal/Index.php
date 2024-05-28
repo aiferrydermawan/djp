@@ -13,6 +13,8 @@ class Index extends Component
 
     public $search = '';
 
+    public $status = 'pending';
+
     public function mount()
     {
         $user_detail = UserDetail::where('user_id', auth()->user()->id)->first();
@@ -30,10 +32,20 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatingStatus()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $user_id = auth()->user()->id;
         $query = Permohonan::query();
+        if ($this->status == 'pending') {
+            $query->doesntHave('penelitianFormal');
+        } else {
+            $query->has('penelitianFormal');
+        }
         $query->where(function ($query) {
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
                 ->orWhere('npwp', 'like', '%'.$this->search.'%');

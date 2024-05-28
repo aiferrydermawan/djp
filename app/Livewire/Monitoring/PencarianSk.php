@@ -19,7 +19,7 @@ class PencarianSk extends Component
 
     public function render()
     {
-        $query = Permohonan::with(['jenisPermohonan', 'dataPengiriman'])
+        $query = Permohonan::with(['jenisPermohonan', 'dataPengiriman'])->has('dataKeputusan')
             ->where(function ($query) {
                 $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
                     ->orWhere('npwp', 'like', '%'.$this->search.'%');

@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/data-keputusan', DataKeputusanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
         Route::resource('/kriteria-permohonan', KriteriaPermohonanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
         Route::resource('/data-pengiriman', DataPengirimanController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+        Route::get('/permohonan-keb-nkeb/{id}/preview', [PermohonanKEBNKEBController::class, 'preview'])->name('permohonan-keb-nkeb.preview');
+        Route::get('/data-keputusan/{id}/preview', [DataKeputusanController::class, 'preview'])->name('data-keputusan.preview');
     });
     Route::prefix('sub-stg')->group(function () {
         Route::get('/input-permintaan', App\Livewire\SubStg\InputPermintaan\Index::class)->name('input-permintaan');

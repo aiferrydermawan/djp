@@ -4,7 +4,7 @@ function Select({ className, children, ...props }) {
     return (
         <select
             {...props}
-            className={`select select-bordered w-full ${className}`}
+            className={`input input-bordered w-full ${className}`}
         >
             {children}
         </select>

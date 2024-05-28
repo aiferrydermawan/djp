@@ -56,12 +56,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-xs">
+                                    <a
+                                        href="{{ route("permohonan-keb-nkeb.preview", $item->id) }}"
+                                        class="btn btn-xs"
+                                    >
                                         DetailPermohonan
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-xs">
+                                    <a
+                                        href="{{ route("data-keputusan.preview", $item->id) }}"
+                                        class="btn btn-xs"
+                                    >
                                         DetailKeputusan
                                     </a>
                                 </td>

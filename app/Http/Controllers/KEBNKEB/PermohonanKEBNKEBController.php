@@ -157,6 +157,40 @@ class PermohonanKEBNKEBController extends Controller
         return Inertia::location(route('permohonan-keb-nkeb.index'));
     }
 
+    public function preview($id)
+    {
+        $permohonan = Permohonan::find($id);
+        $user = User::with('detail')->find(auth()->user()->id);
+        $kpp_all = Kpp::select(['id', 'nama as name'])->orderBy('kode_kpp', 'asc')->get();
+        $jenis_permohonan_all = JenisPermohonan::select(['id', 'nama as name'])->get();
+        $unit_yang_memproses_all = User::select(['id', 'name'])->whereHas('detail', function ($query) {
+            $query->whereJabatan('kepala kanwil');
+        })->get();
+        $jenis_ketetapan_all = Referensi::select('id', 'nama as name')->where(
+            'kategori',
+            'jenis-ketetapan',
+        )->get();
+        $dasar_pemrosesan_all = Referensi::select('id', 'nama as name')->where(
+            'kategori',
+            'dasar-pemrosesan',
+        )->get();
+        $pk_all = User::whereHas('detail', function ($query) use ($user) {
+            $query
+                ->whereJabatan('penelaah keberatan')
+                ->whereUnitOrganisasiId($user->detail->unit_organisasi_id);
+        })->get();
+
+        return inertia('PermohonanKEBNKEB/Preview', [
+            'permohonan' => $permohonan,
+            'kpp_all' => $kpp_all,
+            'jenis_permohonan_all' => $jenis_permohonan_all,
+            'unit_yang_memproses_all' => $unit_yang_memproses_all,
+            'jenis_ketetapan_all' => $jenis_ketetapan_all,
+            'dasar_pemrosesan_all' => $dasar_pemrosesan_all,
+            'pk_all' => $pk_all,
+        ]);
+    }
+
     public function edit($id)
     {
         $permohonan = Permohonan::find($id);

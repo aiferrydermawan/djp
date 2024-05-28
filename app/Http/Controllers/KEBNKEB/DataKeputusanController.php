@@ -51,6 +51,17 @@ class DataKeputusanController extends Controller
         ]);
     }
 
+    public function preview($id)
+    {
+        $permohonan = Permohonan::with(['jenisPermohonan', 'jenisPajak', 'dataKeputusan'])->find($id);
+        $amar_putusan_all = Referensi::where('kategori', 'amar-putusan')->get();
+
+        return inertia('DataKeputusan/Preview', [
+            'permohonan' => $permohonan,
+            'amar_putusan_all' => $amar_putusan_all,
+        ]);
+    }
+
     public function update(Request $request, $id)
     {
         $request->validate([

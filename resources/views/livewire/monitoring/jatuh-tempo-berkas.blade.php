@@ -4,6 +4,14 @@
             <li>Monitoring Jatuh Tempo Berkas</li>
         </ul>
     </div>
+    <div class="mt-5 flex">
+        <input
+            wire:model.lazy="search"
+            type="text"
+            placeholder="Nomor LPAD / NPWP"
+            class="input input-bordered w-full max-w-xs"
+        />
+    </div>
     <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body">
             <div class="overflow-x-auto">

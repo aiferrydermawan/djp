@@ -4,13 +4,20 @@
             <li>SPID Pembahasan</li>
         </ul>
     </div>
-    <div class="mt-5 flex">
+    <div class="mt-5 flex gap-5">
         <input
             wire:model.lazy="search"
             type="text"
             placeholder="Nomor LPAD & NPWP"
             class="input input-bordered w-full max-w-xs"
         />
+        <select
+            wire:model.live="status"
+            class="select select-bordered w-full max-w-xs"
+        >
+            <option value="pending">Pending</option>
+            <option value="selesai">Selesai</option>
+        </select>
     </div>
     <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body">
