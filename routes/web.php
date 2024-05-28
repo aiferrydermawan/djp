@@ -70,11 +70,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/distribusi-berkas/seksi', App\Livewire\Statistik\DistribusiBerkas\Seksi::class)->name('distribusi-berkas.seksi');
         Route::get('/amar-putusan', App\Livewire\Statistik\AmarPutusan\Index::class)->name('amar-putusan');
         Route::get('/list-tunggakan-keb-nkeb', App\Livewire\Statistik\ListTunggakanKebNKeb\Index::class)->name('list-tunggakan-keb-nkeb.index');
+        Route::get('/list-tunggakan-sub-stg', App\Livewire\Statistik\ListTunggakanSubStg\Index::class)->name('list-tunggakan-sub-stg');
+    });
+    Route::prefix('monitoring')->name('monitoring.')->group(function () {
+        Route::get('/pengiriman-kep-surat', App\Livewire\Monitoring\PengirimanSurat::class)->name('pengiriman-kep-surat');
+        Route::get('/jatuh-tempo-berkas', App\Livewire\Monitoring\JatuhTempoBerkas::class)->name('jatuh-tempo-berkas');
+        Route::get('/pencarian-sk', App\Livewire\Monitoring\PencarianSk::class)->name('pencarian-sk');
     });
     Route::prefix('cetak')->group(function () {
         Route::get('/template-map', App\Livewire\Cetak\TemplateMap\Index::class)->name('template-map.index');
         Route::post('/template-map/npwp', [App\Http\Controllers\Cetak\TemplateMapController::class, 'cetakNpwp'])->name('template-map.npwp');
         Route::post('/template-map/tanggal', [App\Http\Controllers\Cetak\TemplateMapController::class, 'cetakTanggal'])->name('template-map.tanggal');
+    });
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/kata-sandi', App\Livewire\User\KataSandi::class)->name('kata-sandi');
     });
 });
 

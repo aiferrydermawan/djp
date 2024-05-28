@@ -65,8 +65,13 @@ export default function Authenticated({ children, auth }) {
                             {/*</li>*/}
                             <li>
                                 <details>
-                                    <summary>Settings</summary>
+                                    <summary>Pengaturan</summary>
                                     <ul className="rounded-t-none bg-base-100 p-2">
+                                        <li>
+                                            <a href={route("user.kata-sandi")}>
+                                                Kata Sandi
+                                            </a>
+                                        </li>
                                         <li>
                                             <Link
                                                 href={route("logout")}

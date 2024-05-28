@@ -116,7 +116,9 @@ function MenuList(props) {
                             </a>
                         </li>
                         <li>
-                            <a href="">List Tunggakan SUB dan STG</a>
+                            <a href={route("list-tunggakan-sub-stg")}>
+                                List Tunggakan SUB dan STG
+                            </a>
                         </li>
                     </ul>
                 </details>
@@ -129,20 +131,17 @@ function MenuList(props) {
                     </summary>
                     <ul>
                         <li>
-                            <a href="">
-                                <IconLock />
-                                Monitoring Pengiriman KEP/Surat
+                            <a href={route("monitoring.pengiriman-kep-surat")}>
+                                Pengiriman KEP/Surat
                             </a>
                         </li>
                         <li>
-                            <a href="">
-                                <IconLock />
-                                Monitoring Jatuh Tempo Berkas
+                            <a href={route("monitoring.jatuh-tempo-berkas")}>
+                                Jatuh Tempo Berkas
                             </a>
                         </li>
                         <li>
-                            <a href="">
-                                <IconLock />
+                            <a href={route("monitoring.pencarian-sk")}>
                                 Pencarian SK
                             </a>
                         </li>

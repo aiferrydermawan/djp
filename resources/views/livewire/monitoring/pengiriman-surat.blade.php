@@ -1,14 +1,14 @@
 <div class="p-5">
     <div class="breadcrumbs text-sm">
         <ul>
-            <li>List Tunggakan KEB dan NKEB</li>
+            <li>Monitoring Pengiriman KEP/Surat</li>
         </ul>
     </div>
     <div class="mt-5 flex">
         <input
             wire:model.lazy="search"
             type="text"
-            placeholder="Nomor LPAD & NPWP"
+            placeholder="Nomor LPAD / NPWP"
             class="input input-bordered w-full max-w-xs"
         />
     </div>
@@ -19,20 +19,19 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>No LPAD</th>
-                            <th>Tanggal LPAD</th>
                             <th>Nama WP</th>
                             <th>NPWP</th>
                             <th>Jenis Permohonan</th>
-                            <th>Jenis Pajak</th>
-                            <th>Masa Pajak</th>
-                            <th>Tahun Pajak</th>
                             <th>Nomor Ketetapan</th>
-                            <th>Pelaksana</th>
-                            <th>PK</th>
-                            <th>Sisa Waktu</th>
-                            <th>Tanggal Berakhir</th>
-                            <th></th>
+                            <th>Tgl Ketetapan</th>
+                            <th>Nomor LPAD</th>
+                            <th>Tgl LPAD</th>
+                            <th>Nomor Keputusan</th>
+                            <th>Tgl Keputusan</th>
+                            <th>Tgl Kirim SK</th>
+                            <th>No Resi WP</th>
+                            <th>No Resi KPP</th>
+                            <th>Amar Putusan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,26 +40,33 @@
                                 <th>
                                     {{ $permohonan_all->firstItem() + $key }}
                                 </th>
-                                <td>{{ $item->nomor_lpad }}</td>
-                                <td>{{ $item->tanggal_lpad }}</td>
                                 <td>{{ $item->nama_wp }}</td>
                                 <td>{{ $item->npwp }}</td>
                                 <td>{{ $item->jenisPermohonan->nama }}</td>
-                                <td>{{ $item->jenisPajak->nama }}</td>
-                                <td>{{ $item->masa_pajak }}</td>
-                                <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
-                                <td>{{ $item->pelaksana->name }}</td>
                                 <td>
-                                    @if ($item->penelaahKeberatan2)
-                                        {{ $item->penelaahKeberatan2->name }}
-                                    @else
-                                        {{ $item->penelaahKeberatan->name }}
-                                    @endif
+                                    {{ \Carbon\Carbon::parse($item->tanggal_ketetapan)->format("d M Y") }}
                                 </td>
-                                <td>{{ $item->sisa_waktu }}</td>
-                                <td>{{ $item->tanggal_berakhir }}</td>
-                                <td></td>
+                                <td>{{ $item->nomor_lpad }}</td>
+                                <td>{{ $item->tanggal_lpad }}</td>
+                                <td>
+                                    {{ $item->dataKeputusan->no_keputusan ?? "-" }}
+                                </td>
+                                <td>
+                                    {{ $item->dataKeputusan->tanggal_keputusan2 ?? "-" }}
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($item->dataPengiriman->tanggal_resi_wp)->format("d M Y") }}
+                                </td>
+                                <td>
+                                    {{ $item->dataPengiriman->nomor_resi_wp ?? "-" }}
+                                </td>
+                                <td>
+                                    {{ $item->dataPengiriman->nomor_resi_kpp ?? "-" }}
+                                </td>
+                                <td>
+                                    {{ $item->dataKeputusan->amarPutusan->nama ?? "-" }}
+                                </td>
                             </tr>
                         @endforeach
 

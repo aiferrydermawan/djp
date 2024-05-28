@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +30,15 @@ class DataKeputusan extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'pembuat', 'id');
+    }
+
+    public function getTanggalKeputusan2Attribute()
+    {
+        return Carbon::parse($this->tanggal_keputusan)->format('d M Y');
+    }
+
+    public function amarPutusan()
+    {
+        return $this->belongsTo(Referensi::class, 'amar_keputusan_id', 'id');
     }
 }

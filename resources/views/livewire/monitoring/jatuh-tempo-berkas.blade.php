@@ -1,16 +1,8 @@
 <div class="p-5">
     <div class="breadcrumbs text-sm">
         <ul>
-            <li>List Tunggakan KEB dan NKEB</li>
+            <li>Monitoring Jatuh Tempo Berkas</li>
         </ul>
-    </div>
-    <div class="mt-5 flex">
-        <input
-            wire:model.lazy="search"
-            type="text"
-            placeholder="Nomor LPAD & NPWP"
-            class="input input-bordered w-full max-w-xs"
-        />
     </div>
     <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body">
@@ -20,37 +12,41 @@
                         <tr>
                             <th>No</th>
                             <th>No LPAD</th>
-                            <th>Tanggal LPAD</th>
-                            <th>Nama WP</th>
+                            <th>Tgl Diterima</th>
                             <th>NPWP</th>
-                            <th>Jenis Permohonan</th>
-                            <th>Jenis Pajak</th>
+                            <th>Nama WP</th>
+                            <th>Jenis Kasus</th>
+                            <th>No Ketetapan</th>
+                            <th>Tanggal Ketetapan</th>
                             <th>Masa Pajak</th>
                             <th>Tahun Pajak</th>
-                            <th>Nomor Ketetapan</th>
-                            <th>Pelaksana</th>
-                            <th>PK</th>
+                            <th>NIlai RP</th>
+                            <th>Nama PK</th>
+                            <th>Seksi PK</th>
+                            <th>JT IKU</th>
                             <th>Sisa Waktu</th>
-                            <th>Tanggal Berakhir</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($permohonan_all as $key => $item)
                             <tr wire:key="{{ $item->id }}">
-                                <th>
+                                <td>
                                     {{ $permohonan_all->firstItem() + $key }}
-                                </th>
+                                </td>
                                 <td>{{ $item->nomor_lpad }}</td>
                                 <td>{{ $item->tanggal_lpad }}</td>
-                                <td>{{ $item->nama_wp }}</td>
                                 <td>{{ $item->npwp }}</td>
+                                <td>{{ $item->nama_wp }}</td>
                                 <td>{{ $item->jenisPermohonan->nama }}</td>
-                                <td>{{ $item->jenisPajak->nama }}</td>
+                                <td>{{ $item->nomor_ketetapan }}</td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($item->tanggal_ketetapan)->format("d M Y") }}
+                                </td>
                                 <td>{{ $item->masa_pajak }}</td>
                                 <td>{{ $item->tahun_pajak }}</td>
-                                <td>{{ $item->nomor_ketetapan }}</td>
-                                <td>{{ $item->pelaksana->name }}</td>
+                                <td>
+                                    {{ $item->dataKeputusan ? number_format($item->dataKeputusan->nilai_akhir_menurut_keputusan) : "0" }}
+                                </td>
                                 <td>
                                     @if ($item->penelaahKeberatan2)
                                         {{ $item->penelaahKeberatan2->name }}
@@ -58,17 +54,19 @@
                                         {{ $item->penelaahKeberatan->name }}
                                     @endif
                                 </td>
+                                <td>
+                                    @if ($item->penelaahKeberatan2)
+                                        {{ $item->penelaahKeberatan2->detail->organisasi->nama ?? "-" }}
+                                    @else
+                                        {{ $item->penelaahKeberatan->detail->organisasi->nama ?? "-" }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($item->tanggal_berakhir)->format("d M Y") }}
+                                </td>
                                 <td>{{ $item->sisa_waktu }}</td>
-                                <td>{{ $item->tanggal_berakhir }}</td>
-                                <td></td>
                             </tr>
                         @endforeach
-
-                        @if (count($permohonan_all) == 0)
-                            <tr>
-                                <th colspan="14">Kosong</th>
-                            </tr>
-                        @endif
                     </tbody>
                 </table>
             </div>

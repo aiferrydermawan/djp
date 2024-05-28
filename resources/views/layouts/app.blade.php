@@ -100,10 +100,30 @@
                             {{-- </li> --}}
                             <li>
                                 <details>
-                                    <summary>Settings</summary>
+                                    <summary>Pengaturan</summary>
                                     <ul class="rounded-t-none bg-base-100 p-2">
                                         <li>
-                                            <a>Keluar</a>
+                                            <a
+                                                href="{{ route("user.kata-sandi") }}"
+                                            >
+                                                Kata Sandi
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="{{ route("logout") }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                            >
+                                                Keluar
+                                            </a>
+                                            <form
+                                                id="logout-form"
+                                                action="{{ route("logout") }}"
+                                                method="POST"
+                                                style="display: none"
+                                            >
+                                                @csrf
+                                            </form>
                                         </li>
                                     </ul>
                                 </details>

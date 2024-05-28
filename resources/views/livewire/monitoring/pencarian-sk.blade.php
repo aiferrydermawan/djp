@@ -1,14 +1,14 @@
 <div class="p-5">
     <div class="breadcrumbs text-sm">
         <ul>
-            <li>List Tunggakan KEB dan NKEB</li>
+            <li>Pencarian SK</li>
         </ul>
     </div>
     <div class="mt-5 flex">
         <input
             wire:model.lazy="search"
             type="text"
-            placeholder="Nomor LPAD & NPWP"
+            placeholder="Nomor LPAD / NPWP"
             class="input input-bordered w-full max-w-xs"
         />
     </div>
@@ -19,19 +19,14 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>No LPAD</th>
-                            <th>Tanggal LPAD</th>
                             <th>Nama WP</th>
-                            <th>NPWP</th>
+                            <th>Nomor Surat WP</th>
                             <th>Jenis Permohonan</th>
-                            <th>Jenis Pajak</th>
-                            <th>Masa Pajak</th>
-                            <th>Tahun Pajak</th>
                             <th>Nomor Ketetapan</th>
-                            <th>Pelaksana</th>
+                            <th>Tanggal diterima</th>
                             <th>PK</th>
-                            <th>Sisa Waktu</th>
-                            <th>Tanggal Berakhir</th>
+                            <th>Status</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -41,16 +36,11 @@
                                 <th>
                                     {{ $permohonan_all->firstItem() + $key }}
                                 </th>
-                                <td>{{ $item->nomor_lpad }}</td>
-                                <td>{{ $item->tanggal_lpad }}</td>
                                 <td>{{ $item->nama_wp }}</td>
-                                <td>{{ $item->npwp }}</td>
+                                <td>{{ $item->nomor_surat_wp }}</td>
                                 <td>{{ $item->jenisPermohonan->nama }}</td>
-                                <td>{{ $item->jenisPajak->nama }}</td>
-                                <td>{{ $item->masa_pajak }}</td>
-                                <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
-                                <td>{{ $item->pelaksana->name }}</td>
+                                <td>{{ $item->tanggal_lpad }}</td>
                                 <td>
                                     @if ($item->penelaahKeberatan2)
                                         {{ $item->penelaahKeberatan2->name }}
@@ -58,17 +48,25 @@
                                         {{ $item->penelaahKeberatan->name }}
                                     @endif
                                 </td>
-                                <td>{{ $item->sisa_waktu }}</td>
-                                <td>{{ $item->tanggal_berakhir }}</td>
-                                <td></td>
+                                <td>
+                                    @if ($item->dataPengiriman)
+                                        Selesai
+                                    @else
+                                            -
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="" class="btn btn-xs">
+                                        DetailPermohonan
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="" class="btn btn-xs">
+                                        DetailKeputusan
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
-
-                        @if (count($permohonan_all) == 0)
-                            <tr>
-                                <th colspan="14">Kosong</th>
-                            </tr>
-                        @endif
                     </tbody>
                 </table>
             </div>
