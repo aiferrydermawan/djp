@@ -22,8 +22,8 @@ class Index extends Component
             abort('403', 'Anda belum terdaftar sebagai pegawai');
         }
 
-        if ($user_detail->jabatan !== 'penelaah keberatan') {
-            abort('403', 'Anda bukan penelaah keberatan');
+        if ($user_detail->jabatan !== 'pelaksana') {
+            abort('403', 'Anda bukan pelaksana');
         }
     }
 
@@ -58,7 +58,7 @@ class Index extends Component
                         ->whereNotNull('nama_pk_2');
                 });
         });
-        $query->has('penelitianFormal');
+        // $query->has('penelitianFormal');
         $permohonan_all = $query->with([
             'jenisPermohonan',
             'jenisPajak',

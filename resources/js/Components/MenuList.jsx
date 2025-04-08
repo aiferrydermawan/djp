@@ -32,29 +32,29 @@ function MenuList(props) {
                                 Permohonan
                             </a>
                         </li>
-                        <li>
-                            <a href={route("penelitian-formal.index")}>
-                                Penelitian Formal
-                            </a>
-                        </li>
-                        <li>
-                            <a href={route("spid-pembahasan.index")}>
-                                SPID dan Pembahasan
-                            </a>
-                        </li>
-                        <li>
-                            <a href={route("spuh.index")}>SPUH</a>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <a href={route("penelitian-formal.index")}>*/}
+                        {/*        Penelitian Formal*/}
+                        {/*    </a>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <a href={route("spid-pembahasan.index")}>*/}
+                        {/*        SPID dan Pembahasan*/}
+                        {/*    </a>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <a href={route("spuh.index")}>SPUH</a>*/}
+                        {/*</li>*/}
                         <li>
                             <a href={route("data-keputusan.index")}>
                                 Data Keputusan
                             </a>
                         </li>
-                        <li>
-                            <a href={route("kriteria-permohonan.index")}>
-                                Kriteria Permohonan
-                            </a>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <a href={route("kriteria-permohonan.index")}>*/}
+                        {/*        Kriteria Permohonan*/}
+                        {/*    </a>*/}
+                        {/*</li>*/}
                         <li>
                             <a href={route("data-pengiriman.index")}>
                                 Data Pengiriman
