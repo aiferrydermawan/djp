@@ -4,7 +4,7 @@ function NPWPInput({ value, className, ...props }) {
     const formatNPWP = (value) => {
         const numbers = value.replace(/\D/g, "");
         const match = numbers.match(
-            /(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,1})(\d{0,3})(\d{0,3})/,
+            /(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,1})(\d{0,3})(\d{0,4})/,
         );
         if (match) {
             return `${match[1]}${match[2] ? "." + match[2] : ""}${match[3] ? "." + match[3] : ""}${match[4] ? "." + match[4] : ""}${match[5] ? "-" + match[5] : ""}${match[6] ? "." + match[6] : ""}`;
