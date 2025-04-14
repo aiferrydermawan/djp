@@ -38,7 +38,6 @@
                             <th>Nama WP</th>
                             <th>NPWP</th>
                             <th>Jenis Permohonan</th>
-                            <th>Jenis Pajak</th>
                             <th>Masa Pajak</th>
                             <th>Tahun Pajak</th>
                             <th>Nomor Ketetapan</th>
@@ -58,7 +57,6 @@
                                 <td>{{ $item->nama_wp }}</td>
                                 <td>{{ $item->npwp }}</td>
                                 <td>{{ $item->jenisPermohonan->nama }}</td>
-                                <td>{{ $item->jenisPajak->nama }}</td>
                                 <td>{{ $item->masa_pajak }}</td>
                                 <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
