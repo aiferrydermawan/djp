@@ -62,7 +62,7 @@
                                 <td>{{ $item->nomor_ketetapan }}</td>
                                 <td>{{ $item->penelaahKeberatan->name ?? '-' }}</td>
                                 <td>
-                                    {{ $item->penelaahKeberatan->detail->organisasi->nama }}
+                                    {{ $item->penelaahKeberatan->detail->organisasi->nama ?? '-' }}
                                 </td>
                                 <td>
                                     <a
