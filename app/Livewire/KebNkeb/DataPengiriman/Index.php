@@ -22,8 +22,8 @@ class Index extends Component
             abort('403', 'Anda belum terdaftar sebagai pegawai');
         }
 
-        if ($user_detail->jabatan !== 'penelaah keberatan') {
-            abort('403', 'Anda bukan penelaah keberatan');
+        if ($user_detail->jabatan !== 'pelaksana') {
+            abort('403', 'Anda bukan pelaksana');
         }
     }
 
