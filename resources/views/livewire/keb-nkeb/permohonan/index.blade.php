@@ -60,7 +60,7 @@
                                 <td>{{ $item->masa_pajak }}</td>
                                 <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
-                                <td>{{ $item->penelaahKeberatan->name }}</td>
+                                <td>{{ $item->penelaahKeberatan->name ?? '-' }}</td>
                                 <td>
                                     {{ $item->penelaahKeberatan->detail->organisasi->nama }}
                                 </td>
