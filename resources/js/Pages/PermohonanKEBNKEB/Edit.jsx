@@ -188,7 +188,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nama WP" />
+                                        <Label name="Nama WP (wajib)" />
                                         <Input
                                             value={namaWp}
                                             onChange={(e) =>
@@ -205,7 +205,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="NPWP" />
+                                        <Label name="NPWP (wajib)" />
                                         <Input
                                             onChange={(e) =>
                                                 setNpwp(e.target.value)
@@ -221,7 +221,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="NOP *Tidak Wajib" />
+                                        <Label name="NOP" />
                                         <NOPInput
                                             value={nop}
                                             onChange={(formattedValue) =>
@@ -239,7 +239,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Kode KPP Terdaftar" />
+                                        <Label name="Kode KPP Terdaftar (wajib)" />
                                         <CustomCombobox
                                             selected={kpp}
                                             onChange={setKpp}
@@ -256,7 +256,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Jenis Permohonan" />
+                                        <Label name="Jenis Permohonan (wajib)" />
                                         <CustomCombobox
                                             selected={jenisPermohonan}
                                             onChange={setJenisPermohonan}
@@ -273,7 +273,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nomor Ketetapan" />
+                                        <Label name="Nomor Ketetapan (wajib)" />
                                         <NoKetetapanInput
                                             value={nomorKetetapan}
                                             onChange={(formattedValue) =>
@@ -291,7 +291,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-1`}
                                     >
-                                        <Label name="Tanggal Ketetapan" />
+                                        <Label name="Tanggal Ketetapan (wajib)" />
                                         <DatePicker
                                             placeholderText="kosong"
                                             className="input input-bordered"
@@ -310,7 +310,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Masa Pajak" />
+                                        <Label name="Masa Pajak (wajib)" />
                                         <Select
                                             value={masaPajak}
                                             onChange={(e) =>
@@ -336,7 +336,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-1`}
                                     >
-                                        <Label name="Tahun Pajak" />
+                                        <Label name="Tahun Pajak (wajib)" />
                                         <Input
                                             value={tahunPajak}
                                             type="number"
@@ -354,7 +354,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nilai Ketetapan (SKP / STP)" />
+                                        <Label name="Nilai Ketetapan (SKP / STP) (wajib)" />
                                         <NumberInput
                                             value={nilai1}
                                             placeholder="Kosong"
@@ -372,7 +372,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Dasar Pemrosesan" />
+                                        <Label name="Dasar Pemrosesan (wajib)" />
                                         <Select
                                             value={dasarPemrosesan}
                                             onChange={(e) =>
@@ -440,7 +440,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nomor LPAD" />
+                                        <Label name="Nomor LPAD (wajib)" />
                                         <Input
                                             value={nomorLpad}
                                             type="text"
@@ -458,7 +458,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-1`}
                                     >
-                                        <Label name="Tanggal Diterima" />
+                                        <Label name="Tanggal Diterima (wajib)" />
                                         <DatePicker
                                             placeholderText="kosong"
                                             className="input input-bordered"
@@ -611,7 +611,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nama PK" />
+                                        <Label name="Nama PK (wajib)" />
                                         <Select
                                             value={namaPk}
                                             onChange={(e) =>
@@ -638,7 +638,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nomor Surat Tugas Pengganti *Tidak Wajib" />
+                                        <Label name="Nomor Surat Tugas Pengganti" />
                                         <Input
                                             value={nomorSuratTugas2}
                                             type="text"
@@ -658,7 +658,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Tanggal Surat Tugas Pengganti *Tidak Wajib" />
+                                        <Label name="Tanggal Surat Tugas Pengganti" />
                                         <DatePicker
                                             placeholderText="kosong"
                                             className="input input-bordered"
@@ -677,7 +677,7 @@ function Edit({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nama PK Pengganti *Tidak Wajib" />
+                                        <Label name="Nama PK Pengganti" />
                                         <Select
                                             value={namaPk2}
                                             onChange={(e) =>

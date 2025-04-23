@@ -152,7 +152,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nama WP" />
+                                        <Label name="Nama WP (wajib)" />
                                         <Input
                                             onChange={(e) =>
                                                 setNamaWp(e.target.value)
@@ -168,7 +168,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="NPWP" />
+                                        <Label name="NPWP (wajib)" />
                                         <Input
                                             onChange={(e) =>
                                                 setNpwp(e.target.value)
@@ -184,7 +184,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="NOP *Tidak Wajib" />
+                                        <Label name="NOP" />
                                         <NOPInput
                                             value={nop}
                                             onChange={(formattedValue) =>
@@ -202,7 +202,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Kode KPP Terdaftar" />
+                                        <Label name="Kode KPP Terdaftar (wajib)" />
                                         <CustomCombobox
                                             selected={kpp}
                                             onChange={setKpp}
@@ -219,7 +219,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Kategori Permohonan" />
+                                        <Label name="Kategori Permohonan (wajib)" />
                                         <Select
                                             value={kategoriPermohonan}
                                             onChange={(e) =>
@@ -257,7 +257,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Masa Pajak" />
+                                        <Label name="Masa Pajak (wajib)" />
                                         <Select
                                             onChange={(e) =>
                                                 setMasaPajak(e.target.value)
@@ -282,7 +282,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-1`}
                                     >
-                                        <Label name="Tahun Pajak" />
+                                        <Label name="Tahun Pajak (wajib)" />
                                         <Input
                                             type="number"
                                             placeholder="Kosong"
@@ -299,7 +299,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nomor Ketetapan" />
+                                        <Label name="Nomor Ketetapan (wajib)" />
                                         <NoKetetapanInput
                                             value={nomorKetetapan}
                                             onChange={(formattedValue) =>
@@ -317,7 +317,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-1`}
                                     >
-                                        <Label name="Tanggal Ketetapan" />
+                                        <Label name="Tanggal Ketetapan (wajib)" />
                                         <DatePicker
                                             placeholderText="kosong"
                                             className="input input-bordered"
@@ -336,7 +336,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nilai Ketetapan (SKP / STP)" />
+                                        <Label name="Nilai Ketetapan (SKP / STP) (wajib)" />
                                         <NumberInput
                                             value={nilai1}
                                             placeholder="Kosong"
@@ -354,7 +354,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Dasar Pemrosesan" />
+                                        <Label name="Dasar Pemrosesan (wajib)" />
                                         <Select
                                             onChange={(e) =>
                                                 setDasarPemrosesan(
@@ -420,7 +420,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nomor LPAD" />
+                                        <Label name="Nomor LPAD (wajib)" />
                                         <Input
                                             type="text"
                                             placeholder="Kosong"
@@ -437,7 +437,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-1`}
                                     >
-                                        <Label name="Tanggal Diterima" />
+                                        <Label name="Tanggal Diterima (wajib)" />
                                         <DatePicker
                                             placeholderText="kosong"
                                             className="input input-bordered"
@@ -587,7 +587,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nama PK" />
+                                        <Label name="Nama PK (wajib)" />
                                         <Select
                                             onChange={(e) =>
                                                 setNamaPk(e.target.value)
@@ -613,7 +613,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Nomor Surat Tugas Pengganti *Tidak Wajib" />
+                                        <Label name="Nomor Surat Tugas Pengganti" />
                                         <Input
                                             type="text"
                                             placeholder="Kosong"
@@ -632,7 +632,7 @@ function Create({
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Tanggal Surat Tugas Pengganti *Tidak Wajib" />
+                                        <Label name="Tanggal Surat Tugas Pengganti" />
                                         <DatePicker
                                             placeholderText="kosong"
                                             className="input input-bordered"
@@ -650,8 +650,8 @@ function Create({
                                     </label>
                                     <label
                                         className={`form-control col-span-2`}
-                                    >
-                                        <Label name="Nama PK Pengganti *Tidak Wajib" />
+                                    >å
+                                        <Label name="Nama PK Pengganti" />
                                         <Select
                                             onChange={(e) =>
                                                 setNamaPk2(e.target.value)
