@@ -52,7 +52,7 @@
                                 <td>{{ $item->nama_wp }}</td>
                                 <td>{{ $item->npwp }}</td>
                                 <td>{{ $item->jenisPermohonan->nama }}</td>
-                                <td>{{ $item->jenisPajak->nama }}</td>
+                                <td>{{ $item->jenisPajak->nama ?? '-' }}</td>
                                 <td>{{ $item->masa_pajak }}</td>
                                 <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>

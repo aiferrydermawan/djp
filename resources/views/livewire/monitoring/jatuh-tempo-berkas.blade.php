@@ -45,7 +45,7 @@
                                 <td>{{ $item->tanggal_lpad }}</td>
                                 <td>{{ $item->npwp }}</td>
                                 <td>{{ $item->nama_wp }}</td>
-                                <td>{{ $item->jenisPermohonan->nama }}</td>
+                                <td>{{ $item->jenisPermohonan->nama ?? '-' }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($item->tanggal_ketetapan)->format("d M Y") }}

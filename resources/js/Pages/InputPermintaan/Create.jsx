@@ -9,7 +9,7 @@ import Select from "@/Components/Select.jsx";
 import DatePicker from "react-datepicker";
 
 function Create({ errors, pk_all }) {
-    const [npwp, setNpwp] = useState("");
+//    const [npwp, setNpwp] = useState("");
     const [tglSuratPp, setTglSuratPp] = useState("");
     const [tglResiPp, setTglResiPp] = useState("");
     const [tglDiterimaKanwil, setTglDiterimaKanwil] = useState("");
@@ -17,19 +17,20 @@ function Create({ errors, pk_all }) {
     const [tglDiterimaPp, setTglDiterimaPp] = useState("");
     const [tglKepSuratYangDiBandingGugat, setTglKepSuratYangDiBandingGugat] =
         useState("");
-    const [tglSuratTugas, setTglSuratTugas] = useState("");
-    const [tglMatriks, setTglMatriks] = useState("");
-    const [tglSuratTugasPengganti, setTglSuratTugasPengganti] = useState("");
+    // const [tglSuratTugas, setTglSuratTugas] = useState("");
+    // const [tglMatriks, setTglMatriks] = useState("");
+    // const [tglSuratTugasPengganti, setTglSuratTugasPengganti] = useState("");
     const [formData, setFormData] = useState({
+        npwp: "",
         nomor_surat_pp: "",
         nomor_sengketa: "",
         jenis_sengketa: "",
         nama_wajib_pajak: "",
         nomor_surat_banding_gugatan_wp: "",
         nomor_kep_surat_yang_di_banding_gugat: "",
-        no_surat_tugas: "",
-        no_matriks: "",
-        no_surat_tugas_pengganti: "",
+        // no_surat_tugas: "",
+        // no_matriks: "",
+        // no_surat_tugas_pengganti: "",
         pk: "",
     });
 
@@ -62,15 +63,15 @@ function Create({ errors, pk_all }) {
             tglKepSuratYangDiBandingGugat
                 ? tglKepSuratYangDiBandingGugat.toLocaleDateString("en-CA")
                 : null;
-        const tgl_surat_tugas = tglSuratTugas
-            ? tglSuratTugas.toLocaleDateString("en-CA")
-            : null;
-        const tgl_matriks = tglMatriks
-            ? tglMatriks.toLocaleDateString("en-CA")
-            : null;
-        const tgl_surat_tugas_pengganti = tglSuratTugasPengganti
-            ? tglSuratTugasPengganti.toLocaleDateString("en-CA")
-            : null;
+        // const tgl_surat_tugas = tglSuratTugas
+        //     ? tglSuratTugas.toLocaleDateString("en-CA")
+        //     : null;
+        // const tgl_matriks = tglMatriks
+        //     ? tglMatriks.toLocaleDateString("en-CA")
+        //     : null;
+        // const tgl_surat_tugas_pengganti = tglSuratTugasPengganti
+        //     ? tglSuratTugasPengganti.toLocaleDateString("en-CA")
+        //     : null;
         router.post(route("input-permintaan.store"), {
             nomor_surat_pp: formData.nomor_surat_pp,
             tgl_surat_pp: tgl_surat_pp,
@@ -78,7 +79,7 @@ function Create({ errors, pk_all }) {
             tgl_diterima_kanwil: tgl_diterima_kanwil,
             nomor_sengketa: formData.nomor_sengketa,
             jenis_sengketa: formData.jenis_sengketa,
-            npwp: npwp,
+            npwp: formData.npwp,
             nama_wajib_pajak: formData.nama_wajib_pajak,
             nomor_surat_banding_gugatan_wp:
                 formData.nomor_surat_banding_gugatan_wp,
@@ -88,12 +89,12 @@ function Create({ errors, pk_all }) {
                 formData.nomor_kep_surat_yang_di_banding_gugat,
             tgl_kep_surat_yang_di_banding_gugat:
                 tgl_kep_surat_yang_di_banding_gugat,
-            no_surat_tugas: formData.no_surat_tugas,
-            tgl_surat_tugas: tgl_surat_tugas,
-            no_matriks: formData.no_matriks,
-            tgl_matriks: tgl_matriks,
-            no_surat_tugas_pengganti: formData.no_surat_tugas_pengganti,
-            tgl_surat_tugas_pengganti: tgl_surat_tugas_pengganti,
+            // no_surat_tugas: formData.no_surat_tugas,
+            // tgl_surat_tugas: tgl_surat_tugas,
+            // no_matriks: formData.no_matriks,
+            // tgl_matriks: tgl_matriks,
+            // no_surat_tugas_pengganti: formData.no_surat_tugas_pengganti,
+            // tgl_surat_tugas_pengganti: tgl_surat_tugas_pengganti,
             pk: formData.pk,
         });
     };
@@ -215,11 +216,12 @@ function Create({ errors, pk_all }) {
                                 </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="NPWP" />
-                                    <NPWPInput
-                                        value={npwp}
-                                        onChange={(formattedValue) =>
-                                            setNpwp(formattedValue)
-                                        }
+                                    <Input
+                                        type="number"
+                                        name="npwp"
+                                        placeholder="Type Here"
+                                        value={formData.npwp}
+                                        onChange={handleChange}
                                     />
                                     {errors.npwp && (
                                         <Validation>{errors.npwp}</Validation>
@@ -334,103 +336,103 @@ function Create({ errors, pk_all }) {
                                         </Validation>
                                     )}
                                 </label>
-                                <label className={`form-control col-span-1`}>
-                                    <Label name="NO SURAT TUGAS" />
-                                    <Input
-                                        type="text"
-                                        name="no_surat_tugas"
-                                        placeholder="Type Here"
-                                        value={formData.no_surat_tugas}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.no_surat_tugas && (
-                                        <Validation>
-                                            {errors.no_surat_tugas}
-                                        </Validation>
-                                    )}
-                                </label>
-                                <label className={`form-control col-span-1`}>
-                                    <Label name="TGL SURAT TUGAS" />
-                                    <DatePicker
-                                        placeholderText="kosong"
-                                        className="input input-bordered w-full"
-                                        selected={tglSuratTugas}
-                                        onChange={(date) =>
-                                            setTglSuratTugas(date)
-                                        }
-                                        dateFormat="dd-MM-yyyy"
-                                    />
-                                    {errors.tgl_surat_tugas && (
-                                        <Validation>
-                                            {errors.tgl_surat_tugas}
-                                        </Validation>
-                                    )}
-                                </label>
-                                <label className={`form-control col-span-1`}>
-                                    <Label name="NO MATRIKS" />
-                                    <Input
-                                        type="text"
-                                        name="no_matriks"
-                                        placeholder="Type Here"
-                                        value={formData.no_matriks}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.no_matriks && (
-                                        <Validation>
-                                            {errors.no_matriks}
-                                        </Validation>
-                                    )}
-                                </label>
-                                <label className={`form-control col-span-1`}>
-                                    <Label name="TGL MATRIKS" />
-                                    <DatePicker
-                                        placeholderText="kosong"
-                                        className="input input-bordered w-full"
-                                        selected={tglMatriks}
-                                        onChange={(date) => setTglMatriks(date)}
-                                        dateFormat="dd-MM-yyyy"
-                                    />
-                                    {errors.tgl_matriks && (
-                                        <Validation>
-                                            {errors.tgl_matriks}
-                                        </Validation>
-                                    )}
-                                </label>
-                                <label className={`form-control col-span-1`}>
-                                    <Label name="NO SURAT TUGAS PENGGANTI" />
-                                    <Input
-                                        type="text"
-                                        name="no_surat_tugas_pengganti"
-                                        placeholder="Type Here"
-                                        value={
-                                            formData.no_surat_tugas_pengganti
-                                        }
-                                        onChange={handleChange}
-                                    />
-                                    {errors.no_surat_tugas_pengganti && (
-                                        <Validation>
-                                            {errors.no_surat_tugas_pengganti}
-                                        </Validation>
-                                    )}
-                                </label>
-                                <label className={`form-control col-span-1`}>
-                                    <Label name="TGL SURAT TUGAS PENGGANTI" />
-                                    <DatePicker
-                                        placeholderText="kosong"
-                                        className="input input-bordered w-full"
-                                        selected={tglSuratTugasPengganti}
-                                        onChange={(date) =>
-                                            setTglSuratTugasPengganti(date)
-                                        }
-                                        dateFormat="dd-MM-yyyy"
-                                    />
+                                {/*<label className={`form-control col-span-1`}>*/}
+                                {/*    <Label name="NO SURAT TUGAS" />*/}
+                                {/*    <Input*/}
+                                {/*        type="text"*/}
+                                {/*        name="no_surat_tugas"*/}
+                                {/*        placeholder="Type Here"*/}
+                                {/*        value={formData.no_surat_tugas}*/}
+                                {/*        onChange={handleChange}*/}
+                                {/*    />*/}
+                                {/*    {errors.no_surat_tugas && (*/}
+                                {/*        <Validation>*/}
+                                {/*            {errors.no_surat_tugas}*/}
+                                {/*        </Validation>*/}
+                                {/*    )}*/}
+                                {/*</label>*/}
+                                {/*<label className={`form-control col-span-1`}>*/}
+                                {/*    <Label name="TGL SURAT TUGAS" />*/}
+                                {/*    <DatePicker*/}
+                                {/*        placeholderText="kosong"*/}
+                                {/*        className="input input-bordered w-full"*/}
+                                {/*        selected={tglSuratTugas}*/}
+                                {/*        onChange={(date) =>*/}
+                                {/*            setTglSuratTugas(date)*/}
+                                {/*        }*/}
+                                {/*        dateFormat="dd-MM-yyyy"*/}
+                                {/*    />*/}
+                                {/*    {errors.tgl_surat_tugas && (*/}
+                                {/*        <Validation>*/}
+                                {/*            {errors.tgl_surat_tugas}*/}
+                                {/*        </Validation>*/}
+                                {/*    )}*/}
+                                {/*</label>*/}
+                                {/*<label className={`form-control col-span-1`}>*/}
+                                {/*    <Label name="NO MATRIKS" />*/}
+                                {/*    <Input*/}
+                                {/*        type="text"*/}
+                                {/*        name="no_matriks"*/}
+                                {/*        placeholder="Type Here"*/}
+                                {/*        value={formData.no_matriks}*/}
+                                {/*        onChange={handleChange}*/}
+                                {/*    />*/}
+                                {/*    {errors.no_matriks && (*/}
+                                {/*        <Validation>*/}
+                                {/*            {errors.no_matriks}*/}
+                                {/*        </Validation>*/}
+                                {/*    )}*/}
+                                {/*</label>*/}
+                                {/*<label className={`form-control col-span-1`}>*/}
+                                {/*    <Label name="TGL MATRIKS" />*/}
+                                {/*    <DatePicker*/}
+                                {/*        placeholderText="kosong"*/}
+                                {/*        className="input input-bordered w-full"*/}
+                                {/*        selected={tglMatriks}*/}
+                                {/*        onChange={(date) => setTglMatriks(date)}*/}
+                                {/*        dateFormat="dd-MM-yyyy"*/}
+                                {/*    />*/}
+                                {/*    {errors.tgl_matriks && (*/}
+                                {/*        <Validation>*/}
+                                {/*            {errors.tgl_matriks}*/}
+                                {/*        </Validation>*/}
+                                {/*    )}*/}
+                                {/*</label>*/}
+                                {/*<label className={`form-control col-span-1`}>*/}
+                                {/*    <Label name="NO SURAT TUGAS PENGGANTI" />*/}
+                                {/*    <Input*/}
+                                {/*        type="text"*/}
+                                {/*        name="no_surat_tugas_pengganti"*/}
+                                {/*        placeholder="Type Here"*/}
+                                {/*        value={*/}
+                                {/*            formData.no_surat_tugas_pengganti*/}
+                                {/*        }*/}
+                                {/*        onChange={handleChange}*/}
+                                {/*    />*/}
+                                {/*    {errors.no_surat_tugas_pengganti && (*/}
+                                {/*        <Validation>*/}
+                                {/*            {errors.no_surat_tugas_pengganti}*/}
+                                {/*        </Validation>*/}
+                                {/*    )}*/}
+                                {/*</label>*/}
+                                {/*<label className={`form-control col-span-1`}>*/}
+                                {/*    <Label name="TGL SURAT TUGAS PENGGANTI" />*/}
+                                {/*    <DatePicker*/}
+                                {/*        placeholderText="kosong"*/}
+                                {/*        className="input input-bordered w-full"*/}
+                                {/*        selected={tglSuratTugasPengganti}*/}
+                                {/*        onChange={(date) =>*/}
+                                {/*            setTglSuratTugasPengganti(date)*/}
+                                {/*        }*/}
+                                {/*        dateFormat="dd-MM-yyyy"*/}
+                                {/*    />*/}
 
-                                    {errors.tgl_surat_tugas_pengganti && (
-                                        <Validation>
-                                            {errors.tgl_surat_tugas_pengganti}
-                                        </Validation>
-                                    )}
-                                </label>
+                                {/*    {errors.tgl_surat_tugas_pengganti && (*/}
+                                {/*        <Validation>*/}
+                                {/*            {errors.tgl_surat_tugas_pengganti}*/}
+                                {/*        </Validation>*/}
+                                {/*    )}*/}
+                                {/*</label>*/}
                                 <label className="form-control">
                                     <Label name="Nama PK" />
                                     <Select
