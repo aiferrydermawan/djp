@@ -50,7 +50,7 @@
                                 <td>{{ $item->masa_pajak }}</td>
                                 <td>{{ $item->tahun_pajak }}</td>
                                 <td>{{ $item->nomor_ketetapan }}</td>
-                                <td>{{ $item->pelaksana->name }}</td>
+                                <td>{{ $item->pelaksana->name ?? '-' }}</td>
                                 <td>
                                     @if ($item->penelaahKeberatan2)
                                         {{ $item->penelaahKeberatan2->name }}
