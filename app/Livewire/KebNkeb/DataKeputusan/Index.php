@@ -51,13 +51,13 @@ class Index extends Component
                 ->orWhere('npwp', 'like', '%'.$this->search.'%');
         });
 
-        $query->where(function ($query) use ($user_id) {
-            $query->where('nama_pk', $user_id)
-                ->orWhere(function ($query) use ($user_id) {
-                    $query->where('nama_pk_2', $user_id)
-                        ->whereNotNull('nama_pk_2');
-                });
-        });
+//        $query->where(function ($query) use ($user_id) {
+//            $query->where('nama_pk', $user_id)
+//                ->orWhere(function ($query) use ($user_id) {
+//                    $query->where('nama_pk_2', $user_id)
+//                        ->whereNotNull('nama_pk_2');
+//                });
+//        });
         // $query->has('penelitianFormal');
         $permohonan_all = $query->with([
             'jenisPermohonan',
