@@ -151,7 +151,6 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                             disabled
                                         />
                                     </label>
-                                    <div className="col-span-2"></div>
                                     <label
                                         className={`form-control col-span-2`}
                                     >
