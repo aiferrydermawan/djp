@@ -22,7 +22,7 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
     const [jenisPermohonan, setJenisPermohonan] = useState(
         permohonan.jenis_permohonan.nama,
     );
-    const [jenisPajak, setJenisPajak] = useState(permohonan.jenis_pajak.nama);
+    // const [jenisPajak, setJenisPajak] = useState(permohonan.jenis_pajak.nama);
     const [masaPajak, setMasaPajak] = useState(permohonan.masa_pajak);
     const [tahunPajak, setTahunPajak] = useState(permohonan.tahun_pajak);
     const [nomorKetetapan, setNomorKetetapan] = useState(
@@ -124,12 +124,12 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                             disabled
                                         />
                                     </label>
-                                    <label
-                                        className={`form-control col-span-2`}
-                                    >
-                                        <Label name="Jenis Pajak" />
-                                        <Input value={jenisPajak} disabled />
-                                    </label>
+                                    {/*<label*/}
+                                    {/*    className={`form-control col-span-2`}*/}
+                                    {/*>*/}
+                                    {/*    <Label name="Jenis Pajak" />*/}
+                                    {/*    <Input value={jenisPajak} disabled />*/}
+                                    {/*</label>*/}
                                     <label
                                         className={`form-control col-span-2`}
                                     >
