@@ -19,19 +19,13 @@ class DataPengirimanController extends Controller
         $query = Permohonan::query();
         $permohonanAll = PermohonanResource::collection($query->with([
             'jenisPermohonan',
-            'jenisPajak',
+            //'jenisPajak',
             'penelaahKeberatan.detail.organisasi',
             'pelaksana.detail.organisasi',
             // Batas
             'dataPengiriman',
         ])
-            ->whereHas('kriteriaPermohonan')
-            ->where(function ($query) use ($user_id) {
-                $query->where('nama_pk', $user_id)
-                    ->whereNull('nama_pk_2');
-            })->orWhere(function ($query) use ($user_id) {
-                $query->where('nama_pk_2', $user_id);
-            })->latest()
+            ->latest()
             ->paginate($this->loadDefault));
 
         return inertia('DataPengiriman/PenelaahKeberatan', [
@@ -41,7 +35,7 @@ class DataPengirimanController extends Controller
 
     public function edit($id)
     {
-        $permohonan = Permohonan::with(['jenisPermohonan', 'jenisPajak', 'dataPengiriman'])->find($id);
+        $permohonan = Permohonan::with(['jenisPermohonan', 'dataPengiriman'])->find($id);
 
         return inertia('DataPengiriman/Edit', [
             'permohonan' => $permohonan,

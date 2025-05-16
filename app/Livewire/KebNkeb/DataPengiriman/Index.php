@@ -58,7 +58,7 @@ class Index extends Component
 //                        ->whereNotNull('nama_pk_2');
 //                });
 //        });
-        $query->whereHas('kriteriaPermohonan');
+        $query->whereHas('dataKeputusan');
         $permohonan_all = $query->with([
             'jenisPermohonan',
             'jenisPajak',

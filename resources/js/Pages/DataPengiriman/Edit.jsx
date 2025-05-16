@@ -14,7 +14,6 @@ function Edit({ errors, permohonan }) {
     const namaWp = permohonan.nama_wp;
     const npwp = permohonan.npwp;
     const jenisPermohonan = permohonan.jenis_permohonan.nama;
-    const jenisPajak = permohonan.jenis_pajak.nama;
     const masaPajak = permohonan.masa_pajak;
     const tahunPajak = permohonan.tahun_pajak;
     const nomorKetetapan = permohonan.nomor_ketetapan;
@@ -114,12 +113,6 @@ function Edit({ errors, permohonan }) {
                                     <label
                                         className={`form-control col-span-2`}
                                     >
-                                        <Label name="Jenis Pajak" />
-                                        <Input value={jenisPajak} disabled />
-                                    </label>
-                                    <label
-                                        className={`form-control col-span-2`}
-                                    >
                                         <Label name="Masa Pajak" />
                                         <Input value={masaPajak} disabled />
                                     </label>
@@ -138,7 +131,6 @@ function Edit({ errors, permohonan }) {
                                             disabled
                                         />
                                     </label>
-                                    <div className="col-span-2"></div>
                                     <label
                                         className={`form-control col-span-2`}
                                     >
