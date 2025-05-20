@@ -7,6 +7,7 @@ use App\Http\Resources\PermohonanResource;
 use App\Models\DataKeputusan;
 use App\Models\Permohonan;
 use App\Models\Referensi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -70,6 +71,9 @@ class DataKeputusanController extends Controller
             'tanggalKeputusan' => ['required'],
             'amarKeputusanId' => ['required'],
             'nilaiAkhirMenurutKeputusan' => ['required'],
+            // new
+            'nomorLaporan' => ['required'],
+            'tanggalLaporan' => ['required'],
         ]);
 
         DataKeputusan::updateOrCreate(
@@ -81,6 +85,9 @@ class DataKeputusanController extends Controller
                 'amar_keputusan_id' => $request->amarKeputusanId,
                 'nilai_akhir_menurut_keputusan' => str_replace('.', '', $request->nilaiAkhirMenurutKeputusan),
                 'pembuat' => auth()->user()->id,
+                // new
+                'nomor_laporan' => $request->nomorLaporan,
+                'tanggal_laporan' => Carbon::parse($request->tanggalLaporan),
             ]
         );
 

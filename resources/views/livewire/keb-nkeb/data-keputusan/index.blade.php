@@ -36,7 +36,16 @@
                             <th>Tahun Pajak</th>
                             <th>Nomor Ketetapan</th>
                             <th>Pelaksana</th>
-                            <th>Sisa Waktu</th>
+                            <th>
+                                <button wire:click="$set('sortBySisaWaktu', '{{ $sortBySisaWaktu === 'asc' ? 'desc' : 'asc' }}')">
+                                    Sisa Waktu
+                                    @if ($sortBySisaWaktu === 'asc')
+                                        ↑
+                                    @elseif ($sortBySisaWaktu === 'desc')
+                                        ↓
+                                    @endif
+                                </button>
+                            </th>
                             <th>Data Keputusan</th>
                             <th></th>
                         </tr>

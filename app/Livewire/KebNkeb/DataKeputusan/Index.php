@@ -4,6 +4,7 @@ namespace App\Livewire\KebNkeb\DataKeputusan;
 
 use App\Models\Permohonan;
 use App\Models\UserDetail;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,6 +15,9 @@ class Index extends Component
     public $search = '';
 
     public $status = 'pending';
+
+    public $sortBySisaWaktu = null; // null | 'asc' | 'desc'
+
 
     public function mount()
     {
@@ -39,35 +43,46 @@ class Index extends Component
 
     public function render()
     {
-        $user_id = auth()->user()->id;
         $query = Permohonan::query();
+
         if ($this->status == 'pending') {
             $query->doesntHave('dataKeputusan');
         } else {
             $query->has('dataKeputusan');
         }
+
         $query->where(function ($query) {
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
                 ->orWhere('npwp', 'like', '%'.$this->search.'%');
         });
 
-//        $query->where(function ($query) use ($user_id) {
-//            $query->where('nama_pk', $user_id)
-//                ->orWhere(function ($query) use ($user_id) {
-//                    $query->where('nama_pk_2', $user_id)
-//                        ->whereNotNull('nama_pk_2');
-//                });
-//        });
-        // $query->has('penelitianFormal');
-        $permohonan_all = $query->with([
+        $permohonan = $query->with([
             'jenisPermohonan',
             'jenisPajak',
             'pelaksana.detail.organisasi',
             'dataKeputusan',
-        ])->latest()->paginate(10);
+        ])->get();
+
+        // Sort by sisa_waktu (manual karena ini adalah accessor)
+        if ($this->sortBySisaWaktu === 'asc') {
+            $permohonan = $permohonan->sortBy(fn ($item) => $item->sisa_waktu_value);
+        } elseif ($this->sortBySisaWaktu === 'desc') {
+            $permohonan = $permohonan->sortByDesc(fn ($item) => $item->sisa_waktu_value);
+        }
+
+        // Manual pagination
+        $page = request()->get('page', 1);
+        $perPage = 10;
+        $paginated = new LengthAwarePaginator(
+            $permohonan->forPage($page, $perPage)->values(),
+            $permohonan->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         return view('livewire.keb-nkeb.data-keputusan.index', [
-            'permohonan_all' => $permohonan_all,
+            'permohonan_all' => $paginated,
         ]);
     }
 }

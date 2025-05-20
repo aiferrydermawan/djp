@@ -29,6 +29,10 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
         permohonan.nomor_ketetapan,
     );
 
+    // New
+    const [nomorLaporan, setNomorLaporan] = useState("");
+    const [tanggalLaporan, setTanggalLaporan] = useState("");
+
     const [jenisKeputusan, setJenisKeputusan] = useState("");
     const [noKeputusan, setNoKeputusan] = useState("");
     const [tanggalKeputusan, setTanggalKeputusan] = useState("");
@@ -39,6 +43,14 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
     useEffect(() => {
         if (permohonan.data_keputusan != null) {
             const data = permohonan.data_keputusan;
+            // new
+            setNomorLaporan(data.nomor_laporan);
+            setTanggalLaporan(
+                data.tanggal_laporan
+                    ? new Date(data.tanggal_laporan)
+                    : null,
+            );
+
             setJenisKeputusan(data.jenis_keputusan);
             setNoKeputusan(data.no_keputusan);
             setTanggalKeputusan(
@@ -63,6 +75,8 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
             tanggalKeputusan: tanggal_keputusan,
             amarKeputusanId: amarKeputusanId,
             nilaiAkhirMenurutKeputusan: nilaiAkhirMenurutKeputusan,
+            nomorLaporan: nomorLaporan,
+            tanggalLaporan: tanggalLaporan,
         });
     };
 
@@ -154,6 +168,43 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                     <label
                                         className={`form-control col-span-2`}
                                     >
+                                        <Label name="Nomor Laporan" />
+                                        <Input
+                                            type="text"
+                                            value={nomorLaporan}
+                                            onChange={(e) =>
+                                                setNomorLaporan(e.target.value)
+                                            }
+                                            placeholder="Kosong"
+                                        />
+                                        {errors.nomorLaporan && (
+                                            <Validation>
+                                                {errors.nomorLaporan}
+                                            </Validation>
+                                        )}
+                                    </label>
+                                    <label
+                                        className={`form-control`}
+                                    >
+                                        <Label name="Tanggal Laporan" />
+                                        <DatePicker
+                                            placeholderText="kosong"
+                                            className="input input-bordered"
+                                            selected={tanggalLaporan}
+                                            onChange={(date) =>
+                                                setTanggalLaporan(date)
+                                            }
+                                            dateFormat="dd-MM-yyyy"
+                                        />
+                                        {errors.tanggalLaporan && (
+                                            <Validation>
+                                                {errors.tanggalLaporan}
+                                            </Validation>
+                                        )}
+                                    </label>
+                                    <label
+                                        className={`form-control col-span-3`}
+                                    >
                                         <Label name="Jenis Keputusan" />
                                         <Select
                                             value={jenisKeputusan}
@@ -196,7 +247,7 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                         )}
                                     </label>
                                     <label
-                                        className={`form-control col-span-1`}
+                                        className={`form-control col-span-2`}
                                     >
                                         <Label name="Tanggal Keputusan" />
                                         <DatePicker
@@ -246,7 +297,7 @@ function Edit({ errors, permohonan, amar_putusan_all }) {
                                         )}
                                     </label>
                                     <label
-                                        className={`form-control col-span-1`}
+                                        className={`form-control col-span-2`}
                                     >
                                         <Label name="Nilai Akhir Menurut Keputusan" />
                                         <NumberInput

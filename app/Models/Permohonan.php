@@ -87,6 +87,13 @@ class Permohonan extends Model
         return $sisa_waktu.' Hari';
     }
 
+    public function getSisaWaktuValueAttribute()
+    {
+        $sekarang = Carbon::now();
+        $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
+        return $sekarang->diffInDays($tanggalBerakhir, false);
+    }
+
     public function formatWaktu($value)
     {
         return Carbon::parse($value)->format('d F Y');
