@@ -1,0 +1,1 @@
+import{j as m}from"./app-CycpS5os.js";function c({value:r,className:a,...e}){const u=n=>n.replace(/\D/g,"").replace(/\B(?=(\d{3})+(?!\d))/g,"."),o=n=>{const t=u(n.target.value);e.onChange&&e.onChange(t)};return m.jsx("input",{...e,value:r,onChange:o,className:`input input-bordered w-full ${a}`})}export{c as N};
