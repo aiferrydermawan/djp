@@ -85,9 +85,8 @@ class DataKeputusanController extends Controller
                 'amar_keputusan_id' => $request->amarKeputusanId,
                 'nilai_akhir_menurut_keputusan' => str_replace('.', '', $request->nilaiAkhirMenurutKeputusan),
                 'pembuat' => auth()->user()->id,
-                // new
-                'nomor_laporan_v2' => $request->nomorLaporan,
-                'tanggal_laporan_v2' => Carbon::parse($request->tanggalLaporan),
+//                'nomor_laporan_v2' => $request->nomorLaporan,
+//                'tanggal_laporan_v2' => Carbon::parse($request->tanggalLaporan),
             ]
         );
 
