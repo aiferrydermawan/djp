@@ -117,6 +117,34 @@ class DashboardController extends Controller
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
 
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where(function ($query) use ($user_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->where('nama_pk_2', $user_id);
+                })->orWhere(function ($query) use ($user_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->where('nama_pk', $user_id);
+                });
+            });
+        }
+
+        if ($jabatan == 'kepala seksi') {
+            $permohonan->where(function ($query) use ($unit_organisasi_id) {
+                $query->where(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan2.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                })->orWhere(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                });
+            });
+        }
+
         return $permohonan->doesntHave('dataPengiriman')->count();
     }
 
@@ -124,6 +152,34 @@ class DashboardController extends Controller
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
+
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where(function ($query) use ($user_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->where('nama_pk_2', $user_id);
+                })->orWhere(function ($query) use ($user_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->where('nama_pk', $user_id);
+                });
+            });
+        }
+
+        if ($jabatan == 'kepala seksi') {
+            $permohonan->where(function ($query) use ($unit_organisasi_id) {
+                $query->where(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan2.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                })->orWhere(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                });
+            });
+        }
 
         $permohonan->doesntHave('dataPengiriman')
             ->whereMonth('tanggal_berakhir', '=', Carbon::now()->month)
@@ -136,6 +192,34 @@ class DashboardController extends Controller
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
+
+        if ($jabatan === 'penelaah keberatan') {
+            $permohonan->where(function ($query) use ($user_id) {
+                $query->where(function ($query) use ($user_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->where('nama_pk_2', $user_id);
+                })->orWhere(function ($query) use ($user_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->where('nama_pk', $user_id);
+                });
+            });
+        }
+
+        if ($jabatan == 'kepala seksi') {
+            $permohonan->where(function ($query) use ($unit_organisasi_id) {
+                $query->where(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNotNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan2.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                })->orWhere(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNull('nama_pk_2')
+                        ->whereHas('penelaahKeberatan.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                });
+            });
+        }
 
         return $permohonan->doesntHave('dataPengiriman')
             ->whereMonth('tanggal_berakhir', '=', Carbon::now()->addMonth())
