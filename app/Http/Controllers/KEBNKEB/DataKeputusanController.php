@@ -76,19 +76,18 @@ class DataKeputusanController extends Controller
             'tanggalLaporan' => ['required'],
         ]);
 
-        DataKeputusan::updateOrCreate(
-            ['permohonan_id' => $id],
-            [
+
+
+        DataKeputusan::where('permohonan_id', $id)->update([
                 'jenis_keputusan' => $request->jenisKeputusan,
                 'no_keputusan' => $request->noKeputusan,
                 'tanggal_keputusan' => $request->tanggalKeputusan,
                 'amar_keputusan_id' => $request->amarKeputusanId,
                 'nilai_akhir_menurut_keputusan' => str_replace('.', '', $request->nilaiAkhirMenurutKeputusan),
                 'pembuat' => auth()->user()->id,
-//                'nomor_laporan_v2' => $request->nomorLaporan,
-//                'tanggal_laporan_v2' => Carbon::parse($request->tanggalLaporan),
-            ]
-        );
+                'nomor_laporan' => $request->nomorLaporan,
+                'tanggal_laporan' => Carbon::parse($request->tanggalLaporan),
+            ]);
 
         session()->flash('success', 'Data berhasil diperbarui');
 
