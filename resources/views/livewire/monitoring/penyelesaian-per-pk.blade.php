@@ -6,7 +6,7 @@
     </div>
 
     <div class="mb-4">
-        <label class="text-sm">Filter Tahun Surat Tugas:</label>
+        <label class="text-sm">Filter Tahun LPAD:</label>
         <select wire:model.live="tahunSuratTugas" class="select select-bordered max-w-xs">
             <option value="">Semua Tahun</option>
             @foreach ($listTahun as $tahun)
