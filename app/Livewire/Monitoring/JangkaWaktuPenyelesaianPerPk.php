@@ -69,8 +69,8 @@ class JangkaWaktuPenyelesaianPerPk extends Component
         // Hitung rata-rata hari
         foreach ($grouped as $kategori => &$pks) {
             foreach ($pks as &$pk) {
-                $pk['total'] = $pk['hari_total'] > 0
-                    ? intval(round($pk['permohonan_count'] / $pk['hari_total']))
+                $pk['total'] = $pk['permohonan_count'] > 0
+                    ? intval(round($pk['hari_total'] / $pk['permohonan_count']))
                     : 0;
                 unset($pk['hari_total'], $pk['permohonan_count']);
             }
