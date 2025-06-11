@@ -13,11 +13,11 @@ class PenyelesaianPerPk extends Component
 
     public function render()
     {
-        // Ambil daftar tahun unik dari kolom tahun_surat_tugas
-        $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_surat_tugas'))
-            ->whereNotNull('tahun_surat_tugas')
-            ->orderBy('tahun_surat_tugas', 'desc')
-            ->pluck('tahun_surat_tugas');
+        // Ambil daftar tahun unik dari kolom tahun_lpad
+        $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_lpad'))
+            ->whereNotNull('tahun_lpad')
+            ->orderBy('tahun_lpad', 'desc')
+            ->pluck('tahun_lpad');
 
         // Ambil semua jenis permohonan
         $jenisPermohonanList = JenisPermohonan::pluck('nama', 'id')->toArray();
@@ -28,9 +28,9 @@ class PenyelesaianPerPk extends Component
                 $query->select('permohonan_id')->from('data_pengiriman');
             });
 
-        // Filter berdasarkan tahun_surat_tugas jika dipilih
+        // Filter berdasarkan tahun_lpad jika dipilih
         if (!empty($this->tahunSuratTugas)) {
-            $query->where('tahun_surat_tugas', $this->tahunSuratTugas);
+            $query->where('tahun_lpad', $this->tahunSuratTugas);
         }
 
         $permohonan = $query->get();
