@@ -98,4 +98,9 @@ class Permohonan extends Model
     {
         return Carbon::parse($value)->format('d F Y');
     }
+
+    public function namaPk()
+    {
+        return $this->belongsTo(User::class, 'nama_pk');
+    }
 }

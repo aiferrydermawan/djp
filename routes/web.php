@@ -78,6 +78,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengiriman-kep-surat', App\Livewire\Monitoring\PengirimanSurat::class)->name('pengiriman-kep-surat');
         Route::get('/jatuh-tempo-berkas', App\Livewire\Monitoring\JatuhTempoBerkas::class)->name('jatuh-tempo-berkas');
         Route::get('/pencarian-sk', App\Livewire\Monitoring\PencarianSk::class)->name('pencarian-sk');
+        // New
+        Route::get('/penyelesaian-permohonan', App\Livewire\Monitoring\PenyelesaianPermohonan::class)->name('penyelesaian-permohonan');
+        Route::get('/penyelesaian-per-pk', App\Livewire\Monitoring\PenyelesaianPerPk::class)->name('penyelesaian-per-pk');
+        Route::get('/jangka-waktu-penyelesaian-per-pk', App\Livewire\Monitoring\JangkaWaktuPenyelesaianPerPk::class)->name('jangka-waktu-penyelesaian-per-pk');
     });
     Route::prefix('cetak')->group(function () {
         Route::get('/template-map', App\Livewire\Cetak\TemplateMap\Index::class)->name('template-map.index');

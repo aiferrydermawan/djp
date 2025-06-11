@@ -217,6 +217,16 @@
                         Pencarian SK
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route("monitoring.penyelesaian-per-pk") }}">
+                        Penyelesaian Per PK
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("monitoring.jangka-waktu-penyelesaian-per-pk") }}">
+                        Jangka Waktu Penyelesaian Per PK
+                    </a>
+                </li>
             </ul>
         </details>
     </li>
