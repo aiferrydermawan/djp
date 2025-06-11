@@ -5,19 +5,38 @@ namespace App\Livewire\Monitoring;
 use App\Models\JenisPermohonan;
 use App\Models\Permohonan;
 use Livewire\Component;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class JangkaWaktuPenyelesaianPerPk extends Component
 {
+    public $tahunSuratTugas;
+
     public function render()
     {
+        // Ambil semua tahun unik dari kolom tahun_surat_tugas
+        $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_surat_tugas'))
+            ->whereNotNull('tahun_surat_tugas')
+            ->orderBy('tahun_surat_tugas', 'desc')
+            ->pluck('tahun_surat_tugas');
+
+        // Ambil jenis permohonan
         $jenisPermohonanList = JenisPermohonan::pluck('nama', 'id')->toArray();
 
-        $permohonan = Permohonan::with(['jenisPermohonan', 'namaPk', 'dataPengiriman'])
+        // Query dasar
+        $query = Permohonan::with(['jenisPermohonan', 'namaPk', 'dataPengiriman'])
             ->whereIn('id', function ($query) {
                 $query->select('permohonan_id')->from('data_pengiriman');
-            })
-            ->get();
+            });
 
+        // Filter tahun_surat_tugas jika dipilih
+        if (!empty($this->tahunSuratTugas)) {
+            $query->where('tahun_surat_tugas', $this->tahunSuratTugas);
+        }
+
+        $permohonan = $query->get();
+
+        // Grouping berdasarkan kategori dan PK
         $grouped = ['Keberatan' => [], 'Non Keberatan' => []];
 
         foreach ($permohonan as $p) {
@@ -25,34 +44,35 @@ class JangkaWaktuPenyelesaianPerPk extends Component
             $pkId = $p->nama_pk;
             $pkName = $p->namaPk->name ?? 'PK Tidak Diketahui';
             $jenisNama = $p->jenisPermohonan->nama ?? 'Tidak Diketahui';
-            $penyelesaian = $p->dataPengiriman->waktu_penyelesaian ?? 0;
+
+            $tglDiterima = $p->tanggal_diterima;
+            $tglResi = optional($p->dataPengiriman)->tanggal_resi_wp;
+
+            if (!$tglDiterima || !$tglResi) continue;
+
+            $selisihHari = Carbon::parse($tglResi)->diffInDays(Carbon::parse($tglDiterima));
 
             if (!isset($grouped[$kategori][$pkId])) {
                 $grouped[$kategori][$pkId] = [
                     'nama' => $pkName,
                     'jenis' => array_fill_keys(array_values($jenisPermohonanList), 0),
-                    'penyelesaian_total' => 0,
-                    'penyelesaian_count' => 0,
+                    'hari_total' => 0,
+                    'permohonan_count' => 0,
                 ];
             }
 
-            // Hitung jumlah permohonan per jenis
             $grouped[$kategori][$pkId]['jenis'][$jenisNama] = ($grouped[$kategori][$pkId]['jenis'][$jenisNama] ?? 0) + 1;
-
-            // Simpan waktu penyelesaian
-            $grouped[$kategori][$pkId]['penyelesaian_total'] += $penyelesaian;
-            $grouped[$kategori][$pkId]['penyelesaian_count'] += 1;
+            $grouped[$kategori][$pkId]['hari_total'] += $selisihHari;
+            $grouped[$kategori][$pkId]['permohonan_count'] += 1;
         }
 
-        // Hitung rata-rata penyelesaian di akhir
+        // Hitung rata-rata hari
         foreach ($grouped as $kategori => &$pks) {
             foreach ($pks as &$pk) {
-                $pk['total'] = $pk['penyelesaian_count'] > 0
-                    ? round($pk['penyelesaian_total'] / $pk['penyelesaian_count'], 1)
+                $pk['total'] = $pk['permohonan_count'] > 0
+                    ? intval(round($pk['hari_total'] / $pk['permohonan_count']))
                     : 0;
-
-                // Remove raw data
-                unset($pk['penyelesaian_total'], $pk['penyelesaian_count']);
+                unset($pk['hari_total'], $pk['permohonan_count']);
             }
         }
 
@@ -60,6 +80,7 @@ class JangkaWaktuPenyelesaianPerPk extends Component
             'jenisPermohonanList' => array_values($jenisPermohonanList),
             'nonKeberatan' => $grouped['Non Keberatan'],
             'keberatan' => $grouped['Keberatan'],
+            'listTahun' => $listTahun,
         ]);
     }
 }

@@ -5,7 +5,18 @@
         </ul>
     </div>
 
-    @foreach ([['Non Keberatan', $nonKeberatan], ['Keberatan', $keberatan]] as [$judul, $data])
+    <div class="mb-4">
+        <label class="text-sm">Filter Tahun Surat Tugas:</label>
+        <select wire:model.live="tahunSuratTugas" class="select select-bordered max-w-xs">
+            <option value="">Semua Tahun</option>
+            @foreach ($listTahun as $tahun)
+                <option value="{{ $tahun }}">{{ $tahun }}</option>
+            @endforeach
+        </select>
+    </div>
+
+
+@foreach ([['Non Keberatan', $nonKeberatan], ['Keberatan', $keberatan]] as [$judul, $data])
         <div class="card mt-5 bg-base-100 shadow">
             <div class="card-body">
                 <div class="card-title">{{ $judul }}</div>
@@ -15,7 +26,7 @@
                         <tr>
                             <th rowspan="2">Nama PK</th>
                             <th colspan="{{ count($jenisPermohonanList) }}">Jenis Permohonan</th>
-                            <th rowspan="2">Rata-Rata Total</th>
+                            <th rowspan="2">Rata-Rata Penyelesaian (hari)</th>
                         </tr>
                         <tr>
                             @foreach ($jenisPermohonanList as $namaJenis)
