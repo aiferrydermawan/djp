@@ -14,11 +14,11 @@ class JangkaWaktuPenyelesaianPerPk extends Component
 
     public function render()
     {
-        // Ambil semua tahun unik dari kolom tahun_lpad
-        $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_lpad'))
-            ->whereNotNull('tahun_lpad')
-            ->orderBy('tahun_lpad', 'desc')
-            ->pluck('tahun_lpad');
+        // Ambil semua tahun unik dari kolom tahun_berkas
+        $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_berkas'))
+            ->whereNotNull('tahun_berkas')
+            ->orderBy('tahun_berkas', 'desc')
+            ->pluck('tahun_berkas');
 
         // Ambil jenis permohonan
         $jenisPermohonanList = JenisPermohonan::pluck('nama', 'id')->toArray();
@@ -29,9 +29,9 @@ class JangkaWaktuPenyelesaianPerPk extends Component
                 $query->select('permohonan_id')->from('data_pengiriman');
             });
 
-        // Filter tahun_lpad jika dipilih
+        // Filter tahun_berkas jika dipilih
         if (!empty($this->tahunSuratTugas)) {
-            $query->where('tahun_lpad', $this->tahunSuratTugas);
+            $query->where('tahun_berkas', $this->tahunSuratTugas);
         }
 
         $permohonan = $query->get();
