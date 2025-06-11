@@ -49,6 +49,7 @@ class DataPengirimanController extends Controller
             'tanggalResiWp' => ['required'],
             'nomorResiKpp' => ['required'],
             'tanggalResiKpp' => ['required'],
+            'waktuPenyelesaian' => ['required'],
         ]);
 
         DataPengiriman::updateOrCreate(
@@ -58,6 +59,7 @@ class DataPengirimanController extends Controller
                 'tanggal_resi_wp' => $request->tanggalResiWp,
                 'nomor_resi_kpp' => $request->nomorResiKpp,
                 'tanggal_resi_kpp' => $request->tanggalResiKpp,
+                'waktu_penyelesaian' => $request->waktuPenyelesaian,
             ]
         );
 

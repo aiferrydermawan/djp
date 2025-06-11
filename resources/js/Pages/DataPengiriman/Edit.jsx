@@ -23,9 +23,12 @@ function Edit({ errors, permohonan }) {
     const [nomorResiKpp, setNomorResiKpp] = useState("");
     const [tanggalResiKpp, setTanggalResiKpp] = useState("");
 
+    const [waktuPenyelesaian, setWaktuPenyelesaian] = useState("");
+
     useEffect(() => {
         if (permohonan.data_pengiriman != null) {
             const data = permohonan.data_pengiriman;
+            setWaktuPenyelesaian(data.waktu_penyelesaian);
             setNomorResiWp(data.nomor_resi_wp);
             setTanggalResiWp(
                 data.tanggal_resi_wp ? new Date(data.tanggal_resi_wp) : null,
@@ -49,6 +52,7 @@ function Edit({ errors, permohonan }) {
             tanggalResiWp: tanggal_resi_wp,
             nomorResiKpp: nomorResiKpp,
             tanggalResiKpp: tanggal_resi_kpp,
+            waktuPenyelesaian: waktuPenyelesaian,
         });
     };
 
@@ -203,6 +207,24 @@ function Edit({ errors, permohonan }) {
                                         {errors.tanggalResiKpp && (
                                             <Validation>
                                                 {errors.tanggalResiKpp}
+                                            </Validation>
+                                        )}
+                                    </label>
+                                    <label
+                                        className={`form-control col-span-2`}
+                                    >
+                                        <Label name="Waktu Penyelesaian" />
+                                        <Input
+                                            type="number"
+                                            value={waktuPenyelesaian}
+                                            onChange={(e) =>
+                                                setWaktuPenyelesaian(e.target.value)
+                                            }
+                                            placeholder="Kosong"
+                                        />
+                                        {errors.waktuPenyelesaian && (
+                                            <Validation>
+                                                {errors.waktuPenyelesaian}
                                             </Validation>
                                         )}
                                     </label>
