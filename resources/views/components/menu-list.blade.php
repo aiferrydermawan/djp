@@ -218,6 +218,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route("monitoring.penyelesaian-permohonan") }}">
+                        Penyelesaian Permohonan
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route("monitoring.penyelesaian-per-pk") }}">
                         Penyelesaian Per PK
                     </a>
