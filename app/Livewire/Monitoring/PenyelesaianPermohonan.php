@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Monitoring;
 
+use App\Models\Permintaan;
 use App\Models\Permohonan;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -11,6 +12,7 @@ class PenyelesaianPermohonan extends Component
     public $tahunSuratTugas;
     public function render()
     {
+        // Ambil daftar tahun dari tabel permohonan
         $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_berkas'))
             ->whereNotNull('tahun_berkas')
             ->orderBy('tahun_berkas', 'desc')
@@ -22,8 +24,9 @@ class PenyelesaianPermohonan extends Component
         if ($this->tahunSuratTugas) {
             $tahunAktif = $this->tahunSuratTugas;
             $tahunSebelumnya = $tahunAktif - 1;
-            $kategoriList = ['Keberatan', 'Non Keberatan'];
 
+            // === PERMOHONAN ===
+            $kategoriList = ['Keberatan', 'Non Keberatan'];
             foreach ($kategoriList as $kategori) {
                 $saldoAwal = Permohonan::where('kategori_permohonan', $kategori)
                     ->where('tahun_berkas', $tahunSebelumnya)
@@ -52,6 +55,37 @@ class PenyelesaianPermohonan extends Component
                 ];
             }
 
+            // === PERMINTAAN ===
+            $kategoriPermintaan = ['SUB', 'STG'];
+            foreach ($kategoriPermintaan as $kategori) {
+                $saldoAwal = Permintaan::where('kategori_permintaan', $kategori)
+                    ->where('tahun_berkas', $tahunSebelumnya)
+                    ->whereNotIn('id', function ($q) {
+                        $q->select('permintaan_id')->from('pengiriman');
+                    })
+                    ->count();
+
+                $masukTahunIni = Permintaan::where('kategori_permintaan', $kategori)
+                    ->where('tahun_berkas', $tahunAktif)
+                    ->count();
+
+                $selesai = Permintaan::where('kategori_permintaan', $kategori)
+                    ->whereIn('id', function ($q) {
+                        $q->select('permintaan_id')->from('pengiriman');
+                    })
+                    ->count();
+
+                $saldoAkhir = $saldoAwal + $masukTahunIni - $selesai;
+
+                $data[$kategori] = [
+                    'saldo_awal' => $saldoAwal,
+                    'masuk' => $masukTahunIni,
+                    'selesai' => $selesai,
+                    'saldo_akhir' => $saldoAkhir,
+                ];
+            }
+
+            // === TOTAL ===
             $total = [
                 'saldo_awal' => array_sum(array_column($data, 'saldo_awal')),
                 'masuk' => array_sum(array_column($data, 'masuk')),

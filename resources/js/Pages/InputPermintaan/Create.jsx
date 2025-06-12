@@ -22,6 +22,8 @@ function Create({ errors, pk_all }) {
     // const [tglSuratTugasPengganti, setTglSuratTugasPengganti] = useState("");
     const [formData, setFormData] = useState({
         npwp: "",
+        kategori_permintaan: "",
+        tahun_berkas: "",
         nomor_surat_pp: "",
         nomor_sengketa: "",
         jenis_sengketa: "",
@@ -73,6 +75,8 @@ function Create({ errors, pk_all }) {
         //     ? tglSuratTugasPengganti.toLocaleDateString("en-CA")
         //     : null;
         router.post(route("input-permintaan.store"), {
+            kategori_permintaan: formData.kategori_permintaan,
+            tahun_berkas: formData.tahun_berkas,
             nomor_surat_pp: formData.nomor_surat_pp,
             tgl_surat_pp: tgl_surat_pp,
             tgl_resi_pp: tgl_resi_pp,
@@ -119,6 +123,39 @@ function Create({ errors, pk_all }) {
                     <div className="card-body">
                         <form onSubmit={store}>
                             <div className="grid grid-cols-2 gap-5">
+                                <label className={`form-control col-span-1`}>
+                                    <Label name="KATEGORI PERMINTAAN" />
+                                    <Select
+                                        name="kategori_permintaan"
+                                        placeholder="Type Here"
+                                        value={formData.kategori_permintaan}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Pilih 1</option>
+                                        <option value="SUB">SUB</option>
+                                        <option value="STG">STG</option>
+                                    </Select>
+                                    {errors.kategori_permintaan && (
+                                        <Validation>
+                                            {errors.kategori_permintaan}
+                                        </Validation>
+                                    )}
+                                </label>
+                                <label className={`form-control col-span-1`}>
+                                    <Label name="TAHUN BERKAS" />
+                                    <Input
+                                        type="number"
+                                        name="tahun_berkas"
+                                        placeholder="Contoh: 2025"
+                                        value={formData.tahun_berkas}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.tahun_berkas && (
+                                        <Validation>
+                                            {errors.tahun_berkas}
+                                        </Validation>
+                                    )}
+                                </label>
                                 <label className={`form-control col-span-1`}>
                                     <Label name="NOMOR SURAT PP" />
                                     <Input

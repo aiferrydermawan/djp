@@ -27,6 +27,8 @@ class InputPermintaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kategori_permintaan' => ['required'],
+            'tahun_berkas' => ['required'],
             'nomor_surat_pp' => ['nullable'],
             'tgl_surat_pp' => ['nullable'],
             'tgl_resi_pp' => ['nullable'],
@@ -50,6 +52,8 @@ class InputPermintaanController extends Controller
         ]);
 
         $data = [
+            'kategori_permintaan' => $request->kategori_permintaan,
+            'tahun_berkas' => $request->tahun_berkas,
             'nomor_surat_pp' => $request->nomor_surat_pp,
             'tgl_surat_pp' => $request->tgl_surat_pp,
             'tgl_resi_pp' => $request->tgl_resi_pp,
@@ -97,6 +101,8 @@ class InputPermintaanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'kategori_permintaan' => ['required'],
+            'tahun_berkas' => ['required'],
             'nomor_surat_pp' => ['required'],
             'tgl_surat_pp' => ['required'],
             'tgl_resi_pp' => ['required'],
@@ -120,6 +126,8 @@ class InputPermintaanController extends Controller
         ]);
 
         $data = [
+            'kategori_permintaan' => $request->kategori_permintaan,
+            'tahun_berkas' => $request->tahun_berkas,
             'nomor_surat_pp' => $request->nomor_surat_pp,
             'tgl_surat_pp' => $request->tgl_surat_pp,
             'tgl_resi_pp' => $request->tgl_resi_pp,

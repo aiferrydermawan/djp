@@ -19,6 +19,7 @@ class DashboardController extends Controller
         $jabatan = $user->jabatan;
         $unit_organisasi_id = $user->unit_organisasi_id;
         $firstCard = $this->tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id);
+        $secondCard = $this->tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id);
         $thirdCard = $this->berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id);
         $fourthCard = $this->berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id);
         $firstChart = $this->tunggakanBerkas($jabatan, $unit_organisasi_id);
@@ -26,6 +27,7 @@ class DashboardController extends Controller
 
         return inertia('Dashboard', [
             'firstCard' => $firstCard,
+            'secondCard' => $secondCard,
             'thirdCard' => $thirdCard,
             'fourthCard' => $fourthCard,
             'firstChart' => $firstChart,
@@ -71,6 +73,15 @@ class DashboardController extends Controller
         }
 
         return $permohonan->get();
+    }
+
+    public function tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id)
+    {
+        return DB::table('permintaan')
+            ->whereNotIn('id', function ($q) {
+                $q->select('permintaan_id')->from('pengiriman');
+            })
+            ->count();
     }
 
     public function permohonanMasuk($jabatan, $unit_organisasi_id)

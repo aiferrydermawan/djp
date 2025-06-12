@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Dashboard({
     auth,
     firstCard,
+                                      secondCard,
     thirdCard,
     fourthCard,
     firstChart,
@@ -56,6 +57,7 @@ export default function Dashboard({
                             <h2 className="font-medium">
                                 Tunggakan Berkas SUB - STG
                             </h2>
+                            <div className="stat-value">{secondCard}</div>
                         </div>
                     </div>
                     <div className="card w-1/4 bg-base-100 shadow">

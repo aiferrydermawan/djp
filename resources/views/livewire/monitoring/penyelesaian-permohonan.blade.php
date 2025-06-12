@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 @if ($tahunSuratTugas)
-                    @foreach (['Keberatan', 'Non Keberatan'] as $kategori)
+                    @foreach (['Keberatan', 'Non Keberatan', 'SUB', 'STG'] as $kategori)
                         <tr>
                             <td>{{ $kategori }}</td>
                             <td>{{ $data[$kategori]['saldo_awal'] ?? 0 }}</td>
@@ -41,10 +41,10 @@
                     @endforeach
                     <tr class="font-bold">
                         <td>Jumlah</td>
-                        <td>{{ $total['saldo_awal'] }}</td>
-                        <td>{{ $total['masuk'] }}</td>
-                        <td>{{ $total['selesai'] }}</td>
-                        <td>{{ $total['saldo_akhir'] }}</td>
+                        <td>{{ $total['saldo_awal'] ?? 0 }}</td>
+                        <td>{{ $total['masuk'] ?? 0 }}</td>
+                        <td>{{ $total['selesai'] ?? 0 }}</td>
+                        <td>{{ $total['saldo_akhir'] ?? 0 }}</td>
                     </tr>
                 @else
                     <tr>
