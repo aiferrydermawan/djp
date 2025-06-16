@@ -28,11 +28,8 @@ class PenyelesaianPermohonan extends Component
             // === PERMOHONAN ===
             $kategoriList = ['Keberatan', 'Non Keberatan'];
             foreach ($kategoriList as $kategori) {
-                $saldoAwal = Permohonan::where('kategori_permohonan', $kategori)
+                $saldoAwal = Permohonan::doesntHave('dataPengiriman')->where('kategori_permohonan', $kategori)
                     ->where('tahun_berkas', $tahunSebelumnya)
-                    ->whereNotIn('id', function ($q) {
-                        $q->select('permohonan_id')->from('data_pengiriman');
-                    })
                     ->count();
 
                 $masukTahunIni = Permohonan::where('kategori_permohonan', $kategori)
