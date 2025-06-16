@@ -55,11 +55,8 @@ class PenyelesaianPermohonan extends Component
             // === PERMINTAAN ===
             $kategoriPermintaan = ['SUB', 'STG'];
             foreach ($kategoriPermintaan as $kategori) {
-                $saldoAwal = Permintaan::where('kategori_permintaan', $kategori)
+                $saldoAwal = Permintaan::doesntHave('pengiriman')->where('kategori_permintaan', $kategori)
                     ->where('tahun_berkas', $tahunSebelumnya)
-                    ->whereNotIn('id', function ($q) {
-                        $q->select('permintaan_id')->from('pengiriman');
-                    })
                     ->count();
 
                 $masukTahunIni = Permintaan::where('kategori_permintaan', $kategori)
