@@ -5,12 +5,21 @@
         </ul>
     </div>
     <div class="mt-5 flex justify-between">
-        <input
-            wire:model.lazy="search"
-            type="text"
-            placeholder="Nomor LPAD & NPWP"
-            class="input input-bordered w-full max-w-xs"
-        />
+        <div class="grid grid-cols-2 gap-4">
+            <input
+                wire:model.lazy="search"
+                type="text"
+                placeholder="Nomor LPAD / NPWP / Nama WP"
+                class="input input-bordered w-full max-w-xs"
+            />
+            <select wire:model.live="tahun_berkas" class="select select-bordered w-full max-w-xs">
+                <option value="">Semua Tahun</option>
+                @foreach($tahun_berkas_all as $item)
+                    <option value="{{ $item->tahun_berkas }}">{{ $item->tahun_berkas }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div>
             <a
                 class="btn btn-success"

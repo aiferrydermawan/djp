@@ -53,7 +53,8 @@ class Index extends Component
 
         $query->where(function ($query) {
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
-                ->orWhere('npwp', 'like', '%'.$this->search.'%');
+                ->orWhere('npwp', 'like', '%'.$this->search.'%')
+                ->orWhere('nama_wp', 'like', '%'.$this->search.'%');
         });
 
         $permohonan = $query->with([

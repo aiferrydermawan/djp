@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/pegawai', \App\Http\Controllers\PegawaiController::class)->except(['index', 'show']);
 
     Route::get('/kpp', App\Livewire\Kpp\Index::class)->name('kpp.index');
+    Route::get('/penyelesaian-permohonan', App\Livewire\PenyelesaianPermohonan\Index::class)->name('penyelesaian-permohonan.index');
     Route::get('/jenis-pajak', App\Livewire\JenisPajak\Index::class)->name('jenis-pajak.index');
     Route::get('/jenis-permohonan', App\Livewire\JenisPermohonan\Index::class)->name('jenis-permohonan.index');
     Route::get('/pegawai', App\Livewire\Pegawai\Index::class)->name('pegawai.index');

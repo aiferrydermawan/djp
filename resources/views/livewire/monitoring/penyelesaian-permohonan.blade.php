@@ -5,14 +5,17 @@
         </ul>
     </div>
 
-    <div class="mb-4">
-        <label class="text-sm">Filter Tahun Berkas:</label>
-        <select wire:model.live="tahunSuratTugas" class="select select-bordered max-w-xs">
-            <option value="">Semua Tahun</option>
-            @foreach ($listTahun as $tahun)
-                <option value="{{ $tahun }}">{{ $tahun }}</option>
-            @endforeach
-        </select>
+    <div class="mb-4 flex justify-between">
+        <div>
+            <label class="text-sm">Filter Tahun Berkas:</label>
+            <select wire:model.live="tahunSuratTugas" class="select select-bordered max-w-xs">
+                <option value="">Semua Tahun</option>
+                @foreach ($listTahun as $tahun)
+                    <option value="{{ $tahun }}">{{ $tahun }}</option>
+                @endforeach
+            </select>
+        </div>
+        <a class="btn btn-primary" href="{{ route('penyelesaian-permohonan.index') }}">Tambah</a>
     </div>
 
     <div class="card mt-5 bg-base-100 shadow">
