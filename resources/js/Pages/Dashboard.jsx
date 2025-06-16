@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function Dashboard({
     auth,
     firstCard,
-                                      secondCard,
+    secondCard,
     thirdCard,
     fourthCard,
     firstChart,
