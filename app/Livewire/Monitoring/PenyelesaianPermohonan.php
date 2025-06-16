@@ -25,22 +25,38 @@ class PenyelesaianPermohonan extends Component
             $tahunAktif = $this->tahunSuratTugas;
             $tahunSebelumnya = $tahunAktif - 1;
 
-            // === PERMOHONAN ===
-            $kategoriList = ['Keberatan', 'Non Keberatan'];
+            // Daftar semua kategori
+            $kategoriList = ['Keberatan', 'Non Keberatan', 'SUB', 'STG'];
+
             foreach ($kategoriList as $kategori) {
-                $saldoAwal = Permohonan::doesntHave('dataPengiriman')->where('kategori_permohonan', $kategori)
+                // Ambil saldo_awal dari tabel penyelesaian_permohonan (berdasarkan tahun sebelumnya)
+                $saldoAwal = \App\Models\PenyelesaianPermohonan::where('uraian', $kategori)
                     ->where('tahun_berkas', $tahunSebelumnya)
-                    ->count();
+                    ->value('saldo_awal') ?? 0;
 
-                $masukTahunIni = Permohonan::where('kategori_permohonan', $kategori)
-                    ->where('tahun_berkas', $tahunAktif)
-                    ->count();
+                if (in_array($kategori, ['Keberatan', 'Non Keberatan'])) {
+                    // Dari tabel permohonan
+                    $masukTahunIni = Permohonan::where('kategori_permohonan', $kategori)
+                        ->where('tahun_berkas', $tahunAktif)
+                        ->count();
 
-                $selesai = Permohonan::where('kategori_permohonan', $kategori)
-                    ->whereIn('id', function ($q) {
-                        $q->select('permohonan_id')->from('data_pengiriman');
-                    })
-                    ->count();
+                    $selesai = Permohonan::where('kategori_permohonan', $kategori)
+                        ->whereIn('id', function ($q) {
+                            $q->select('permohonan_id')->from('data_pengiriman');
+                        })
+                        ->count();
+                } else {
+                    // Dari tabel permintaan
+                    $masukTahunIni = Permintaan::where('kategori_permintaan', $kategori)
+                        ->where('tahun_berkas', $tahunAktif)
+                        ->count();
+
+                    $selesai = Permintaan::where('kategori_permintaan', $kategori)
+                        ->whereIn('id', function ($q) {
+                            $q->select('permintaan_id')->from('pengiriman');
+                        })
+                        ->count();
+                }
 
                 $saldoAkhir = $saldoAwal + $masukTahunIni - $selesai;
 
@@ -52,34 +68,6 @@ class PenyelesaianPermohonan extends Component
                 ];
             }
 
-            // === PERMINTAAN ===
-            $kategoriPermintaan = ['SUB', 'STG'];
-            foreach ($kategoriPermintaan as $kategori) {
-                $saldoAwal = Permintaan::doesntHave('pengiriman')->where('kategori_permintaan', $kategori)
-                    ->where('tahun_berkas', $tahunSebelumnya)
-                    ->count();
-
-                $masukTahunIni = Permintaan::where('kategori_permintaan', $kategori)
-                    ->where('tahun_berkas', $tahunAktif)
-                    ->count();
-
-                $selesai = Permintaan::where('kategori_permintaan', $kategori)
-                    ->whereIn('id', function ($q) {
-                        $q->select('permintaan_id')->from('pengiriman');
-                    })
-                    ->count();
-
-                $saldoAkhir = $saldoAwal + $masukTahunIni - $selesai;
-
-                $data[$kategori] = [
-                    'saldo_awal' => $saldoAwal,
-                    'masuk' => $masukTahunIni,
-                    'selesai' => $selesai,
-                    'saldo_akhir' => $saldoAkhir,
-                ];
-            }
-
-            // === TOTAL ===
             $total = [
                 'saldo_awal' => array_sum(array_column($data, 'saldo_awal')),
                 'masuk' => array_sum(array_column($data, 'masuk')),
