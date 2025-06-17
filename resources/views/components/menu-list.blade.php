@@ -294,6 +294,7 @@
             </ul>
         </details>
     </li>
+    @if(Auth::user() && Auth::user()->detail && Auth::user()->detail->jabatan === 'admin')
     <li>
         <details>
             <summary>
@@ -389,6 +390,7 @@
             </ul>
         </details>
     </li>
+    @endif
     <li>
         <form
             action="{{ route("logout") }}"

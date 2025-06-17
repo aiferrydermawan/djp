@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { Link } from "@inertiajs/react";
 
-function MenuList(props) {
+function MenuList() {
     return (
         <ul className="menu menu-lg w-full text-white">
             <li>

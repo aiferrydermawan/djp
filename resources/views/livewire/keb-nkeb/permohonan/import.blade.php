@@ -61,6 +61,7 @@
                                 data: 'Nama WP',
                                 contoh: 'PT JAYA MAKMUR',
                                 referensi: '',
+                                warna_baris: 'putih',
                             },
                             {
                                 id: 2,
@@ -68,6 +69,7 @@
                                 data: 'NPWP',
                                 contoh: '03.000.000.4-115.000',
                                 referensi: '',
+                                warna_baris: 'putih',
                             },
                             {
                                 id: 3,
@@ -75,6 +77,7 @@
                                 data: 'NOP *Tidak Wajib',
                                 contoh: '586561',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 4,
@@ -82,6 +85,15 @@
                                 data: 'Kode KPP Terdaftar',
                                 contoh: '*kode kpp',
                                 referensi: '{{ route("kpp.index") }}',
+                                warna_baris: 'putih',
+                            },
+                            {
+                                id: 101,
+                                kolom: 'E',
+                                data: 'Kategori Permohonan',
+                                contoh: '*id',
+                                referensi: '{{ route("jenis-permohonan.index") }}',
+                                warna_baris: 'putih',
                             },
                             {
                                 id: 5,
@@ -89,6 +101,7 @@
                                 data: 'Jenis Permohonan',
                                 contoh: '*id',
                                 referensi: '{{ route("jenis-permohonan.index") }}',
+                                warna_baris: 'putih',
                             },
                             {
                                 id: 6,
@@ -96,6 +109,7 @@
                                 data: 'Unit yang Memproses',
                                 contoh: '*ip',
                                 referensi: '{{ route("pegawai.index") }}',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 7,
@@ -104,20 +118,7 @@
                                 contoh: '*id',
                                 referensi:
                                     '{{ route("referensi.index", ["kategori" => "jenis-ketetapan"]) }}',
-                            },
-                            {
-                                id: 8,
-                                kolom: 'H',
-                                data: 'Nomor Ketetapan',
-                                contoh: '00012/201/22/115/20',
-                                referensi: '',
-                            },
-                            {
-                                id: 9,
-                                kolom: 'I',
-                                data: 'Tanggal Ketetapan',
-                                contoh: '20/12/2012',
-                                referensi: '',
+                                    warna_baris: 'merah',
                             },
                             {
                                 id: 10,
@@ -125,6 +126,7 @@
                                 data: 'Tanggal Kirim Ketetapan',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 11,
@@ -132,14 +134,32 @@
                                 data: 'Jenis Pajak',
                                 contoh: '*id',
                                 referensi: '{{ route("jenis-pajak.index") }}',
+                                warna_baris: 'merah',
                             },
-                            { id: 12, kolom: 'L', data: 'Masa Pajak', contoh: '01', referensi: '' },
+                            { id: 12, kolom: 'L', data: 'Masa Pajak', contoh: '01', referensi: '', warna_baris: 'putih', },
                             {
                                 id: 13,
                                 kolom: 'M',
                                 data: 'Tahun Pajak',
                                 contoh: '2020',
                                 referensi: '',
+                                warna_baris: 'putih',
+                            },
+                            {
+                                id: 8,
+                                kolom: 'H',
+                                data: 'Nomor Ketetapan',
+                                contoh: '00012/201/22/115/20',
+                                referensi: '',
+                                warna_baris: 'putih',
+                            },
+                            {
+                                id: 9,
+                                kolom: 'I',
+                                data: 'Tanggal Ketetapan',
+                                contoh: '20/12/2012',
+                                referensi: '',
+                                warna_baris: 'putih',
                             },
                             {
                                 id: 14,
@@ -147,6 +167,7 @@
                                 data: 'Mata Uang',
                                 contoh: 'rupiah',
                                 referensi: '',
+                                warna_baris: 'merah',
                                 keterangan: 'rupiah / dollar',
                             },
                             {
@@ -155,6 +176,7 @@
                                 data: 'Nilai Ketetapan (SKP / STP)',
                                 contoh: '10000',
                                 referensi: '',
+                                warna_baris: 'merah',
                                 keterangan: 'Hanya Angka',
                             },
                             {
@@ -163,6 +185,7 @@
                                 data: 'Nilai Sanksi Administrasi',
                                 contoh: '10000',
                                 referensi: '',
+                                warna_baris: 'merah',
                                 keterangan: 'Hanya Angka',
                             },
                             {
@@ -171,6 +194,7 @@
                                 data: 'Nilai Ketetapan / Sanksi Administrasi yang disetujui',
                                 contoh: '10000',
                                 referensi: '',
+                                warna_baris: 'merah',
                                 keterangan: 'Hanya Angka',
                             },
                             {
@@ -179,6 +203,7 @@
                                 data: 'Nilai Ajukan Upaya Hukum',
                                 contoh: '10000',
                                 referensi: '',
+                                warna_baris: 'merah',
                                 keterangan: 'Hanya Angka',
                             },
                             {
@@ -188,6 +213,7 @@
                                 contoh: '*id',
                                 referensi:
                                     '{{ route("referensi.index", ["kategori" => "jenis-ketetapan"]) }}',
+                                    warna_baris: 'merah',
                             },
                             {
                                 id: 20,
@@ -195,6 +221,7 @@
                                 data: 'Nomor Surat WP/Surat Usulan KPP',
                                 contoh: '25626/XI/23',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 21,
@@ -202,6 +229,7 @@
                                 data: 'Tanggal Surat WP',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 22,
@@ -209,6 +237,7 @@
                                 data: 'Nomor LPAD',
                                 contoh: 'FORM-021522222/BPS.KPP266/2023',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 23,
@@ -216,6 +245,7 @@
                                 data: 'Tanggal Diterima',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 24,
@@ -223,6 +253,7 @@
                                 data: 'No Surat Pengantar dari KPP',
                                 contoh: 'ND-2522/KPP.266/2023',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 25,
@@ -230,6 +261,7 @@
                                 data: 'Tanggal Surat Pengantar',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 26,
@@ -237,6 +269,7 @@
                                 data: 'Tanggal Pengiriman KPP',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 27,
@@ -244,6 +277,7 @@
                                 data: 'Nomor Surat Tugas',
                                 contoh: 'ST-1252/WPJ.26/2023',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 28,
@@ -251,6 +285,7 @@
                                 data: 'Tanggal Surat Tugas',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 29,
@@ -258,6 +293,7 @@
                                 data: 'No Matriks',
                                 contoh: '582',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 30,
@@ -265,6 +301,7 @@
                                 data: 'Tanggal Matriks',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 31,
@@ -272,6 +309,7 @@
                                 data: 'ID Penelaah Keberatan',
                                 contoh: '*ip',
                                 referensi: '{{ route("pegawai.index") }}',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 32,
@@ -279,6 +317,7 @@
                                 data: 'Nomor Surat Tugas Pengganti *Tidak Wajib',
                                 contoh: 'ST-1252/WPJ.26/2023',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 33,
@@ -286,6 +325,7 @@
                                 data: 'Tanggal Surat Tugas Pengganti *Tidak Wajib',
                                 contoh: '20/12/2012',
                                 referensi: '',
+                                warna_baris: 'merah',
                             },
                             {
                                 id: 34,
@@ -293,6 +333,7 @@
                                 data: 'ID Penelaah Keberatan Pengganti *Tidak Wajib',
                                 contoh: '*ip',
                                 referensi: '{{ route("pegawai.index") }}',
+                                warna_baris: 'merah',
                             },
                         ],
                     }"
@@ -301,8 +342,8 @@
                         x-for="permohonan in permohonan_all"
                         :key="permohonan.id"
                     >
-                        <tr class="hover">
-                            <th x-text="permohonan.id - 1"></th>
+                        <tr :class="permohonan.warna_baris === 'merah' ? 'bg-red-200' : ''" class="hover">
+                        <th x-text="permohonan.id - 1"></th>
                             <td x-text="permohonan.kolom"></td>
                             <td x-text="permohonan.data"></td>
                             <td x-text="permohonan.contoh"></td>
