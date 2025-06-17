@@ -9,9 +9,12 @@ import {
     IconLogout,
     IconPrinter,
 } from "@tabler/icons-react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
+
 
 function MenuList() {
+    const { auth } = usePage().props;
+    const jabatan = auth?.jabatan;
     return (
         <ul className="menu menu-lg w-full text-white">
             <li>
@@ -184,84 +187,86 @@ function MenuList() {
                     </ul>
                 </details>
             </li>
-            <li>
-                <details>
-                    <summary>
-                        <IconAffiliate />
-                        Referensi
-                    </summary>
-                    <ul>
-                        <li>
-                            <a
-                                href={route("referensi.index", {
-                                    kategori: "amar-putusan",
-                                })}
-                            >
-                                Amar Putusan
-                            </a>
-                        </li>
-                        <li>
-                            <a href={route("kpp.index")}>Kode KPP</a>
-                        </li>
-                        <li>
-                            <a href={route("jenis-pajak.index")}>Jenis Pajak</a>
-                        </li>
-                        <li>
-                            <a
-                                href={route("referensi.index", {
-                                    kategori: "alasan",
-                                })}
-                            >
-                                Alasan
-                            </a>
-                        </li>
-                        <li>
-                            <a href={route("jenis-permohonan.index")}>
-                                Jenis Permohonan
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href={route("referensi.index", {
-                                    kategori: "dasar-pemrosesan",
-                                })}
-                            >
-                                Dasar Pemrosesan
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href={route("referensi.index", {
-                                    kategori: "pemenuhan-kriteria",
-                                })}
-                            >
-                                Pemenuhan Kriteria
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href={route("referensi.index", {
-                                    kategori: "unit-organisasi",
-                                })}
-                            >
-                                Unit Organisasi
-                            </a>
-                        </li>
-                        <li>
-                            <a href={route("pegawai.index")}>Pegawai</a>
-                        </li>
-                        <li>
-                            <a
-                                href={route("referensi.index", {
-                                    kategori: "jenis-ketetapan",
-                                })}
-                            >
-                                Jenis Ketetapan
-                            </a>
-                        </li>
-                    </ul>
-                </details>
-            </li>
+            {jabatan === 'admin' &&(
+                <li>
+                    <details>
+                        <summary>
+                            <IconAffiliate />
+                            Referensi
+                        </summary>
+                        <ul>
+                            <li>
+                                <a
+                                    href={route("referensi.index", {
+                                        kategori: "amar-putusan",
+                                    })}
+                                >
+                                    Amar Putusan
+                                </a>
+                            </li>
+                            <li>
+                                <a href={route("kpp.index")}>Kode KPP</a>
+                            </li>
+                            <li>
+                                <a href={route("jenis-pajak.index")}>Jenis Pajak</a>
+                            </li>
+                            <li>
+                                <a
+                                    href={route("referensi.index", {
+                                        kategori: "alasan",
+                                    })}
+                                >
+                                    Alasan
+                                </a>
+                            </li>
+                            <li>
+                                <a href={route("jenis-permohonan.index")}>
+                                    Jenis Permohonan
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href={route("referensi.index", {
+                                        kategori: "dasar-pemrosesan",
+                                    })}
+                                >
+                                    Dasar Pemrosesan
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href={route("referensi.index", {
+                                        kategori: "pemenuhan-kriteria",
+                                    })}
+                                >
+                                    Pemenuhan Kriteria
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href={route("referensi.index", {
+                                        kategori: "unit-organisasi",
+                                    })}
+                                >
+                                    Unit Organisasi
+                                </a>
+                            </li>
+                            <li>
+                                <a href={route("pegawai.index")}>Pegawai</a>
+                            </li>
+                            <li>
+                                <a
+                                    href={route("referensi.index", {
+                                        kategori: "jenis-ketetapan",
+                                    })}
+                                >
+                                    Jenis Ketetapan
+                                </a>
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+            )}
             <li>
                 <Link href={route("logout")} method="post" as="button">
                     <IconLogout />

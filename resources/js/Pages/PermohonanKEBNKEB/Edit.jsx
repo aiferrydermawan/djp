@@ -103,6 +103,7 @@ function Edit({
             : "",
     );
     const [namaPk2, setNamaPk2] = useState(permohonan.nama_pk_2 ?? "");
+    const [tahunBerkas, setTahunBerkas] = useState(permohonan.tahun_berkas);
     const edit = async (e) => {
         e.preventDefault();
         const tanggal_ketetapan = tanggalKetetapan
@@ -156,6 +157,7 @@ function Edit({
             nomor_surat_tugas_2: nomorSuratTugas2 ?? null,
             tanggal_surat_tugas_2: tanggal_surat_tugas_2,
             nama_pk_2: namaPk2 ?? null,
+            tahun_berkas: tahunBerkas,
         });
     };
 
@@ -207,6 +209,7 @@ function Edit({
                                     >
                                         <Label name="NPWP (wajib)" />
                                         <Input
+                                            value={npwp}
                                             onChange={(e) =>
                                                 setNpwp(e.target.value)
                                             }
@@ -700,7 +703,24 @@ function Edit({
                                             </Validation>
                                         )}
                                     </label>
-                                    <div className="col-span-2"></div>
+                                    <label
+                                        className={`form-control col-span-2`}
+                                    >
+                                        <Label name="Tahun Berkas (wajib)" />
+                                        <Input
+                                            value={tahunBerkas}
+                                            onChange={(e) =>
+                                                setTahunBerkas(e.target.value)
+                                            }
+                                            placeholder="Contoh: 2025"
+                                            type="number"
+                                        />
+                                        {errors.tahun_berkas && (
+                                            <Validation>
+                                                {errors.tahun_berkas}
+                                            </Validation>
+                                        )}
+                                    </label>
                                     {Object.keys(errors).length > 0 ? (
                                         <div
                                             className={`col-span-4 rounded-lg bg-error p-4 shadow`}

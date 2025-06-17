@@ -109,6 +109,7 @@ class PermohonanKEBNKEBController extends Controller
             'nomor_surat_tugas_2' => ['nullable'],
             'tanggal_surat_tugas_2' => ['nullable'],
             'nama_pk_2' => ['nullable'],
+            'tahun_berkas' => ['required'],
         ]);
 
         $tanggal_berakhir = $this->getTanggalBerakhir($request->tanggal_diterima, $request->jenis_permohonan);
@@ -151,6 +152,7 @@ class PermohonanKEBNKEBController extends Controller
             'tanggal_surat_tugas_2' => $request->tanggal_surat_tugas_2 ?? null,
             'nama_pk_2' => $request->nama_pk_2 ?? null,
             'pembuat' => auth()->user()->id,
+            'tahun_berkas' => $request->tahun_berkas,
         ];
 
         Permohonan::create($data);
@@ -264,6 +266,7 @@ class PermohonanKEBNKEBController extends Controller
             'nomor_surat_tugas_2' => ['nullable'],
             'tanggal_surat_tugas_2' => ['nullable'],
             'nama_pk_2' => ['nullable'],
+            'tahun_berkas' => ['required'],
         ]);
 
         $tanggal_berakhir = $this->getTanggalBerakhir($request->tanggal_diterima, $request->jenis_permohonan);
@@ -305,6 +308,7 @@ class PermohonanKEBNKEBController extends Controller
             'tanggal_surat_tugas_2' => $request->tanggal_surat_tugas_2 ?? null,
             'nama_pk_2' => $request->nama_pk_2 ?? null,
             'pembuat' => auth()->user()->id,
+            'tahun_berkas' => $request->tahun_berkas,
         ];
 
         $data = Permohonan::where('id', $id)->update($data);
