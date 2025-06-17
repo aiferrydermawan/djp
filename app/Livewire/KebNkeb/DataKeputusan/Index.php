@@ -72,7 +72,7 @@ class Index extends Component
         ]);
 
         return view('livewire.keb-nkeb.data-keputusan.index', [
-            'permohonan_all' => $query->paginate(4),
+            'permohonan_all' => $query->paginate(10),
         ]);
     }
 }
