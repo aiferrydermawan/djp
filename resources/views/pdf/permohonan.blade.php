@@ -62,7 +62,7 @@
                     <td style="width: 50%">MASA / TAHUN PAJAK</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->tahun_pajak }}
+                        {{ $item->masa_pajak }} / {{ $item->tahun_pajak }}
                     </td>
                 </tr>
                 <tr>
