@@ -20,7 +20,7 @@
                         <tr>
                             <th>No</th>
                             <th>No LPAD</th>
-                            <th>Tanggal LPAD</th>
+                            <th>Tanggal Diterima</th>
                             <th>Nama WP</th>
                             <th>NPWP</th>
                             <th>Jenis Permohonan</th>
