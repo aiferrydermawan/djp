@@ -55,7 +55,7 @@
                     <td style="width: 50%">JENIS PAJAK</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->jenisPajak->nama ?? '-' }}
+                        -
                     </td>
                 </tr>
                 <tr>
