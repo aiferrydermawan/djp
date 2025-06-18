@@ -127,14 +127,14 @@
                     <td style="width: 50%">NOMOR MATRIK</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->no_matriks }}
+                        -
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 50%">TANGGAL MATRIK</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
-                        {{ $item->formatWaktu($item->tanggal_matriks) }}
+                        -
                     </td>
                 </tr>
             </table>
