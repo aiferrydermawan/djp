@@ -52,6 +52,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td style="width: 50%">JENIS PAJAK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->jenisPajak->nama ?? '-' }}
+                    </td>
+                </tr>
+                <tr>
                     <td style="width: 50%">MASA / TAHUN PAJAK</td>
                     <td>
                         <span style="margin-right: 5px">:</span>
@@ -114,6 +121,20 @@
                     <td>
                         <span style="margin-right: 5px">:</span>
                         {{ $item->formatWaktu($item->tanggal_surat_tugas) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">NOMOR MATRIK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->no_matriks }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">TANGGAL MATRIK</td>
+                    <td>
+                        <span style="margin-right: 5px">:</span>
+                        {{ $item->formatWaktu($item->tanggal_matriks) }}
                     </td>
                 </tr>
             </table>
