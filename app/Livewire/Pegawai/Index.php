@@ -12,6 +12,32 @@ class Index extends Component
 
     public $search = '';
 
+    public $showPasswordModal = false;
+    public $selectedUserId;
+    public $newPassword;
+
+    public function openPasswordModal($id)
+    {
+        $this->resetErrorBag();
+        $this->reset('newPassword');
+        $this->selectedUserId = $id;
+        $this->showPasswordModal = true;
+    }
+
+    public function updatePassword()
+    {
+        $this->validate([
+            'newPassword' => 'required|min:6',
+        ]);
+
+        $user = User::findOrFail($this->selectedUserId);
+        $user->password = bcrypt($this->newPassword);
+        $user->save();
+
+        $this->showPasswordModal = false;
+        session()->flash('success', 'Password berhasil diperbarui.');
+    }
+
     public function render()
     {
         return view('livewire.pegawai.index', [

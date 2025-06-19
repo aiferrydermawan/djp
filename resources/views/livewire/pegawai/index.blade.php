@@ -4,6 +4,32 @@
             <li>Pegawai</li>
         </ul>
     </div>
+    @if (session()->has('success'))
+        <div class="alert alert-success my-3">{{ session('success') }}</div>
+    @endif
+
+
+@if ($showPasswordModal)
+        <dialog class="modal modal-open">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg mb-3">Ganti Password</h3>
+
+                <input
+                    type="password"
+                    wire:model.defer="newPassword"
+                    class="input input-bordered w-full mb-3"
+                    placeholder="Password baru"
+                />
+                @error('newPassword') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+                <div class="modal-action">
+                    <button class="btn" wire:click="$set('showPasswordModal', false)">Batal</button>
+                    <button class="btn btn-primary" wire:click="updatePassword">Simpan</button>
+                </div>
+            </div>
+        </dialog>
+    @endif
+
     <div class="mt-5 flex justify-between">
         <input
             wire:model.lazy="search"
@@ -34,6 +60,12 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->detail->ip }}</td>
                                 <td>
+                                    <button
+                                        class="btn btn-info btn-xs mr-1"
+                                        wire:click="openPasswordModal({{ $item->id }})"
+                                    >
+                                        Ganti Password
+                                    </button>
                                     <a
                                         class="btn btn-warning btn-xs mr-1"
                                         href="{{ route("pegawai.edit", $item->id) }}"
