@@ -32,8 +32,27 @@
                             <th>JT IKU</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    @foreach($permintaan as $index => $item)
+                        <tr wire:key="item-{{ $item->id }}">
+                            <th>{{ $index + 1 }}</th>
+                            <td>{{ $item->npwp }}</td>
+                            <td>??</td>
+                            <td>{{ $item->nomor_surat_pp }}</td>
+                            <td>{{ $item->tgl_surat_pp }}</td>
+                            <td>{{ $item->tgl_resi_pp }}</td>
+                            <td>{{ $item->tgl_diterima_kanwil }}</td>
+                            <td>{{ $item->jenis_sengketa }}</td>
+                            <td>{{ $item->nomor_kep_surat_yang_di_banding_gugat }}</td>
+                            <td>{{ $item->penelaahKeberatan->name }}</td>
+                            <td>{{ $item->penelaahKeberatan->detail?->organisasi?->nama }}</td>
+                            <td>??</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
                 </table>
             </div>
+            {{ $permintaan->links() }}
         </div>
     </div>
 </div>
