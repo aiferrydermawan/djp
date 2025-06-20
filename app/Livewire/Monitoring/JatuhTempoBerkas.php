@@ -11,6 +11,7 @@ class JatuhTempoBerkas extends Component
     use WithPagination;
 
     public $search = '';
+    public $filterTahun = '';
 
     public function updatingSearch()
     {
@@ -19,7 +20,11 @@ class JatuhTempoBerkas extends Component
 
     public function render()
     {
-        $query = Permohonan::with(['jenisPermohonan', 'dataKeputusan'])->doesntHave('dataPengiriman')
+        $query = Permohonan::with(['jenisPermohonan', 'dataKeputusan'])
+            ->doesntHave('dataPengiriman')
+            ->when($this->filterTahun, function ($query) {
+                $query->where('tahun_berkas', (int) $this->filterTahun);
+            })
             ->where(function ($query) {
                 $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
                     ->orWhere('npwp', 'like', '%'.$this->search.'%');

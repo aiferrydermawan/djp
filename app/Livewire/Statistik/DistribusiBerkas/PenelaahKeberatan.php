@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class PenelaahKeberatan extends Component
 {
+    public $filterTahun;
+
     public function render()
     {
         $today = Carbon::today();
@@ -28,6 +30,9 @@ class PenelaahKeberatan extends Component
 
             // Menghitung total permohonan masuk
             $totalPermohonanMasuk = DB::table('permohonan')
+                ->when($this->filterTahun, function ($query) {
+                    $query->where('tahun_berkas', (int) $this->filterTahun);
+                })
                 ->where(function ($query) use ($userId) {
                     $query->where(function ($subQuery) use ($userId) {
                         $subQuery->where('nama_pk_2', $userId);
@@ -40,6 +45,9 @@ class PenelaahKeberatan extends Component
             // Menghitung total permohonan selesai
             $totalPermohonanSelesai = DB::table('permohonan')
                 ->join('data_pengiriman', 'permohonan.id', '=', 'data_pengiriman.permohonan_id')
+                ->when($this->filterTahun, function ($query) {
+                    $query->where('tahun_berkas', (int) $this->filterTahun);
+                })
                 ->where(function ($query) use ($userId) {
                     $query->where(function ($subQuery) use ($userId) {
                         $subQuery->where('nama_pk_2', $userId);
@@ -57,6 +65,9 @@ class PenelaahKeberatan extends Component
 
             // Menghitung total permohonan berdasarkan jenis permohonan
             $jenisPermohonanCounts = DB::table('permohonan')
+                ->when($this->filterTahun, function ($query) {
+                    $query->where('tahun_berkas', (int) $this->filterTahun);
+                })
                 ->join('jenis_permohonan', 'permohonan.jenis_permohonan', '=', 'jenis_permohonan.id')
                 ->select('jenis_permohonan.nama', DB::raw('count(*) as total'))
                 ->where(function ($query) use ($userId) {

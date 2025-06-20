@@ -43,6 +43,21 @@ export default function Dashboard({
                 <p className={`mb-5 text-2xl font-bold`}>
                     Welcome back, {auth.user.name}
                 </p>
+                <form method="GET" className="mb-5">
+                    <select
+                        name="tahun"
+                        defaultValue={new URLSearchParams(window.location.search).get("tahun") || ""}
+                        className="select select-bordered"
+                        onChange={(e) => e.target.form.submit()}
+                    >
+                        <option value="">Semua Tahun</option>
+                        {Array.from({ length: 6 }, (_, i) => {
+                            const year = new Date().getFullYear() - i;
+                            return <option key={year} value={year}>{year}</option>;
+                        })}
+                    </select>
+                </form>
+
                 <div className="flex gap-5">
                     <div className="card w-1/4 bg-base-100 shadow">
                         <div className="card-body">

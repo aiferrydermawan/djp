@@ -4,7 +4,13 @@
             <li>Monitoring Jatuh Tempo Berkas</li>
         </ul>
     </div>
-    <div class="mt-5 flex">
+    <div class="mt-5 flex gap-4">
+        <select wire:model.live="filterTahun" class="select select-bordered max-w-xs">
+            <option value="">Semua Tahun</option>
+            @foreach (range(2020, now()->year) as $tahun)
+                <option value="{{ $tahun }}">{{ $tahun }}</option>
+            @endforeach
+        </select>
         <input
             wire:model.lazy="search"
             type="text"

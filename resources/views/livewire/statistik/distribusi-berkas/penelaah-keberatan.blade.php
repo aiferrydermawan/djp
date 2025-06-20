@@ -4,16 +4,24 @@
             <li>Distribusi Berkas</li>
         </ul>
     </div>
-    <div class="join mt-4">
-        <a
-            href="{{ route("distribusi-berkas.penelaah-keberatan") }}"
-            class="btn btn-primary join-item"
-        >
-            PK
-        </a>
-        <a href="{{ route("distribusi-berkas.seksi") }}" class="btn join-item">
-            Seksi
-        </a>
+    <div class="flex mt-4 gap-5">
+        <div class="join">
+            <a
+                href="{{ route("distribusi-berkas.penelaah-keberatan") }}"
+                class="btn btn-primary join-item"
+            >
+                PK
+            </a>
+            <a href="{{ route("distribusi-berkas.seksi") }}" class="btn join-item">
+                Seksi
+            </a>
+        </div>
+        <select wire:model.live="filterTahun" class="select select-bordered">
+            <option value="">Semua Tahun</option>
+            @foreach(range(2020, now()->year) as $year)
+                <option value="{{ $year }}">{{ $year }}</option>
+            @endforeach
+        </select>
     </div>
     <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body overflow-x-auto">

@@ -17,14 +17,17 @@ class DashboardController extends Controller
         if (! $user) {
             abort(403, 'Anda belum terdaftar di pegawai');
         }
+
+        $tahun = $request->input('tahun'); // Ambil tahun dari query string, form, dsb
+
         $jabatan = $user->jabatan;
         $unit_organisasi_id = $user->unit_organisasi_id;
-        $firstCard = $this->tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id);
-        $secondCard = $this->tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id);
-        $thirdCard = $this->berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id);
-        $fourthCard = $this->berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id);
-        $firstChart = $this->tunggakanBerkas($jabatan, $unit_organisasi_id);
-        $secondChart = $this->permohonanMasuk($jabatan, $unit_organisasi_id);
+        $firstCard = $this->tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id, $tahun);
+        $secondCard = $this->tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id, $tahun);
+        $thirdCard = $this->berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id, $tahun);
+        $fourthCard = $this->berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id, $tahun);
+        $firstChart = $this->tunggakanBerkas($jabatan, $unit_organisasi_id, $tahun);
+        $secondChart = $this->permohonanMasuk($jabatan, $unit_organisasi_id, $tahun);
 
         return inertia('Dashboard', [
             'firstCard' => $firstCard,
@@ -36,7 +39,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function tunggakanBerkas($jabatan, $unit_organisasi_id)
+    public function tunggakanBerkas($jabatan, $unit_organisasi_id, $tahun = null)
     {
         $user_id = auth()->user()->id;
 
@@ -44,6 +47,10 @@ class DashboardController extends Controller
             ->select('jenis_permohonan', DB::raw('COUNT(*) as total'))->groupBy('jenis_permohonan')
             ->with('jenisPermohonan')
             ->doesntHave('dataPengiriman');
+
+        if ($tahun) {
+            $permohonan->where('tahun_berkas', $tahun);
+        }
 
         if ($jabatan === 'penelaah keberatan') {
             $permohonan->where(function ($query) use ($user_id) {
@@ -76,11 +83,15 @@ class DashboardController extends Controller
         return $permohonan->get();
     }
 
-    public function tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id)
+    public function tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id, $tahun = null)
     {
         $user_id = auth()->user()->id;
 
         $permintaan = Permintaan::query()->doesntHave('pengiriman');
+
+        if ($tahun) {
+            $permintaan->where('tahun_berkas', $tahun);
+        }
 
         if ($jabatan === 'penelaah keberatan') {
             $permintaan->where(function ($query) use ($user_id) {
@@ -105,13 +116,17 @@ class DashboardController extends Controller
         return $permintaan->count();
     }
 
-    public function permohonanMasuk($jabatan, $unit_organisasi_id)
+    public function permohonanMasuk($jabatan, $unit_organisasi_id, $tahun = null)
     {
         $user_id = auth()->user()->id;
 
         $permohonan = Permohonan::query()
             ->select('jenis_permohonan', DB::raw('COUNT(*) as total'))->groupBy('jenis_permohonan')
             ->with('jenisPermohonan');
+
+        if ($tahun) {
+            $permohonan->where('tahun_berkas', $tahun);
+        }
 
         if ($jabatan === 'penelaah keberatan') {
             $permohonan->where(function ($query) use ($user_id) {
@@ -144,10 +159,14 @@ class DashboardController extends Controller
         return $permohonan->get();
     }
 
-    public function tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id)
+    public function tunggakanBerkasKEBnNKEB($jabatan, $unit_organisasi_id, $tahun = null)
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
+
+        if ($tahun) {
+            $permohonan->where('tahun_berkas', $tahun);
+        }
 
         if ($jabatan === 'penelaah keberatan') {
             $permohonan->where(function ($query) use ($user_id) {
@@ -180,10 +199,14 @@ class DashboardController extends Controller
         return $permohonan->doesntHave('dataPengiriman')->count();
     }
 
-    public function berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id)
+    public function berkasJatuhTempoBulanIni($jabatan, $unit_organisasi_id, $tahun = null)
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
+
+        if ($tahun) {
+            $permohonan->where('tahun_berkas', $tahun);
+        }
 
         if ($jabatan === 'penelaah keberatan') {
             $permohonan->where(function ($query) use ($user_id) {
@@ -220,10 +243,14 @@ class DashboardController extends Controller
         return $permohonan->count();
     }
 
-    public function berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id)
+    public function berkasJatuhTempoBulanDepan($jabatan, $unit_organisasi_id, $tahun = null)
     {
         $user_id = auth()->user()->id;
         $permohonan = Permohonan::query();
+
+        if ($tahun) {
+            $permohonan->where('tahun_berkas', $tahun);
+        }
 
         if ($jabatan === 'penelaah keberatan') {
             $permohonan->where(function ($query) use ($user_id) {
