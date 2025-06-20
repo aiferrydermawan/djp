@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permintaan;
 use App\Models\Permohonan;
 use App\Models\UserDetail;
 use Carbon\Carbon;
@@ -77,11 +78,31 @@ class DashboardController extends Controller
 
     public function tunggakanBerkasSUBSTG($jabatan, $unit_organisasi_id)
     {
-        return DB::table('permintaan')
-            ->whereNotIn('id', function ($q) {
-                $q->select('permintaan_id')->from('pengiriman');
-            })
-            ->count();
+        $user_id = auth()->user()->id;
+
+        $permintaan = Permintaan::query()->doesntHave('pengiriman');
+
+        if ($jabatan === 'penelaah keberatan') {
+            $permintaan->where(function ($query) use ($user_id) {
+                $query->where(function ($query) use ($user_id) {
+                    $query->whereNotNull('pk_id')
+                        ->where('pk_id', $user_id);
+                });
+            });
+        }
+
+        if ($jabatan == 'kepala seksi') {
+            $permintaan->where(function ($query) use ($unit_organisasi_id) {
+                $query->where(function ($query) use ($unit_organisasi_id) {
+                    $query->whereNotNull('pk_id')
+                        ->whereHas('penelaahKeberatan.detail', function ($query) use ($unit_organisasi_id) {
+                            $query->where('unit_organisasi_id', $unit_organisasi_id);
+                        });
+                });
+            });
+        }
+
+        return $permintaan->count();
     }
 
     public function permohonanMasuk($jabatan, $unit_organisasi_id)
