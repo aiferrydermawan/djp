@@ -6,9 +6,15 @@ import Validation from "@/Components/Validation.jsx";
 import Input from "@/Components/Input.jsx";
 import Select from "@/Components/Select.jsx";
 import DatePicker from "react-datepicker";
+import CustomCombobox from "@/Components/CustomCombobox.jsx";
 
-function Create({ errors, pk_all, permintaan }) {
+function Create({ errors, pk_all, permintaan, jenis_permohonan_all }) {
     // const [npwp, setNpwp] = useState(permintaan.npwp);
+    const [jenisPermohonan, setJenisPermohonan] = useState(
+        jenis_permohonan_all.find(
+            (item) => item.id === permintaan.jenis_permohonan,
+        ),
+    );
     const [tglSuratPp, setTglSuratPp] = useState(
         permintaan.tgl_surat_pp ? new Date(permintaan.tgl_surat_pp) : null,
     );
@@ -52,6 +58,7 @@ function Create({ errors, pk_all, permintaan }) {
     const [formData, setFormData] = useState({
         npwp: permintaan.npwp,
         kategori_permintaan: permintaan.kategori_permintaan,
+        jenis_permohonan: permintaan.jenis_permohonan,
         tahun_berkas: permintaan.tahun_berkas,
         nomor_surat_pp: permintaan.nomor_surat_pp,
         nomor_sengketa: permintaan.nomor_sengketa,
@@ -107,6 +114,7 @@ function Create({ errors, pk_all, permintaan }) {
         //     : null;
         router.put(route("input-permintaan.update", permintaan.id), {
             kategori_permintaan: formData.kategori_permintaan,
+            jenis_permohonan: jenisPermohonan ? jenisPermohonan.id : null,
             tahun_berkas: formData.tahun_berkas,
             nomor_surat_pp: formData.nomor_surat_pp,
             tgl_surat_pp: tgl_surat_pp,
@@ -184,6 +192,22 @@ function Create({ errors, pk_all, permintaan }) {
                                     {errors.tahun_berkas && (
                                         <Validation>
                                             {errors.tahun_berkas}
+                                        </Validation>
+                                    )}
+                                </label>
+                                <label
+                                    className={`form-control col-span-2`}
+                                >
+                                    <Label name="Jenis Permohonan (wajib)" />
+                                    <CustomCombobox
+                                        selected={jenisPermohonan}
+                                        onChange={setJenisPermohonan}
+                                        placeholder="Kosong"
+                                        items={jenis_permohonan_all}
+                                    />
+                                    {errors.jenis_permohonan && (
+                                        <Validation>
+                                            {errors.jenis_permohonan}
                                         </Validation>
                                     )}
                                 </label>

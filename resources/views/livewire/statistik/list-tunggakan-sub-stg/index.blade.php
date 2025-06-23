@@ -20,7 +20,7 @@
                         <tr>
                             <th>No</th>
                             <th>NPWP</th>
-                            <th>No Wajib Pajak</th>
+                            <th>Nama Wajib Pajak</th>
                             <th>Nomor Surat PP</th>
                             <th>Tgl Surat PP</th>
                             <th>Tgl Resi PP</th>
@@ -29,7 +29,8 @@
                             <th>Nomor KEP/Surat yg dibanding/Gugat</th>
                             <th>Nama PK</th>
                             <th>Seksi PK</th>
-                            <th>JT IKU</th>
+                            <th>Sisa Waktu</th>
+                            <th>Tanggal Berakhir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +38,7 @@
                         <tr wire:key="item-{{ $item->id }}">
                             <th>{{ $index + 1 }}</th>
                             <td>{{ $item->npwp }}</td>
-                            <td>??</td>
+                            <td>{{ $item->nama_wajib_pajak }}</td>
                             <td>{{ $item->nomor_surat_pp }}</td>
                             <td>{{ $item->tgl_surat_pp }}</td>
                             <td>{{ $item->tgl_resi_pp }}</td>
@@ -46,7 +47,8 @@
                             <td>{{ $item->nomor_kep_surat_yang_di_banding_gugat }}</td>
                             <td>{{ $item->penelaahKeberatan->name }}</td>
                             <td>{{ $item->penelaahKeberatan->detail?->organisasi?->nama }}</td>
-                            <td>??</td>
+                            <td>{{ $item->sisa_waktu }}</td>
+                            <td>{{ $item->tanggal_berakhir }}</td>
                         </tr>
                     @endforeach
                     </tbody>

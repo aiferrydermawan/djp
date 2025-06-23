@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\SUBSTG;
 
 use App\Http\Controllers\Controller;
+use App\Models\JenisPermohonan;
 use App\Models\Permintaan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,9 +20,11 @@ class InputPermintaanController extends Controller
                 ->whereJabatan('penelaah keberatan')
                 ->whereUnitOrganisasiId($user->detail->unit_organisasi_id);
         })->get();
+        $jenis_permohonan_all = JenisPermohonan::select(['id', 'nama as name'])->get();
 
         return inertia('InputPermintaan/Create', [
             'pk_all' => $pk_all,
+            'jenis_permohonan_all' => $jenis_permohonan_all,
         ]);
     }
 
@@ -28,6 +32,7 @@ class InputPermintaanController extends Controller
     {
         $request->validate([
             'kategori_permintaan' => ['required'],
+            'jenis_permohonan' => ['required'],
             'tahun_berkas' => ['required'],
             'nomor_surat_pp' => ['nullable'],
             'tgl_surat_pp' => ['nullable'],
@@ -51,8 +56,11 @@ class InputPermintaanController extends Controller
             'pk' => ['required'],
         ]);
 
+        $tanggal_berakhir = $this->getTanggalBerakhir($request->tgl_resi_pp, $request->jenis_permohonan);
+
         $data = [
             'kategori_permintaan' => $request->kategori_permintaan,
+            'jenis_permohonan' => $request->jenis_permohonan,
             'tahun_berkas' => $request->tahun_berkas,
             'nomor_surat_pp' => $request->nomor_surat_pp,
             'tgl_surat_pp' => $request->tgl_surat_pp,
@@ -74,6 +82,7 @@ class InputPermintaanController extends Controller
             // 'no_surat_tugas_pengganti' => $request->no_surat_tugas_pengganti,
             // 'tgl_surat_tugas_pengganti' => $request->tgl_surat_tugas_pengganti,
             'pk_id' => $request->pk,
+            'tanggal_berakhir' =>  $tanggal_berakhir,
         ];
 
         $data = Permintaan::create($data);
@@ -85,6 +94,7 @@ class InputPermintaanController extends Controller
     public function edit($id)
     {
         $permintaan = Permintaan::find($id);
+        $jenis_permohonan_all = JenisPermohonan::select(['id', 'nama as name'])->get();
         $user = User::with('detail')->find(auth()->user()->id);
         $pk_all = User::whereHas('detail', function ($query) use ($user) {
             $query
@@ -95,6 +105,7 @@ class InputPermintaanController extends Controller
         return inertia('InputPermintaan/Edit', [
             'pk_all' => $pk_all,
             'permintaan' => $permintaan,
+            'jenis_permohonan_all' => $jenis_permohonan_all,
         ]);
     }
 
@@ -102,6 +113,7 @@ class InputPermintaanController extends Controller
     {
         $request->validate([
             'kategori_permintaan' => ['required'],
+            'jenis_permohonan' => ['required'],
             'tahun_berkas' => ['required'],
             'nomor_surat_pp' => ['required'],
             'tgl_surat_pp' => ['required'],
@@ -125,8 +137,11 @@ class InputPermintaanController extends Controller
             'pk' => ['required'],
         ]);
 
+        $tanggal_berakhir = $this->getTanggalBerakhir($request->tgl_resi_pp, $request->jenis_permohonan);
+
         $data = [
             'kategori_permintaan' => $request->kategori_permintaan,
+            'jenis_permohonan' => $request->jenis_permohonan,
             'tahun_berkas' => $request->tahun_berkas,
             'nomor_surat_pp' => $request->nomor_surat_pp,
             'tgl_surat_pp' => $request->tgl_surat_pp,
@@ -148,11 +163,45 @@ class InputPermintaanController extends Controller
 //            'no_surat_tugas_pengganti' => $request->no_surat_tugas_pengganti ?? null,
 //            'tgl_surat_tugas_pengganti' => $request->tgl_surat_tugas_pengganti ?? null,
             'pk_id' => $request->pk,
+            'tanggal_berakhir' =>  $tanggal_berakhir,
         ];
 
         $data = Permintaan::where('id', $id)->update($data);
         session()->flash('success', 'Data berhasil diubah');
 
         return Inertia::location(route('input-permintaan'));
+    }
+
+    public function getTanggalBerakhir($tanggal_diterima, $id)
+    {
+        $jenisPermohonan = JenisPermohonan::find($id);
+        $info = json_decode($jenisPermohonan->jatuh_tempo_iku, true);
+
+        $kategori = $info['kategori'];
+        $kuantitas = $info['kuantitas'];
+
+        // Menghitung sisa waktu berdasarkan kategori dan kuantitas
+        $tanggal_diterima = Carbon::parse($tanggal_diterima);
+        switch ($kategori) {
+            case 'hari':
+                $tanggal_berakhir = $tanggal_diterima->addDays($kuantitas);
+                break;
+            case 'minggu':
+                $tanggal_berakhir = $tanggal_diterima->addWeeks($kuantitas);
+                break;
+            case 'bulan':
+                $tanggal_berakhir = $tanggal_diterima->addMonths($kuantitas);
+                break;
+            case 'tahun':
+                $tanggal_berakhir = $tanggal_diterima->addYears($kuantitas);
+                break;
+            default:
+                $tanggal_berakhir = null;
+        }
+        if ($tanggal_berakhir) {
+            return Carbon::parse($tanggal_berakhir)->subDay()->format('Y-m-d');
+        } else {
+            return null;
+        }
     }
 }
