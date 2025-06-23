@@ -15,8 +15,25 @@
         </select>
     </div>
 
+    <!-- Filter Amar Putusan (Checkbox) -->
+    <div class="mb-4">
+        <label class="text-sm">Filter Amar Putusan:</label>
+        <div class="flex flex-wrap gap-4">
+            @foreach ($amarPutusanAll as $amarPutusan)
+                <label class="flex items-center">
+                    <input
+                        type="checkbox"
+                        wire:model.live="selectedAmarKeputusan"
+                        value="{{ $amarPutusan->id }}"
+                        class="checkbox checkbox-sm"
+                    />
+                    <span class="ml-2">{{ $amarPutusan->nama }}</span>
+                </label>
+            @endforeach
+        </div>
+    </div>
 
-@foreach ([['Non Keberatan', $nonKeberatan], ['Keberatan', $keberatan]] as [$judul, $data])
+    @foreach ([['Non Keberatan', $nonKeberatan], ['Keberatan', $keberatan]] as [$judul, $data])
         <div class="card mt-5 bg-base-100 shadow">
             <div class="card-body">
                 <div class="card-title">{{ $judul }}</div>

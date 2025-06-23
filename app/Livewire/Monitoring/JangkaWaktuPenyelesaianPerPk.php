@@ -4,6 +4,7 @@ namespace App\Livewire\Monitoring;
 
 use App\Models\JenisPermohonan;
 use App\Models\Permohonan;
+use App\Models\Referensi;
 use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -11,9 +12,11 @@ use Illuminate\Support\Facades\DB;
 class JangkaWaktuPenyelesaianPerPk extends Component
 {
     public $tahunSuratTugas;
+    public $selectedAmarKeputusan = []; // Tambahkan properti untuk menyimpan filter amar_keputusan_id
 
     public function render()
     {
+        $amar_putusan_all = Referensi::where('kategori','amar-putusan')->get();
         // Ambil semua tahun unik dari kolom tahun_berkas
         $listTahun = Permohonan::select(DB::raw('DISTINCT tahun_berkas'))
             ->whereNotNull('tahun_berkas')
@@ -24,7 +27,7 @@ class JangkaWaktuPenyelesaianPerPk extends Component
         $jenisPermohonanList = JenisPermohonan::pluck('nama', 'id')->toArray();
 
         // Query dasar
-        $query = Permohonan::with(['jenisPermohonan', 'namaPk', 'dataPengiriman'])
+        $query = Permohonan::with(['jenisPermohonan', 'namaPk', 'dataPengiriman', 'dataKeputusan'])
             ->whereIn('id', function ($query) {
                 $query->select('permohonan_id')->from('data_pengiriman');
             });
@@ -32,6 +35,13 @@ class JangkaWaktuPenyelesaianPerPk extends Component
         // Filter tahun_berkas jika dipilih
         if (!empty($this->tahunSuratTugas)) {
             $query->where('tahun_berkas', $this->tahunSuratTugas);
+        }
+
+        // Filter berdasarkan amar_keputusan_id jika dipilih
+        if (!empty($this->selectedAmarKeputusan)) {
+            $query->whereHas('dataKeputusan', function ($query) {
+                $query->whereIn('amar_keputusan_id', $this->selectedAmarKeputusan);
+            });
         }
 
         $permohonan = $query->get();
@@ -81,6 +91,7 @@ class JangkaWaktuPenyelesaianPerPk extends Component
             'nonKeberatan' => $grouped['Non Keberatan'],
             'keberatan' => $grouped['Keberatan'],
             'listTahun' => $listTahun,
+            'amarPutusanAll' => $amar_putusan_all, // Kirim data amar-putusan untuk checkbox filter
         ]);
     }
 }
