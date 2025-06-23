@@ -3,6 +3,7 @@
 namespace App\Livewire\Statistik\ListTunggakanKebNKeb;
 
 use App\Models\Permohonan;
+use App\Models\User;
 use App\Models\UserDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,6 +13,7 @@ class Index extends Component
     use WithPagination;
 
     public $search = '';
+    public $selectedNamaPk = ''; // Tambahkan properti untuk filter nama_pk
 
     public function updatingSearch()
     {
@@ -68,12 +70,24 @@ class Index extends Component
             });
         }
 
+        // Tambahkan filter berdasarkan nama_pk untuk jabatan pelaksana dan kepala bidang
+        if (in_array($jabatan, ['pelaksana', 'kepala bidang']) && $this->selectedNamaPk) {
+            $query->where('nama_pk', $this->selectedNamaPk);
+        }
+
         $query->orderBy('tanggal_berakhir', 'asc');
 
         $permohonan_all = $query->paginate(10);
 
+        // Ambil pengguna yang jabatan 'penelaah keberatan' dan unit_organisasi_id yang sama dengan pelaksana dan kepala bidang
+        $users = User::whereHas('detail', function($query) use ($unit_organisasi_id) {
+            $query->where('jabatan', 'penelaah keberatan')
+                ->where('unit_organisasi_id', $unit_organisasi_id);
+        })->get(); // Ambil data user untuk filter nama_pk
+
         return view('livewire.statistik.list-tunggakan-keb-n-keb.index', [
             'permohonan_all' => $permohonan_all,
+            'users' => $users,
         ]);
     }
 }
