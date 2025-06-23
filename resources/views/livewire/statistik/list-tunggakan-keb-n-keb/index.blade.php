@@ -4,20 +4,20 @@
             <li>List Tunggakan KEB dan NKEB</li>
         </ul>
     </div>
-    <div class="mt-5 flex gap-4">
+    <div class="mt-5 flex gap-2">
         <input
             wire:model.lazy="search"
             type="text"
             placeholder="Nomor LPAD & NPWP"
             class="input input-bordered w-full max-w-xs"
         />
-        <!-- Filter Nama PK untuk pelaksana dan kepala bidang -->
+        <!-- Filter Unit Organisasi untuk pelaksana dan kepala bidang -->
         @if(in_array(auth()->user()->detail->jabatan, ['pelaksana', 'kepala bidang']))
             <div>
-                <select wire:model.live="selectedNamaPk" class="input input-bordered w-full max-w-xs">
-                    <option value="">-- Pilih Nama PK --</option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                <select wire:model.live="selectedUnitOrganisasi" class="input input-bordered w-full max-w-xs">
+                    <option value="">-- Pilih Unit Organisasi --</option>
+                    @foreach ($unit_organisasi_list as $unit)
+                        <option value="{{ $unit->id }}">{{ $unit->nama }}</option>
                     @endforeach
                 </select>
             </div>

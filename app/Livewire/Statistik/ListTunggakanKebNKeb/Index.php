@@ -3,7 +3,7 @@
 namespace App\Livewire\Statistik\ListTunggakanKebNKeb;
 
 use App\Models\Permohonan;
-use App\Models\User;
+use App\Models\Referensi;
 use App\Models\UserDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,7 +13,7 @@ class Index extends Component
     use WithPagination;
 
     public $search = '';
-    public $selectedNamaPk = ''; // Tambahkan properti untuk filter nama_pk
+    public $selectedUnitOrganisasi = ''; // Tambahkan properti untuk filter unit organisasi
 
     public function updatingSearch()
     {
@@ -30,6 +30,9 @@ class Index extends Component
         $jabatan = $user->jabatan;
         $unit_organisasi_id = $user->unit_organisasi_id;
 
+        // Ambil data unit organisasi dari referensi dengan kategori 'unit-organisasi'
+        $unit_organisasi_list = Referensi::where('kategori', 'unit-organisasi')->get();
+
         $query = Permohonan::query();
         $query->where(function ($query) {
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
@@ -42,6 +45,7 @@ class Index extends Component
             'penelaahKeberatan.detail.organisasi',
         ])->doesntHave('dataPengiriman');
 
+        // Filter berdasarkan jabatan penelaah keberatan
         if ($jabatan === 'penelaah keberatan') {
             $query->where(function ($query) use ($user_id) {
                 $query->where(function ($query) use ($user_id) {
@@ -54,6 +58,7 @@ class Index extends Component
             });
         }
 
+        // Filter berdasarkan jabatan kepala seksi
         if ($jabatan == 'kepala seksi') {
             $query->where(function ($query) use ($unit_organisasi_id) {
                 $query->where(function ($query) use ($unit_organisasi_id) {
@@ -70,24 +75,20 @@ class Index extends Component
             });
         }
 
-        // Tambahkan filter berdasarkan nama_pk untuk jabatan pelaksana dan kepala bidang
-        if (in_array($jabatan, ['pelaksana', 'kepala bidang']) && $this->selectedNamaPk) {
-            $query->where('nama_pk', $this->selectedNamaPk);
+        // Filter berdasarkan unit organisasi (untuk pelaksana dan kepala bidang)
+        if (in_array($jabatan, ['pelaksana', 'kepala bidang']) && $this->selectedUnitOrganisasi) {
+            $query->whereHas('penelaahKeberatan.detail', function($query) {
+                $query->where('unit_organisasi_id', $this->selectedUnitOrganisasi);
+            });
         }
 
         $query->orderBy('tanggal_berakhir', 'asc');
 
         $permohonan_all = $query->paginate(10);
 
-        // Ambil pengguna yang jabatan 'penelaah keberatan' dan unit_organisasi_id yang sama dengan pelaksana dan kepala bidang
-        $users = User::whereHas('detail', function($query) use ($unit_organisasi_id) {
-            $query->where('jabatan', 'penelaah keberatan')
-                ->where('unit_organisasi_id', $unit_organisasi_id);
-        })->get(); // Ambil data user untuk filter nama_pk
-
         return view('livewire.statistik.list-tunggakan-keb-n-keb.index', [
             'permohonan_all' => $permohonan_all,
-            'users' => $users,
+            'unit_organisasi_list' => $unit_organisasi_list,
         ]);
     }
 }
