@@ -74,9 +74,9 @@ function Preview({
     const [tahunPajak, setTahunPajak] = useState(permohonan.tahun_pajak);
     const [mataUang, setMataUang] = useState(permohonan.mata_uang);
     const [nilai1, setNilai1] = useState(formatNumber(permohonan.nilai_1));
-    const [nilai2, setNilai2] = useState(formatNumber(permohonan.nilai_2));
-    const [nilai3, setNilai3] = useState(formatNumber(permohonan.nilai_3));
-    const [nilai4, setNilai4] = useState(formatNumber(permohonan.nilai_4));
+    // const [nilai2, setNilai2] = useState(formatNumber(permohonan.nilai_2));
+    // const [nilai3, setNilai3] = useState(formatNumber(permohonan.nilai_3));
+    // const [nilai4, setNilai4] = useState(formatNumber(permohonan.nilai_4));
     const [dasarPemrosesan, setDasarPemrosesan] = useState(
         permohonan.dasar_pemrosesan,
     );
@@ -523,63 +523,63 @@ function Preview({
                                         )}
                                     </label>
                                     <div className="col-span-2"></div>
-                                    <label
-                                        className={`form-control col-span-2`}
-                                    >
-                                        <Label name="Nilai Sanksi Administrasi" />
-                                        <NumberInput
-                                            value={nilai2}
-                                            placeholder="Kosong"
-                                            onChange={(formattedValue) =>
-                                                setNilai2(formattedValue)
-                                            }
-                                            disabled
-                                        />
-                                        {errors.nilai_2 && (
-                                            <Validation>
-                                                {errors.nilai_2}
-                                            </Validation>
-                                        )}
-                                    </label>
+                                    {/*<label*/}
+                                    {/*    className={`form-control col-span-2`}*/}
+                                    {/*>*/}
+                                    {/*    <Label name="Nilai Sanksi Administrasi" />*/}
+                                    {/*    <NumberInput*/}
+                                    {/*        value={nilai2}*/}
+                                    {/*        placeholder="Kosong"*/}
+                                    {/*        onChange={(formattedValue) =>*/}
+                                    {/*            setNilai2(formattedValue)*/}
+                                    {/*        }*/}
+                                    {/*        disabled*/}
+                                    {/*    />*/}
+                                    {/*    {errors.nilai_2 && (*/}
+                                    {/*        <Validation>*/}
+                                    {/*            {errors.nilai_2}*/}
+                                    {/*        </Validation>*/}
+                                    {/*    )}*/}
+                                    {/*</label>*/}
                                     <div className="col-span-2"></div>
-                                    <label
-                                        className={`form-control col-span-2`}
-                                    >
-                                        <Label name="Nilai Ketetapan / Sanksi Administrasi yang disetujui" />
-                                        <NumberInput
-                                            value={nilai3}
-                                            type="text"
-                                            placeholder="Kosong"
-                                            onChange={(formattedValue) =>
-                                                setNilai3(formattedValue)
-                                            }
-                                            disabled
-                                        />
-                                        {errors.nilai_3 && (
-                                            <Validation>
-                                                {errors.nilai_3}
-                                            </Validation>
-                                        )}
-                                    </label>
+                                    {/*<label*/}
+                                    {/*    className={`form-control col-span-2`}*/}
+                                    {/*>*/}
+                                    {/*    <Label name="Nilai Ketetapan / Sanksi Administrasi yang disetujui" />*/}
+                                    {/*    <NumberInput*/}
+                                    {/*        value={nilai3}*/}
+                                    {/*        type="text"*/}
+                                    {/*        placeholder="Kosong"*/}
+                                    {/*        onChange={(formattedValue) =>*/}
+                                    {/*            setNilai3(formattedValue)*/}
+                                    {/*        }*/}
+                                    {/*        disabled*/}
+                                    {/*    />*/}
+                                    {/*    {errors.nilai_3 && (*/}
+                                    {/*        <Validation>*/}
+                                    {/*            {errors.nilai_3}*/}
+                                    {/*        </Validation>*/}
+                                    {/*    )}*/}
+                                    {/*</label>*/}
                                     <div className="col-span-2"></div>
-                                    <label
-                                        className={`form-control col-span-2`}
-                                    >
-                                        <Label name="Nilai Ajukan Upaya Hukum" />
-                                        <NumberInput
-                                            value={nilai4}
-                                            placeholder="Kosong"
-                                            onChange={(formattedValue) =>
-                                                setNilai4(formattedValue)
-                                            }
-                                            disabled
-                                        />
-                                        {errors.nilai_4 && (
-                                            <Validation>
-                                                {errors.nilai_4}
-                                            </Validation>
-                                        )}
-                                    </label>
+                                    {/*<label*/}
+                                    {/*    className={`form-control col-span-2`}*/}
+                                    {/*>*/}
+                                    {/*    <Label name="Nilai Ajukan Upaya Hukum" />*/}
+                                    {/*    <NumberInput*/}
+                                    {/*        value={nilai4}*/}
+                                    {/*        placeholder="Kosong"*/}
+                                    {/*        onChange={(formattedValue) =>*/}
+                                    {/*            setNilai4(formattedValue)*/}
+                                    {/*        }*/}
+                                    {/*        disabled*/}
+                                    {/*    />*/}
+                                    {/*    {errors.nilai_4 && (*/}
+                                    {/*        <Validation>*/}
+                                    {/*            {errors.nilai_4}*/}
+                                    {/*        </Validation>*/}
+                                    {/*    )}*/}
+                                    {/*</label>*/}
                                     <div className="col-span-2"></div>
                                     <label
                                         className={`form-control col-span-2`}
