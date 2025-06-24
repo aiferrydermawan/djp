@@ -47,7 +47,6 @@ function Preview({
 
     const [namaWp, setNamaWp] = useState(permohonan.nama_wp);
     const [npwp, setNpwp] = useState(permohonan.npwp);
-    const [nop, setNop] = useState(permohonan.nop);
     const [kpp, setKpp] = useState(permohonan.kode_kpp_terdaftar);
     const [jenisPermohonan, setJenisPermohonan] = useState(
         permohonan.jenis_permohonan,
@@ -61,59 +60,63 @@ function Preview({
     const [nomorKetetapan, setNomorKetetapan] = useState(
         permohonan.nomor_ketetapan,
     );
-    const [tanggalKetetapan, setTanggalKetetapan] = useState(
-        new Date(permohonan.tanggal_ketetapan),
-    );
-    const [tanggalKirimKetetapan, setTanggalKirimKetetapan] = useState(
-        new Date(permohonan.tanggal_kirim_ketetapan),
-    );
+    const [tanggalKetetapan, setTanggalKetetapan] = useState(() => {
+        const t = permohonan.tanggal_ketetapan;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
+    const [tanggalKirimKetetapan, setTanggalKirimKetetapan] = useState(() => {
+        const t = permohonan.tanggal_kirim_ketetapan;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
     const [jenisPajak, setJenisPajak] = useState(permohonan.jenis_pajak);
     const [masaPajak, setMasaPajak] = useState(permohonan.masa_pajak);
     const [tahunPajak, setTahunPajak] = useState(permohonan.tahun_pajak);
     const [mataUang, setMataUang] = useState(permohonan.mata_uang);
     const [nilai1, setNilai1] = useState(formatNumber(permohonan.nilai_1));
-    // const [nilai2, setNilai2] = useState(formatNumber(permohonan.nilai_2));
-    // const [nilai3, setNilai3] = useState(formatNumber(permohonan.nilai_3));
-    // const [nilai4, setNilai4] = useState(formatNumber(permohonan.nilai_4));
     const [dasarPemrosesan, setDasarPemrosesan] = useState(
         permohonan.dasar_pemrosesan,
     );
     const [nomorSuratWp, setNomorSuratWp] = useState(permohonan.nomor_surat_wp);
-    const [tanggalSuratWp, setTanggalSuratWp] = useState(
-        new Date(permohonan.tanggal_surat_wp),
-    );
     const [nomorLpad, setNomorLpad] = useState(permohonan.nomor_lpad);
-    const [tanggalDiterima, setTanggalDiterima] = useState(
-        new Date(permohonan.tanggal_diterima),
-    );
+    const [tanggalDiterima, setTanggalDiterima] = useState(() => {
+        const t = permohonan.tanggal_diterima;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
+    const [tanggalSuratWp, setTanggalSuratWp] = useState(() => {
+        const t = permohonan.tanggal_surat_wp;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
     const [noSuratPengantarKpp, setNoSuratPengantarKpp] = useState(
         permohonan.no_surat_pengantar_kpp,
     );
-    const [tanggalSuratPengantar, setTanggalSuratPengantar] = useState(
-        new Date(permohonan.tanggal_surat_pengantar),
-    );
-    const [tanggalPengirimanKpp, setTanggalPengirimanKpp] = useState(
-        new Date(permohonan.tanggal_pengiriman_kpp),
-    );
+    const [tanggalSuratPengantar, setTanggalSuratPengantar] = useState(() => {
+        const t = permohonan.tanggal_surat_pengantar;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
+    const [tanggalPengirimanKpp, setTanggalPengirimanKpp] = useState(() => {
+        const t = permohonan.tanggal_pengiriman_kpp;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
     const [nomorSuratTugas, setNomorSuratTugas] = useState(
         permohonan.nomor_surat_tugas,
     );
-    const [tanggalSuratTugas, setTanggalSuratTugas] = useState(
-        new Date(permohonan.tanggal_surat_tugas),
-    );
+    const [tanggalSuratTugas, setTanggalSuratTugas] = useState(() => {
+        const t = permohonan.tanggal_surat_tugas;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
     const [namaPk, setNamaPk] = useState(permohonan.nama_pk);
     const [noMatriks, setNoMatriks] = useState(permohonan.no_matriks);
-    const [tanggalMatriks, setTanggalMatriks] = useState(
-        new Date(permohonan.tanggal_matriks),
-    );
+    const [tanggalMatriks, setTanggalMatriks] = useState(() => {
+        const t = permohonan.tanggal_matriks;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
     const [nomorSuratTugas2, setNomorSuratTugas2] = useState(
         permohonan.nomor_surat_tugas_2 ?? "",
     );
-    const [tanggalSuratTugas2, setTanggalSuratTugas2] = useState(
-        permohonan.tanggal_surat_tugas_2
-            ? new Date(permohonan.tanggal_surat_tugas_2)
-            : "",
-    );
+    const [tanggalSuratTugas2, setTanggalSuratTugas2] = useState(() => {
+        const t = permohonan.tanggal_surat_tugas_2;
+        return t && !isNaN(Date.parse(t)) ? new Date(t) : null;
+    });
     const [namaPk2, setNamaPk2] = useState(permohonan.nama_pk_2 ?? "");
     useEffect(() => {
         if (jenisKetetapan != null) {
