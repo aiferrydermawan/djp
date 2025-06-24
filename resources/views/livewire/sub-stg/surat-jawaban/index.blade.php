@@ -65,6 +65,7 @@
                     @endif
                 </tbody>
             </table>
+            {{ $permintaan->links() }}
         </div>
     </div>
 </div>
