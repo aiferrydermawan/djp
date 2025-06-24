@@ -35,7 +35,7 @@ class Permintaan extends Model
 
     public function getSisaWaktuAttribute()
     {
-        $sekarang = Carbon::now();
+        $sekarang = Carbon::today();
         $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
         $sisa_waktu = $sekarang->diffInDays($tanggalBerakhir, false);
 
@@ -44,7 +44,7 @@ class Permintaan extends Model
 
     public function getSisaWaktuValueAttribute()
     {
-        $sekarang = Carbon::now();
+        $sekarang = Carbon::today();
         $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
         return $sekarang->diffInDays($tanggalBerakhir, false);
     }
