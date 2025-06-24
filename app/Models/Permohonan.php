@@ -80,8 +80,8 @@ class Permohonan extends Model
 
     public function getSisaWaktuAttribute()
     {
-        $sekarang = Carbon::parse($this->tanggal_berakhir);
-        $tanggalBerakhir = Carbon::now();
+        $sekarang = Carbon::now();
+        $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
         $sisa_waktu = $sekarang->diffInDays($tanggalBerakhir, false);
 
         return $sisa_waktu.' Hari';
@@ -89,8 +89,8 @@ class Permohonan extends Model
 
     public function getSisaWaktuValueAttribute()
     {
-        $sekarang = Carbon::parse($this->tanggal_berakhir);
-        $tanggalBerakhir = Carbon::now();
+        $sekarang = Carbon::now();
+        $tanggalBerakhir = Carbon::parse($this->tanggal_berakhir);
         return $sekarang->diffInDays($tanggalBerakhir, false);
     }
 
