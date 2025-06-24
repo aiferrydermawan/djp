@@ -4,9 +4,7 @@ import { Head, Link, router } from "@inertiajs/react";
 import Label from "../../Components/Label.jsx";
 import Input from "../../Components/Input.jsx";
 import NPWPInput from "../../Components/NPWPInput.jsx";
-import NOPInput from "../../Components/NOPInput.jsx";
 import Validation from "../../Components/Validation.jsx";
-import CustomCombobox from "../../Components/CustomCombobox.jsx";
 import NoKetetapanInput from "../../Components/NoKetetapanInput.jsx";
 import axios from "axios";
 import Select from "../../Components/Select.jsx";
@@ -194,24 +192,6 @@ function Preview({
                                         {errors.npwp && (
                                             <Validation>
                                                 {errors.npwp}
-                                            </Validation>
-                                        )}
-                                    </label>
-                                    <label
-                                        className={`form-control col-span-2`}
-                                    >
-                                        <Label name="NOP *Tidak Wajib" />
-                                        <NOPInput
-                                            value={nop}
-                                            onChange={(formattedValue) =>
-                                                setNop(formattedValue)
-                                            }
-                                            placeholder="Type Here"
-                                            disabled
-                                        />
-                                        {errors.nop && (
-                                            <Validation>
-                                                {errors.nop}
                                             </Validation>
                                         )}
                                     </label>
