@@ -36,7 +36,7 @@
                     <tbody>
                     @foreach($permintaan as $index => $item)
                         <tr wire:key="item-{{ $item->id }}">
-                            <th>{{ $index + 1 }}</th>
+                            <th>{{ $permintaan->firstItem() + 1 }}</th>
                             <td>{{ $item->npwp }}</td>
                             <td>{{ $item->nama_wajib_pajak }}</td>
                             <td>{{ $item->nomor_surat_pp }}</td>

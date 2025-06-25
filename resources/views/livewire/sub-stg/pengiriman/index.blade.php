@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>NO</th>
+                        <th>NOMOR SURAT PP</th>
                         <th>TGL SURAT PP</th>
                         <th>NOMOR SENGKETA</th>
                         <th>NPWP</th>
@@ -64,6 +65,7 @@
                     @endif
                 </tbody>
             </table>
+            {{ $permintaan->links() }}
         </div>
     </div>
 </div>
