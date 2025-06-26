@@ -5,12 +5,26 @@
         </ul>
     </div>
     <div class="mt-5 flex justify-between">
-        <input
-            wire:model.lazy="search"
-            type="text"
-            placeholder="Cari"
-            class="input input-bordered w-full max-w-xs"
-        />
+        <div class="flex gap-4">
+            <input
+                wire:model.lazy="search"
+                type="text"
+                placeholder="Nama Wajib Pajak"
+                class="input input-bordered grow"
+            />
+            <select wire:model.live="tahun_berkas" class="select select-bordered w-1/3">
+                <option value="">Semua Tahun</option>
+                @foreach($tahun_berkas_all as $key => $item)
+                    <option value="{{ $item->tahun_berkas }}">{{ $item->tahun_berkas }}</option>
+                @endforeach
+            </select>
+            <select wire:model.live="nama_pk" class="select select-bordered w-1/3">
+                <option value="">Nama PK</option>
+                @foreach($nama_pk_all as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <a
             href="{{ route("input-permintaan.create") }}"
             class="btn btn-primary"
