@@ -13,6 +13,8 @@ class Index extends Component
 
     public $search = '';
 
+    public $status = 'pending';
+
     public $tahun_berkas;
     public $tahun_berkas_all;
 
@@ -32,6 +34,11 @@ class Index extends Component
     }
 
     public function updatingNamaPk()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus()
     {
         $this->resetPage();
     }
@@ -60,6 +67,12 @@ class Index extends Component
 
         if($this->nama_pk){
             $permintaan->where('pk_id', $this->nama_pk);
+        }
+
+        if ($this->status == 'pending') {
+            $permintaan->doesntHave('pengiriman');
+        } else {
+            $permintaan->has('pengiriman');
         }
 
         return view('livewire.sub-stg.surat-jawaban.index', [

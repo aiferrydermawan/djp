@@ -24,6 +24,13 @@
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
             </select>
+            <select
+                wire:model.live="status"
+                class="select select-bordered w-full max-w-xs"
+            >
+                <option value="pending">Pending</option>
+                <option value="selesai">Selesai</option>
+            </select>
         </div>
     </div>
     <div class="card mt-5 bg-base-100 shadow">
