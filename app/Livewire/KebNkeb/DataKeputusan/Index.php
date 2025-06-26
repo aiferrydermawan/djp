@@ -3,6 +3,7 @@
 namespace App\Livewire\KebNkeb\DataKeputusan;
 
 use App\Models\Permohonan;
+use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
@@ -18,6 +19,9 @@ class Index extends Component
 
     public $sortBySisaWaktu = null; // null | 'asc' | 'desc'
 
+    public $nama_pk;
+    public $nama_pk_all;
+
 
     public function mount()
     {
@@ -29,6 +33,10 @@ class Index extends Component
         if ($user_detail->jabatan !== 'pelaksana') {
             abort('403', 'Anda bukan pelaksana');
         }
+
+        $this->nama_pk_all = User::whereHas('detail', function($query){
+            $query->where('jabatan','penelaah keberatan');
+        })->orderBy('name','asc')->get();
     }
 
     public function updatingSearch()
@@ -41,6 +49,11 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatingNamaPk()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $query = Permohonan::query();
@@ -49,6 +62,10 @@ class Index extends Component
             $query->doesntHave('dataKeputusan');
         } else {
             $query->has('dataKeputusan');
+        }
+
+        if($this->nama_pk){
+            $query->where('nama_pk', $this->nama_pk);
         }
 
         $query->where(function ($query) {

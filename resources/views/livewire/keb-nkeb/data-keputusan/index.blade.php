@@ -18,6 +18,12 @@
             <option value="pending">Pending</option>
             <option value="selesai">Selesai</option>
         </select>
+        <select wire:model.live="nama_pk" class="select select-bordered w-full max-w-xs">
+            <option value="">Nama PK</option>
+            @foreach($nama_pk_all as $item)
+                <option value="{{ $item->id }}">{{ $item->name }}</option>
+            @endforeach
+        </select>
     </div>
     <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body">

@@ -3,6 +3,7 @@
 namespace App\Livewire\KebNkeb\Permohonan;
 
 use App\Models\Permohonan;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +15,27 @@ class Index extends Component
     public $tahun_berkas;
     public $tahun_berkas_all;
 
+    public $nama_pk;
+    public $nama_pk_all;
+
+    public function mount()
+    {
+        $this->nama_pk_all = User::whereHas('detail', function($query){
+            $query->where('jabatan','penelaah keberatan');
+        })->orderBy('name','asc')->get();
+    }
+
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingNamaPk()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingTahunBerkas()
     {
         $this->resetPage();
     }
@@ -39,8 +60,8 @@ class Index extends Component
             $query->where('tahun_berkas', $this->tahun_berkas);
         }
 
-        if($this->tahun_berkas){
-            $query->where('tahun_berkas', $this->tahun_berkas);
+        if($this->nama_pk){
+            $query->where('nama_pk', $this->nama_pk);
         }
         $permohonan_all = $query->with([
             'jenisPermohonan',

@@ -18,6 +18,12 @@
                     <option value="{{ $item->tahun_berkas }}">{{ $item->tahun_berkas }}</option>
                 @endforeach
             </select>
+            <select wire:model.live="nama_pk" class="select select-bordered w-full max-w-xs">
+                <option value="">Nama PK</option>
+                @foreach($nama_pk_all as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div>
@@ -43,7 +49,7 @@
                         <tr>
                             <th>No</th>
                             <th>No LPAD</th>
-                            <th>Tanggal Diterima</th>
+                            <th>Tanggal LPAD</th>
                             <th>Nama WP</th>
                             <th>NPWP</th>
                             <th>Jenis Permohonan</th>

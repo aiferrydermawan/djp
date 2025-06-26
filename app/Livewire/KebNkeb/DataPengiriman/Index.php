@@ -3,6 +3,7 @@
 namespace App\Livewire\KebNkeb\DataPengiriman;
 
 use App\Models\Permohonan;
+use App\Models\User;
 use App\Models\UserDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,6 +16,9 @@ class Index extends Component
 
     public $status = 'pending';
 
+    public $nama_pk;
+    public $nama_pk_all;
+
     public function mount()
     {
         $user_detail = UserDetail::where('user_id', auth()->user()->id)->first();
@@ -25,6 +29,10 @@ class Index extends Component
         if ($user_detail->jabatan !== 'pelaksana') {
             abort('403', 'Anda bukan pelaksana');
         }
+
+        $this->nama_pk_all = User::whereHas('detail', function($query){
+            $query->where('jabatan','penelaah keberatan');
+        })->orderBy('name','asc')->get();
     }
 
     public function updatingSearch()
@@ -45,6 +53,9 @@ class Index extends Component
             $query->doesntHave('dataPengiriman');
         } else {
             $query->has('dataPengiriman');
+        }
+        if($this->nama_pk){
+            $query->where('nama_pk', $this->nama_pk);
         }
         $query->where(function ($query) {
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
