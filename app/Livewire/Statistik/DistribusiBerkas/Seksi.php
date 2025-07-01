@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class Seksi extends Component
 {
+    public $filterTahun;
     public function render()
     {
         $today = Carbon::today();
@@ -28,6 +29,9 @@ class Seksi extends Component
 
             // Menghitung total permohonan masuk
             $totalPermohonanMasuk = DB::table('permohonan')
+                ->when($this->filterTahun, function ($query) {
+                    $query->where('tahun_berkas', (int) $this->filterTahun);
+                })
                 ->join('user_details', function ($join) {
                     $join->on('permohonan.nama_pk', '=', 'user_details.user_id')
                         ->orOn('permohonan.nama_pk_2', '=', 'user_details.user_id');
@@ -37,6 +41,9 @@ class Seksi extends Component
 
             // Menghitung total permohonan selesai
             $totalPermohonanSelesai = DB::table('permohonan')
+                ->when($this->filterTahun, function ($query) {
+                    $query->where('tahun_berkas', (int) $this->filterTahun);
+                })
                 ->join('data_pengiriman', 'permohonan.id', '=', 'data_pengiriman.permohonan_id')
                 ->join('user_details', function ($join) {
                     $join->on('permohonan.nama_pk', '=', 'user_details.user_id')
@@ -53,6 +60,9 @@ class Seksi extends Component
 
             // Menghitung total permohonan berdasarkan jenis permohonan
             $jenisPermohonanCounts = DB::table('permohonan')
+                ->when($this->filterTahun, function ($query) {
+                    $query->where('tahun_berkas', (int) $this->filterTahun);
+                })
                 ->join('jenis_permohonan', 'permohonan.jenis_permohonan', '=', 'jenis_permohonan.id')
                 ->join('user_details', function ($join) {
                     $join->on('permohonan.nama_pk', '=', 'user_details.user_id')

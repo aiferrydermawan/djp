@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Statistik\ListTunggakanKebNKeb;
 
+use App\Models\JenisPermohonan;
 use App\Models\Permohonan;
 use App\Models\Referensi;
 use App\Models\UserDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class Index extends Component
 {
@@ -15,6 +18,12 @@ class Index extends Component
     public $search = '';
     public $selectedUnitOrganisasi = ''; // Tambahkan properti untuk filter unit organisasi
 
+    public $tahun_berkas;
+    public $tahun_berkas_all;
+
+    public $jenis_permohonan;
+    public $jenis_permohonan_all;
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -22,6 +31,13 @@ class Index extends Component
 
     public function render()
     {
+        $this->tahun_berkas_all = Permohonan::select('tahun_berkas')
+            ->orderBy('tahun_berkas', 'asc')
+            ->groupBy('tahun_berkas')
+            ->get();
+
+        $this->jenis_permohonan_all = JenisPermohonan::get();
+
         $user_id = auth()->user()->id;
         $user = UserDetail::where('user_id', $user_id)->first();
         if (! $user) {
@@ -38,6 +54,13 @@ class Index extends Component
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
                 ->orWhere('npwp', 'like', '%'.$this->search.'%');
         });
+        if($this->tahun_berkas){
+            $query->where('tahun_berkas', $this->tahun_berkas);
+        }
+
+        if($this->jenis_permohonan){
+            $query->where('jenis_permohonan', $this->jenis_permohonan);
+        }
         $query->with([
             'jenisPermohonan',
             'jenisPajak',
@@ -84,7 +107,20 @@ class Index extends Component
 
         $query->orderBy('tanggal_berakhir', 'asc');
 
-        $permohonan_all = $query->paginate(10);
+        $collection = $query->get()->sortBy(fn($item) => $item->sisa_waktu_value)->values();
+
+// Manual paginate
+        $currentPage = request()->get('page', 1);
+        $perPage = 10;
+        $pagedData = $collection->forPage($currentPage, $perPage);
+
+        $permohonan_all = new LengthAwarePaginator(
+            $pagedData,
+            $collection->count(),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         return view('livewire.statistik.list-tunggakan-keb-n-keb.index', [
             'permohonan_all' => $permohonan_all,

@@ -8,7 +8,7 @@
         <input
             wire:model.lazy="search"
             type="text"
-            placeholder="Nomor LPAD & NPWP"
+            placeholder="Nomor LPAD / NPWP"
             class="input input-bordered w-full max-w-xs"
         />
         <!-- Filter Unit Organisasi untuk pelaksana dan kepala bidang -->
@@ -23,6 +23,20 @@
             </div>
         @endif
     </div>
+    <div class="flex mt-4 gap-4">
+        <select wire:model.live="tahun_berkas" class="select select-bordered w-full max-w-xs">
+            <option value="">Tahun Berkas</option>
+            @foreach($tahun_berkas_all as $item)
+                <option value="{{ $item->tahun_berkas }}">{{ $item->tahun_berkas }}</option>
+            @endforeach
+        </select>
+        <select wire:model.live="jenis_permohonan" class="select select-bordered w-full max-w-xs">
+            <option value="">Jenis Permohonan</option>
+            @foreach($jenis_permohonan_all as $item)
+                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+            @endforeach
+        </select>
+    </div>
 
 
     <div class="card mt-5 bg-base-100 shadow">
@@ -33,7 +47,7 @@
                     <tr>
                         <th>No</th>
                         <th>No LPAD</th>
-                        <th>Tanggal Diterima</th>
+                        <th>Tanggal LPAD</th>
                         <th>Nama WP</th>
                         <th>NPWP</th>
                         <th>Jenis Permohonan</th>
