@@ -52,7 +52,8 @@ class Index extends Component
         $query = Permohonan::query();
         $query->where(function ($query) {
             $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
-                ->orWhere('npwp', 'like', '%'.$this->search.'%');
+                ->orWhere('npwp', 'like', '%'.$this->search.'%')
+                ->orWhere('nama_wp', 'like', '%'.$this->search.'%');
         });
         if($this->tahun_berkas){
             $query->where('tahun_berkas', $this->tahun_berkas);
