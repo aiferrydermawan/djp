@@ -65,6 +65,7 @@ class PenyelesaianPermohonan extends Component
                     'masuk' => $masukTahunIni,
                     'selesai' => $selesai,
                     'saldo_akhir' => $saldoAkhir,
+                    'total_permohonan' => $saldoAwal + $masukTahunIni,
                 ];
             }
 
@@ -73,6 +74,7 @@ class PenyelesaianPermohonan extends Component
                 'masuk' => array_sum(array_column($data, 'masuk')),
                 'selesai' => array_sum(array_column($data, 'selesai')),
                 'saldo_akhir' => array_sum(array_column($data, 'saldo_akhir')),
+                'total_permohonan' => array_sum(array_column($data, 'total_permohonan')),
             ];
         }
 

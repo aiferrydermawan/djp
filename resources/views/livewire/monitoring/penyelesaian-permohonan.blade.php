@@ -29,6 +29,7 @@
                     <th>Permohonan Masuk Tahun Ini</th>
                     <th>Selesai</th>
                     <th>Saldo Akhir</th>
+                    <th>Total Permohonan</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,7 @@
                             <td>{{ $data[$kategori]['masuk'] ?? 0 }}</td>
                             <td>{{ $data[$kategori]['selesai'] ?? 0 }}</td>
                             <td>{{ $data[$kategori]['saldo_akhir'] ?? 0 }}</td>
+                            <td>{{ $data[$kategori]['total_permohonan'] ?? 0 }}</td>
                         </tr>
                     @endforeach
                     <tr class="font-bold">
@@ -48,6 +50,7 @@
                         <td>{{ $total['masuk'] ?? 0 }}</td>
                         <td>{{ $total['selesai'] ?? 0 }}</td>
                         <td>{{ $total['saldo_akhir'] ?? 0 }}</td>
+                        <td>{{ $total['total_permohonan'] ?? 0 }}</td>
                     </tr>
                 @else
                     <tr>

@@ -15,6 +15,12 @@
         </select>
     </div>
 
+    <div class="flex items-center gap-2 mb-2">
+        <button class="btn btn-sm btn-outline" wire:click="selectAllAmarKeputusan">Pilih Semua</button>
+        <button class="btn btn-sm btn-outline" wire:click="resetAmarKeputusan">Hapus Semua</button>
+    </div>
+
+
     <!-- Filter Amar Putusan (Checkbox) -->
     <div class="mb-4">
         <label class="text-sm">Filter Amar Putusan:</label>

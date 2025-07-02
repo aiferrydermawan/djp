@@ -88,10 +88,20 @@ class JangkaWaktuPenyelesaianPerPk extends Component
 
         return view('livewire.monitoring.jangka-waktu-penyelesaian-per-pk', [
             'jenisPermohonanList' => array_values($jenisPermohonanList),
-            'nonKeberatan' => $grouped['Non Keberatan'],
-            'keberatan' => $grouped['Keberatan'],
+            'nonKeberatan' => collect($grouped['Non Keberatan'])->sortBy('total')->all(),
+            'keberatan' => collect($grouped['Keberatan'])->sortBy('total')->all(),
             'listTahun' => $listTahun,
             'amarPutusanAll' => $amar_putusan_all, // Kirim data amar-putusan untuk checkbox filter
         ]);
+    }
+
+    public function selectAllAmarKeputusan()
+    {
+        $this->selectedAmarKeputusan = Referensi::where('kategori','amar-putusan')->pluck('id')->toArray();
+    }
+
+    public function resetAmarKeputusan()
+    {
+        $this->selectedAmarKeputusan = [];
     }
 }
