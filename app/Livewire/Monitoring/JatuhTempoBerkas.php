@@ -27,7 +27,8 @@ class JatuhTempoBerkas extends Component
             })
             ->where(function ($query) {
                 $query->where('nomor_lpad', 'like', '%'.$this->search.'%')
-                    ->orWhere('npwp', 'like', '%'.$this->search.'%');
+                    ->orWhere('npwp', 'like', '%'.$this->search.'%')
+                    ->orWhere('nama_wp', 'like', '%'.$this->search.'%');
             });
 
         return view('livewire.monitoring.jatuh-tempo-berkas', [
