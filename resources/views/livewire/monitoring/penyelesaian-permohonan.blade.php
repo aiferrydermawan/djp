@@ -27,9 +27,9 @@
                     <th>Uraian</th>
                     <th>Saldo Awal</th>
                     <th>Permohonan Masuk Tahun Ini</th>
+                    <th>Total Permohonan</th>
                     <th>Selesai</th>
                     <th>Saldo Akhir</th>
-                    <th>Total Permohonan</th>
                 </tr>
                 </thead>
                 <tbody>
