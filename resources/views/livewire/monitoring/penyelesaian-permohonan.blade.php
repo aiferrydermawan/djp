@@ -39,18 +39,18 @@
                             <td>{{ $kategori }}</td>
                             <td>{{ $data[$kategori]['saldo_awal'] ?? 0 }}</td>
                             <td>{{ $data[$kategori]['masuk'] ?? 0 }}</td>
+                            <td>{{ $data[$kategori]['total_permohonan'] ?? 0 }}</td>
                             <td>{{ $data[$kategori]['selesai'] ?? 0 }}</td>
                             <td>{{ $data[$kategori]['saldo_akhir'] ?? 0 }}</td>
-                            <td>{{ $data[$kategori]['total_permohonan'] ?? 0 }}</td>
                         </tr>
                     @endforeach
                     <tr class="font-bold">
                         <td>Jumlah</td>
                         <td>{{ $total['saldo_awal'] ?? 0 }}</td>
                         <td>{{ $total['masuk'] ?? 0 }}</td>
+                        <td>{{ $total['total_permohonan'] ?? 0 }}</td>
                         <td>{{ $total['selesai'] ?? 0 }}</td>
                         <td>{{ $total['saldo_akhir'] ?? 0 }}</td>
-                        <td>{{ $total['total_permohonan'] ?? 0 }}</td>
                     </tr>
                 @else
                     <tr>
