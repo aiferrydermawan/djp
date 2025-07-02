@@ -4,13 +4,19 @@
             <li>List Tunggakan SUB dan STG</li>
         </ul>
     </div>
-    <div class="mt-5 flex">
+    <div class="mt-5 flex gap-4">
         <input
             wire:model.lazy="search"
             type="text"
-            placeholder="No Surat PP"
+            placeholder="No Surat PP / Nama WP"
             class="input input-bordered w-full max-w-xs"
         />
+        <select wire:model.live="tahun_berkas" class="select select-bordered w-full max-w-xs">
+            <option value="">Tahun Berkas</option>
+            @foreach($tahun_berkas_all as $item)
+                <option value="{{ $item->tahun_berkas }}">{{ $item->tahun_berkas }}</option>
+            @endforeach
+        </select>
     </div>
     <div class="card mt-5 bg-base-100 shadow">
         <div class="card-body">
