@@ -108,20 +108,7 @@ class Index extends Component
 
         $query->orderBy('tanggal_berakhir', 'asc');
 
-        $collection = $query->get()->sortBy(fn($item) => $item->sisa_waktu_value)->values();
-
-// Manual paginate
-        $currentPage = request()->get('page', 1);
-        $perPage = 10;
-        $pagedData = $collection->forPage($currentPage, $perPage);
-
-        $permohonan_all = new LengthAwarePaginator(
-            $pagedData,
-            $collection->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
+        $permohonan_all = $query->paginate(10);
 
         return view('livewire.statistik.list-tunggakan-keb-n-keb.index', [
             'permohonan_all' => $permohonan_all,
