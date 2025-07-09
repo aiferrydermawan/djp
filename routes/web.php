@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/jangka-waktu-penyelesaian-per-pk', App\Livewire\Monitoring\JangkaWaktuPenyelesaianPerPk::class)->name('jangka-waktu-penyelesaian-per-pk');
     });
     Route::prefix('cetak')->group(function () {
+        Route::get('/export-data', App\Livewire\Cetak\ExportData\Index::class)->name('export-data.index');
         Route::get('/template-map', App\Livewire\Cetak\TemplateMap\Index::class)->name('template-map.index');
         Route::post('/template-map/npwp', [App\Http\Controllers\Cetak\TemplateMapController::class, 'cetakNpwp'])->name('template-map.npwp');
         Route::post('/template-map/tanggal', [App\Http\Controllers\Cetak\TemplateMapController::class, 'cetakTanggal'])->name('template-map.tanggal');

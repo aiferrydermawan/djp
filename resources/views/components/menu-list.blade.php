@@ -263,6 +263,11 @@
             </summary>
             <ul>
                 <li>
+                    <a href="{{ route("export-data.index") }}">
+                        Export Data
+                    </a>
+                </li>
+                <li>
                     <a href="">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

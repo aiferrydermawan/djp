@@ -174,6 +174,11 @@ function MenuList() {
                     </summary>
                     <ul>
                         <li>
+                            <a href={route('export-data.index')}>
+                                Export Data
+                            </a>
+                        </li>
+                        <li>
                             <a href="">
                                 <IconLock />
                                 Kriteria Permohonan
