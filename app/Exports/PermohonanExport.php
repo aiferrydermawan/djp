@@ -17,7 +17,7 @@ class PermohonanExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        $query = Permohonan::with(['jenisPermohonan','penelaahKeberatan']);
+        $query = Permohonan::with(['jenisPermohonan','penelaahKeberatan','dataKeputusan','dataPengiriman']);
 
         if ($this->tahun) {
             $query->where('tahun_berkas', $this->tahun);
@@ -49,6 +49,19 @@ class PermohonanExport implements FromCollection, WithHeadings
                 $item->tanggal_surat_tugas,
                 $item->penelaahKeberatan->name ?? '-', // asumsi nama_pk relasi ke user
                 $item->tahun_berkas,
+
+                // Tambahan dari relasi dataKeputusan
+                $item->dataKeputusan->nomor_laporan ?? '-',
+                $item->dataKeputusan->tanggal_laporan ?? '-',
+                $item->dataKeputusan->no_keputusan ?? '-',
+                $item->dataKeputusan->tanggal_keputusan ?? '-',
+                $item->dataKeputusan->amarPutusan->nama ?? '-', // pastikan relasi amarPutusan() ada
+
+                // Tambahan dari relasi dataPengiriman
+                $item->dataPengiriman->tanggal_resi_wp ?? '-',
+
+                // Tambahan nilai keputusan
+                $item->dataKeputusan->nilai_akhir_menurut_keputusan ?? '-',
             ];
         });
     }
@@ -80,6 +93,13 @@ class PermohonanExport implements FromCollection, WithHeadings
             'tanggal_surat_tugas',
             'nama_pk',
             'tahun_berkas',
+            'no_laporan', // dari dataKeputusan
+            'tgl_laporan', // dari dataKeputusan
+            'no_keputusan', // dari dataKeputusan
+            'tgl_keputusan', // dari dataKeputusan
+            'amar_putusan', // dari dataKeputusan
+            'tgl_kirim_ke_wp', // dari dataPengiriman
+            'nilai_akhir_menurut_keputusan', // dari dataKeputusan
         ];
     }
 }
