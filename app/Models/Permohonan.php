@@ -23,6 +23,11 @@ class Permohonan extends Model
         return $this->belongsTo(JenisPermohonan::class, 'jenis_permohonan', 'id');
     }
 
+    public function kppTerdaftar()
+    {
+        return $this->belongsTo(Kpp::class, 'kode_kpp_terdaftar', 'kode_kpp');
+    }
+
     public function jenisPajak()
     {
         return $this->belongsTo(JenisPajak::class, 'jenis_pajak', 'id');
@@ -102,5 +107,15 @@ class Permohonan extends Model
     public function namaPk()
     {
         return $this->belongsTo(User::class, 'nama_pk');
+    }
+
+    public function jenisKetetapan()
+    {
+        return $this->belongsTo(Referensi::class, 'jenis_ketetapan', 'id')->where('kategori','jenis-ketetapan');
+    }
+
+    public function dasarPemrosesan()
+    {
+        return $this->belongsTo(Referensi::class, 'dasar_pemrosesan', 'id')->where('kategori','dasar-pemrosesan');
     }
 }

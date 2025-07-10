@@ -17,7 +17,7 @@ class PermohonanExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        $query = Permohonan::with(['jenisPermohonan','penelaahKeberatan','dataKeputusan','dataPengiriman']);
+        $query = Permohonan::with(['jenisPermohonan','penelaahKeberatan','dataKeputusan','dataPengiriman','kppTerdaftar','jenisKetetapan','dasarPemrosesan']);
 
         if ($this->tahun) {
             $query->where('tahun_berkas', $this->tahun);
@@ -27,17 +27,17 @@ class PermohonanExport implements FromCollection, WithHeadings
             return [
                 $item->nama_wp,
                 $item->npwp,
-                $item->kpp_terdaftar,
+                $item->kppTerdaftar->nama ?? '-', //
                 $item->kategori_permohonan,
                 $item->jenisPermohonan->nama ?? '-',
                 $item->masa_pajak,
                 $item->tahun_pajak,
                 $item->jenis_pajak,
-                $item->jenis_ketetapan,
+                $item->jenisKetetapan->nama ?? '-', // ?
                 $item->nomor_ketetapan,
                 $item->tanggal_ketetapan,
                 $item->nilai_1,
-                $item->dasar_pemrosesan,
+                $item->dasarPemrosesan->nama ?? '-', // ?
                 $item->nomor_surat_wp,
                 $item->tanggal_surat_wp,
                 $item->nomor_lpad,
