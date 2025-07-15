@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Statistik\DistribusiBerkas;
 
+use App\Models\Permohonan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -9,9 +10,11 @@ use Livewire\Component;
 class PenelaahKeberatan extends Component
 {
     public $filterTahun;
+    public $tahun_all;
 
     public function render()
     {
+        $this->tahun_all = Permohonan::select('tahun_berkas')->groupBy('tahun_berkas')->orderBy('tahun_berkas','asc')->pluck('tahun_berkas');
         $today = Carbon::today();
 
         // Ambil semua jenis permohonan

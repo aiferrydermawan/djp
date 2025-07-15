@@ -9,37 +9,46 @@ class Masuk extends Component
 {
     public function render()
     {
-        $yearNow = now()->year;
-        //        dd($this->getData());
+        $years = DB::table('permohonan')
+            ->select('tahun_berkas')
+            ->groupBy('tahun_berkas')
+            ->orderByDesc('tahun_berkas')
+            ->pluck('tahun_berkas');
+
+        $yearNow = $years->max();
+        $yearStart = $years->min();
 
         return view('livewire.statistik.berkas-masuk-selesai.masuk', [
             'permohonan_all' => $this->getData(),
             'yearNow' => $yearNow,
-            'yearStart' => $yearNow - 5,
+            'yearStart' => $yearStart,
         ]);
     }
 
     public function getData()
     {
-        $yearNow = now()->year;
-        $yearStart = $yearNow - 5;
-        $selects = ['kpp.nama as nama_kpp', 'jenis_permohonan.nama as nama_jenis_permohonan']; // Menambahkan kolom yang diinginkan ke dalam array selects
+        // Ambil semua tahun dari kolom tahun_berkas yang unik dan terurut
+        $years = DB::table('permohonan')
+            ->select('tahun_berkas')
+            ->groupBy('tahun_berkas')
+            ->orderBy('tahun_berkas')
+            ->pluck('tahun_berkas');
 
-        // Menambahkan setiap raw expression ke dalam array selects
-        for ($year = $yearStart; $year <= $yearNow; $year++) {
-            $selects[] = DB::raw("SUM(CASE WHEN YEAR(tanggal_diterima) = $year THEN 1 ELSE 0 END) AS `$year`");
+        $selects = ['kpp.nama as nama_kpp', 'jenis_permohonan.nama as nama_jenis_permohonan'];
+
+        // Looping tahun dari hasil query tahun_berkas
+        foreach ($years as $year) {
+            $selects[] = DB::raw("SUM(CASE WHEN tahun_berkas = $year THEN 1 ELSE 0 END) AS `$year`");
         }
 
         $query = DB::table('permohonan')
             ->join('kpp', 'permohonan.kode_kpp_terdaftar', '=', 'kpp.id')
-            ->join('jenis_permohonan', 'permohonan.jenis_permohonan', '=', 'jenis_permohonan.id') // Asumsi kolom di 'jenis_permohonan' adalah 'id'
-            ->select($selects) // Menggunakan array $selects yang telah diisi dengan raw expressions
-            ->whereYear('tanggal_diterima', '>=', $yearStart)
-            ->groupBy('kpp.nama', 'jenis_permohonan.nama') // Asumsi Anda ingin group by berdasarkan nama
+            ->join('jenis_permohonan', 'permohonan.jenis_permohonan', '=', 'jenis_permohonan.id')
+            ->select($selects)
+            ->groupBy('kpp.nama', 'jenis_permohonan.nama')
             ->orderBy('kpp.nama')
             ->orderBy('jenis_permohonan.nama');
 
         return $query->get();
-
     }
 }

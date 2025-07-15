@@ -18,6 +18,11 @@ class DashboardController extends Controller
             abort(403, 'Anda belum terdaftar di pegawai');
         }
 
+        $tahun_permohonan = Permohonan::select('tahun_berkas')->groupBy('tahun_berkas')->pluck('tahun_berkas');
+        $tahun_permintaan = Permintaan::select('tahun_berkas')->groupBy('tahun_berkas')->pluck('tahun_berkas');
+
+        $tahun_all = $tahun_permohonan->merge($tahun_permintaan)->unique()->sort()->values();
+
         $tahun = $request->input('tahun'); // Ambil tahun dari query string, form, dsb
 
         $jabatan = $user->jabatan;
@@ -36,6 +41,7 @@ class DashboardController extends Controller
             'fourthCard' => $fourthCard,
             'firstChart' => $firstChart,
             'secondChart' => $secondChart,
+            'tahun_all' => $tahun_all,
         ]);
     }
 

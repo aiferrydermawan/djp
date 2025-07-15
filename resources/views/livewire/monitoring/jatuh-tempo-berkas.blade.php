@@ -7,8 +7,8 @@
     <div class="mt-5 flex gap-4">
         <select wire:model.live="filterTahun" class="select select-bordered max-w-xs">
             <option value="">Semua Tahun</option>
-            @foreach (range(2020, now()->year) as $tahun)
-                <option value="{{ $tahun }}">{{ $tahun }}</option>
+            @foreach($tahun_all as $item)
+                <option value="{{ $item }}">{{ $item }}</option>
             @endforeach
         </select>
         <input

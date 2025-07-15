@@ -12,6 +12,7 @@ class JatuhTempoBerkas extends Component
 
     public $search = '';
     public $filterTahun = '';
+    public $tahun_all;
 
     public function updatingSearch()
     {
@@ -20,6 +21,7 @@ class JatuhTempoBerkas extends Component
 
     public function render()
     {
+        $this->tahun_all = Permohonan::select('tahun_berkas')->groupBy('tahun_berkas')->orderBy('tahun_berkas','asc')->pluck('tahun_berkas');
         $query = Permohonan::with(['jenisPermohonan', 'dataKeputusan'])
             ->doesntHave('dataPengiriman')
             ->when($this->filterTahun, function ($query) {

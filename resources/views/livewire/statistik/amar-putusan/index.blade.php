@@ -9,9 +9,9 @@
             <span class="label-text">Tahun</span>
         </div>
         <select class="select select-bordered w-full" wire:model.live="tahun">
-            @for ($i = 0; $i < 5; $i++)
-                <option value="{{ $tahun - $i }}">{{ $tahun - $i }}</option>
-            @endfor
+            @foreach($tahun_all as $item)
+                <option value="{{ $item }}">{{ $item }}</option>
+            @endforeach
         </select>
     </label>
     <div class="card mt-5 bg-base-100 shadow">

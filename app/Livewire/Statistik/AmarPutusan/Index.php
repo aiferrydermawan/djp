@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Statistik\AmarPutusan;
 
+use App\Models\Permohonan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -9,6 +10,7 @@ use Livewire\Component;
 class Index extends Component
 {
     public $tahun;
+    public $tahun_all;
 
     public function mount()
     {
@@ -17,7 +19,7 @@ class Index extends Component
 
     public function render()
     {
-
+        $this->tahun_all = Permohonan::select('tahun_berkas')->groupBy('tahun_berkas')->orderBy('tahun_berkas','asc')->pluck('tahun_berkas');
         $tahun = $this->tahun; // Misalnya tahun yang digunakan adalah 2024
 
         // Ambil semua amar putusan

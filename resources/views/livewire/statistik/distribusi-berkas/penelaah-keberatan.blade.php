@@ -18,8 +18,8 @@
         </div>
         <select wire:model.live="filterTahun" class="select select-bordered">
             <option value="">Semua Tahun</option>
-            @foreach(range(2020, now()->year) as $year)
-                <option value="{{ $year }}">{{ $year }}</option>
+            @foreach($tahun_all as $item)
+                <option value="{{ $item }}">{{ $item }}</option>
             @endforeach
         </select>
     </div>

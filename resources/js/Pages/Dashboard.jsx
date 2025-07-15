@@ -12,6 +12,7 @@ export default function Dashboard({
     fourthCard,
     firstChart,
     secondChart,
+    tahun_all,
 }) {
     const [chart1, setChart1] = useState({
         label:
@@ -51,10 +52,9 @@ export default function Dashboard({
                         onChange={(e) => e.target.form.submit()}
                     >
                         <option value="">Semua Tahun</option>
-                        {Array.from({ length: 6 }, (_, i) => {
-                            const year = new Date().getFullYear() - i;
-                            return <option key={year} value={year}>{year}</option>;
-                        })}
+                        {tahun_all.map((item, index) => (
+                            <option key={item} value={item}>{item}</option>
+                        ))}
                     </select>
                 </form>
 
