@@ -28,6 +28,11 @@ class Permohonan extends Model
         return $this->belongsTo(Kpp::class, 'kode_kpp_terdaftar', 'kode_kpp');
     }
 
+    public function kppTerdaftar2()
+    {
+        return $this->belongsTo(Kpp::class, 'kode_kpp_terdaftar','id');
+    }
+
     public function jenisPajak()
     {
         return $this->belongsTo(JenisPajak::class, 'jenis_pajak', 'id');
