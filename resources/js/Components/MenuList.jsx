@@ -179,12 +179,6 @@ function MenuList() {
                             </a>
                         </li>
                         <li>
-                            <a href="">
-                                <IconLock />
-                                Kriteria Permohonan
-                            </a>
-                        </li>
-                        <li>
                             <a href={route("template-map.index")}>
                                 Template MAP
                             </a>
